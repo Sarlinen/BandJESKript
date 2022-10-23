@@ -1,0 +1,90 @@
+# 킵인벤 기능 시작
+
+command /킵인벤 [<text>] [<integer>]:
+	trigger:
+		if player is op:
+			if arg 1 is not set:
+				message "/킵인벤 [활성화/비활성화] = 킵인벤기능을 켭니다/끕니다" to player
+				message "/킵인벤 시간 = 킵인벤기능의 남은 시간을 확인합니다" to player
+				message "/킵인벤 시간추가 = 킵인벤기능의 시간을 더합니다 (초 단위)" to player
+				message "/킵인벤 시간설정 = 킵인벤기능의 시간을 설정합니다 (초 단위)" to player
+			
+			else if arg 1 is "활성화":
+				set {Gamerule.keepinventory.isenable} to true
+				message "[&a밴드 JE 공식서버&r] 킵인벤기능이 활성화되었습니다!" to player
+				
+			else if arg 1 is "비활성화":
+				set {Gamerule.keepinventory.isenable} to false
+				message "[&a밴드 JE 공식서버&r] 킵인벤기능이 비활성화되었습니다!" to player
+				
+			else if arg 1 is "시간":
+				set {_d} to round down ({Gamerule.keepinventory.Time}  / 86400)
+				set {_h} to round down (({Gamerule.keepinventory.Time} -{_d}*86400) / 3600)
+				set {_m} to round down ((({Gamerule.keepinventory.Time} -{_d}*86400)-{_h}*3600) / 60) 
+				set {_s} to (({Gamerule.keepinventory.Time} -{_d}*86400)-{_h}*3600)-{_m}*60
+				message "[&a밴드 JE 공식서버&r] 현재 남은 시간은 다음과 같습니다. %{_d}%일 %{_h}%시간 %{_m}%분 %{_s}%초" to player
+
+			else if arg 1 is "시간추가":
+				if player is op:
+					if arg 2 <= 0:
+						message "시간은 0 이거나 그 이하일 수 없습니다" to player
+					else:
+						add arg 2 to {Gamerule.keepinventory.Time}
+						set {_d} to round down (arg 2 / 86400)
+						set {_h} to round down ((arg 2-{_d}*86400) / 3600)
+						set {_m} to round down (((arg 2-{_d}*86400)-{_h}*3600) / 60) 
+						set {_s} to ((arg 2-{_d}*86400)-{_h}*3600)-{_m}*60
+						message "[&a밴드 JE 공식서버&r] 시간이 추가되었습니다 추가한 시간 : %{_d}%일 %{_h}%시간 %{_m}%분 %{_s}%초" to player
+						
+			else if arg 1 is "시간설정":
+				if arg 2 <= 0:
+					message "시간은 0 이거나 그 이하일 수 없습니다" to player
+					
+				else:
+					set {Gamerule.keepinventory.Time} to arg 2
+					set {_d} to round down (arg 2 / 86400)
+					set {_h} to round down ((arg 2-{_d}*86400) / 3600)
+					set {_m} to round down (((arg 2-{_d}*86400)-{_h}*3600) / 60) 
+					set {_s} to ((arg 2-{_d}*86400)-{_h}*3600)-{_m}*60
+					message "[&a밴드 JE 공식서버&r] 시간이 설정되었습니다 설정한 시간 : %{_d}%일 %{_h}%시간 %{_m}%분 %{_s}%초" to player
+			
+		if player is not op:
+			if arg 1 is not set:
+				message "/킵인벤 시간 = 킵인벤기능의 남은 시간을 확인합니다" to player
+				
+			else if arg 1 is "시간":
+				set {_d} to round down ({Gamerule.keepinventory.Time}  / 86400)
+				set {_h} to round down (({Gamerule.keepinventory.Time} -{_d}*86400) / 3600)
+				set {_m} to round down ((({Gamerule.keepinventory.Time} -{_d}*86400)-{_h}*3600) / 60) 
+				set {_s} to (({Gamerule.keepinventory.Time} -{_d}*86400)-{_h}*3600)-{_m}*60
+				message "[&a밴드 JE 공식서버&r] 현재 남은 시간은 다음과 같습니다. %{_d}%일 %{_h}%시간 %{_m}%분 %{_s}%초" to player
+				
+#킵인벤 기능 끝
+
+#킵인벤 기능 시간차감 및 후관리 시작
+every 1 seconds:
+	if {Gamerule.keepinventory.isenable} is true: #킵인벤
+		subtract 1 from {Gamerule.keepinventory.Time}
+		
+		if {Gamerule.keepinventory.Time} = 600: #종료 10분전
+			broadcast "[&a밴드 JE 공식서버&r] 킵인벤 기능의 잔여 시간이 10분 남았습니다."
+			
+		else if {Gamerule.keepinventory.Time} = 300: #종료 5분전
+			broadcast "[&a밴드 JE 공식서버&r] 킵인벤 기능의 잔여 시간이 5분 남았습니다."
+			
+		else if {Gamerule.keepinventory.Time} = 60: #종료 1분전
+			broadcast "[&a밴드 JE 공식서버&r] 킵인벤 기능의 잔여 시간이 1분 남았습니다."
+			
+		else if {Gamerule.keepinventory.Time} = 30: #종료 30초 전
+			broadcast "[&a밴드 JE 공식서버&r] 킵인벤 기능이 곧 종료됩니다!"
+			
+		else if {Gamerule.keepinventory.Time} <= 0:
+			set {Gamerule.keepinventory.isenable} to false
+			broadcast "[&a밴드 JE 공식서버&r] 킵 인벤토리 기능이 시간이 다 되어 비활성화 되었습니다!"
+			
+#킵인벤 시간차람 및 후관리 끝
+
+on death of a player:
+	if {Gamerule.keepinventory.isenable} is true:
+		clear drops of items
+		keep the inventory

@@ -1,0 +1,114 @@
+# 변수설정 시작
+variables:
+	#True시 명령어 사용 가능
+	{AvailableDefaultItem.%player%} = false  #기본템 받을 수 있는 여부
+	{VirtualChest.allplayer.enable} = false #가상창고 활성화여부
+	{VirtualChest.allplayer.row} = 1 #가상창고 줄 수 
+	{Autofarm.isenable} = false #자동 씨앗심기 스크립트 활성화여부
+	{Gamerule.keepinventory.isenable} = false #게임룰 활성화여부
+	{autocraft.isenable} = false #광물 자동조합 기능 활성화여부
+	{decraft.allplayer.enable} = false #장비 분해 기능 활성화여부
+	{VirtualChest.allplayer.enable.Time} = 0 #가상창고 시간
+	{Autofarm.Time} = 0 #자동씨앗심기 시간
+	{Gamerule.keepinventory.Time} = 0 #킵인벤 시간
+	{autocraft.Time} = 0 #자동조합 시간
+	{decraft.allplayer.enable.Time} = 0 #장비분해 시간
+
+# 변수설정 끝
+# 접속/퇴장 안내문 스크립트 시작
+
+on first join:
+	set join message to "[&a밴드 JE 공식서버&r] &e&l%player%&r님이 마인크래프트 BE&PC서버 소통방 밴드의 공식 JE서버에 들어오셨습니다!"
+	#message "[&4Attancion!] 서버에 첫 접속을 환영합니다. 기본템을 받으시려면 /기본템 명령어를 쳐주시기 바랍니다" to player
+
+on join:
+	set join message to "[&a밴드 JE 공식서버&r] &e&l%player%&r님이 접속하셨습니다!"
+	if {Autofarm.%player%.isenable} is not set:
+		set {Autofarm.%player%.isenable} to false
+		
+on quit:
+	stopEffect "%player%"
+	set quit message to "[&a밴드 JE 공식서버&r] &e&l%player%&r님이 퇴장하셨습니다!"
+
+	
+# 접속/퇴장 안내문 스크립트 끝
+
+# 폭발물 사용금지
+
+on place of TNT:
+	if player is not op:
+		cancel event
+		remove 99 of TNT from player's inventory
+
+on craft of TNT:
+	if player is not op:
+		cancel event
+	
+# 공지 스크립트 시작
+
+every 600 seconds:
+	if {MOTD} > 3:
+		delete {MOTD}
+		stop
+	
+	if {MOTD} is not set:
+		set {MOTD} to 1
+		broadcast "[&a밴드 JE 공식서버&r] 이 서버는 화이트리스트제를 시행하고 있습니다."
+		stop
+	
+	if {MOTD} is 1:
+		set {MOTD} to 2
+		broadcast "[&a밴드 JE 공식서버&r] 서버 전기세의 충당을 위해 기부를 받고 있습니다."
+		broadcast "기부방법은 밴드를 참고해주세요!"
+		broadcast "기부 문의는 밴드의 Remi에게 1대1 채팅으로 연락주세요."
+		broadcast "기부를 하시면 기부 포인트를 얻으실 수 있습니다."
+		broadcast "얻으신 기부 포인트로 서버 혜택이나 치장품을 구하실 수 있습니다"
+		stop
+	
+	if {MOTD} is 2:
+		set {MOTD} to 3
+		broadcast "[&a밴드 JE 공식서버&r] 비매너 행위를 하거나 테러를 시도하는 경우,"
+		broadcast "서버의 블랙리스트에 추가될 수 있습니다."
+		stop
+
+	if {MOTD} is 3:
+		delete {MOTD}
+		broadcast "[&a밴드 JE 공식서버&r] 비매너 행위나 테러를 하시는것을 보셨다면,"
+		broadcast "증거사진을 캡쳐 후 서버 담당자에게 1대1 채팅으로 연락주세요."
+		broadcast "서버 담당자 : 망월, 노월, Remi"
+		stop
+
+		
+# 공지 스크립트 종료
+		
+#음악 재생 명령어
+command /music [<string>] [<string>]:
+	trigger:
+		if player is op:
+			if arg 1 is not set:
+				message "/music give [노래제목] = 해당 노래 제목의 음악 듣기 이용권을 지급합니다" to player
+			
+			else if arg 1 is "give":
+				if arg 2 is not set:
+					message "노래 명을 입력해주세요. 노래명은 명령어 실행 시 입력하는 리소스 위치를 입력해주시기 바랍니다"
+				
+				else:
+					give player 1 of music disc 13 named "(임시) 음반 - %arg 2%" with lore " " and "&9&l발행 : 밴드 공식 JE 야생섭 서버장" and "&9&l해당 CD를 우클릭하시면" and "&9&l노래가 1회 재생됩니다" and "&9&lMusic Source - custom.%arg 2%"
+					
+on right click with music disc 13 on air or jukebox:
+	if uncolored name of player's tool contains "음반":
+		if uncolored lore of player's tool contains " ":
+			cancel event
+			set {_name} to player's tool
+			set {_name2} to uncolored name of player's tool
+			set {_musicname::*} to uncolored lore of player's tool
+			remove 1 of {_name} from player's tool
+			replace all "음반 - " and "record 13 named" with "" in {_name2}
+			replace all "Music Source - custom." with "" in {_musicname::5}
+			play sound "custom.%{_musicname::5}%" in voice category with volume 1 and pitch 1 for player
+			message "" and "" and "" to player
+			message "[&a밴드 JE 공식서버&r]" to player
+			message "현재 재생중인 노래 : %{_name2}%" to player
+			message "소리가 너무 크게 나오시는 분은 설정 > 음악 및 소리설정 에서 음성 볼륨을 조절해주세요" to player
+			message "노래가 곂쳐서 재생될 경우, 음성 볼륨을 0%%로 조정해주세요" to player
+			message "가끔씩 나오는 마인크래프트 BGM은 분위기음 및 음악 볼륨을 조정해주시면 들리지 않습니다" to player

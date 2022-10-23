@@ -1,0 +1,22 @@
+command /메뉴:
+	aliases: /menu
+	trigger:
+		open chest with 1 rows named "&r&a서버 메뉴" to player
+		
+		loop 9 times:
+			set {_slot} to loop-number - 1
+			set slot {_slot} of current inventory of player to black stained glass pane named " " with hidden all flags
+		
+		set slot 3 of current inventory of player to enchanted book named "&9서버기능사용" with hidden all flags
+		set slot 4 of current inventory of player to blaze powder named "&9파티클구매 & 적용" with hidden all flags
+		set slot 5 of current inventory of player to paper named "&9서버혜택구매" with hidden all flags
+
+on inventory click:
+	if name of current inventory of player is "&r&a서버 메뉴":
+		cancel event
+		if clicked slot is 3: #서버기능 사용 
+			make player execute command "/서버기능"
+		if clicked slot is 4: #파티클 구매 및 적용
+			make player execute command "/particle"
+		if clicked slot is 5: #서버 혜택 구매
+			make player execute command "/서버혜택구매"

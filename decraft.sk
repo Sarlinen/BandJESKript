@@ -1,0 +1,292 @@
+#장비 아이템 추출 명령어 시작
+command /decraft [<text>] [<integer>]:
+	trigger:
+		if arg 1 is not set:
+			if player is op:
+				message "/decraft start = 장비 분해기를 엽니다." to player
+				message "/decraft 활성화 = 장비 분해기능을 활성화합니다" to player
+				message "/decraft 비활성화 = 장비 분해기능을 비활성화합니다" to player
+				message "/decraft 시간 = 장비 분해기능의 남은 시간을 확인합니다" to player
+				message "/decraft 시간추가 [숫자] = 장비 분해기능의 남은 시간을 추가합니다 (초 단위)" to player
+				message "/decraft 시간설정 [숫자] = 장비 분해기능의 남은 시간을 설정합니다 (초 단위)" to player
+			if player is not op:
+				message "/decraft start = 장비 분해기를 엽니다." to player
+				message "/decraft 시간 = 가상창고의 남은 시간을 확인합니다" to player
+		
+		if arg 1 is "start":
+			if {decraft.allplayer.enable} is true:
+				open chest with 1 row named "&r[&3장비 해체&r]" to player
+			else:
+				message "[&4Error&r] &l&c장비분해기능이 비활성화되어있습니다." to player
+			
+		if arg 1 is "활성화":
+			if player is op:
+				message "[&a밴드 JE 공식서버&r] 장비분해기능이 활성화되었습니다." to player
+				set {decraft.allplayer.enable} to true
+				
+			if player is not op:
+				message "[&4Error&r] &l&c해당 명령어를 사용하실 수 없습니다" to player
+
+		if arg 1 is "비활성화":
+			if player is op:
+				message "[&a밴드 JE 공식서버&r] 장비분해기능이 비활성화되었습니다." to player
+				set {decraft.allplayer.enable} to false
+			
+			if player is not op:
+				message "[&4Error&r] &l&c해당 명령어를 사용하실 수 없습니다" to player
+				
+		if arg 1 is "시간":
+			set {_d} to round down ({decraft.allplayer.enable.Time}  / 86400)
+			set {_h} to round down (({decraft.allplayer.enable.Time} -{_d}*86400) / 3600)
+			set {_m} to round down ((({decraft.allplayer.enable.Time} -{_d}*86400)-{_h}*3600) / 60) 
+			set {_s} to (({decraft.allplayer.enable.Time} -{_d}*86400)-{_h}*3600)-{_m}*60
+			message "[&a밴드 JE 공식서버&r] 현재 남은 시간은 다음과 같습니다. %{_d}%일 %{_h}%시간 %{_m}%분 %{_s}%초" to player
+
+		if arg 1 is "시간추가":
+			if player is op:
+				if arg 2 <= 0:
+					message "시간은 0 이거나 그 이하일 수 없습니다" to player
+				else:
+					add arg 2 to {decraft.allplayer.enable.Time}
+					set {_d} to round down (arg 2 / 86400)
+					set {_h} to round down ((arg 2-{_d}*86400) / 3600)
+					set {_m} to round down (((arg 2-{_d}*86400)-{_h}*3600) / 60) 
+					set {_s} to ((arg 2-{_d}*86400)-{_h}*3600)-{_m}*60
+					message "[&a밴드 JE 공식서버&r] 시간이 추가되었습니다 추가한 시간 : %{_d}%일 %{_h}%시간 %{_m}%분 %{_s}%초" to player
+					
+		if arg 1 is "시간설정":
+			if player is op:
+				if arg 2 <= 0:
+					message "시간은 0 이거나 그 이하일 수 없습니다" to player
+				
+				else:
+					set {decraft.allplayer.enable.Time} to arg 2
+					set {_d} to round down (arg 2 / 86400)
+					set {_h} to round down ((arg 2-{_d}*86400) / 3600)
+					set {_m} to round down (((arg 2-{_d}*86400)-{_h}*3600) / 60) 
+					set {_s} to ((arg 2-{_d}*86400)-{_h}*3600)-{_m}*60
+					message "[&a밴드 JE 공식서버&r] 시간이 설정되었습니다 설정한 시간 : %{_d}%일 %{_h}%시간 %{_m}%분 %{_s}%초" to player
+
+on inventory close:
+	event-inventory's name ends with "&r[&3장비 해체&r]":
+		set {_int} to 0
+		loop 9 times:
+			set {decraft.%player%::%{_int}%} to slot {_int} of current inventory of player
+			set {_maxdura} to maximum durability of {decraft.%player%::%{_int}%}
+			set {_nowdura} to maximum durability of {decraft.%player%::%{_int}%} - durability of {decraft.%player%::%{_int}%}
+			set {_durabilitypercentage} to {_nowdura} / {_maxdura} * 100
+			
+			#헬멧
+			if {decraft.%player%::%{_int}%} is netherite helmet or diamond helmet or gold helmet or iron helmet:
+			
+				set {_Recieve} to round down (5 * {_durabilitypercentage} / 100)
+				
+				if {decraft.%player%::%{_int}%} is netherite helmet:
+					give {_Recieve} of diamond to player
+					
+					if {_durabilitypercentage} > 50:
+						give 1 netherite ingot to player
+					
+				else if {decraft.%player%::%{_int}%} is diamond helmet:
+					give {_Recieve} of diamond to player
+						
+				else if {decraft.%player%::%{_int}%} is gold helmet:
+					give {_Recieve} of gold ingot to player
+					
+				else if {decraft.%player%::%{_int}%} is iron helmet:
+					give {_Recieve} of iron ingot to player
+					
+			#흉갑
+			else if {decraft.%player%::%{_int}%} is netherite chestplate or diamond chestplate or gold chestplate or iron chestplate:
+			
+				set {_Recieve} to round down (8 * {_durabilitypercentage} / 100)
+				
+				if {decraft.%player%::%{_int}%} is netherite chestplate:
+					give {_Recieve} of diamond to player
+					
+					if {_durabilitypercentage} > 50:
+						give 1 netherite ingot to player
+					
+				else if {decraft.%player%::%{_int}%} is diamond chestplate:
+					give {_Recieve} of diamond to player
+						
+				else if {decraft.%player%::%{_int}%} is gold chestplate:
+					give {_Recieve} of gold ingot to player
+					
+				else if {decraft.%player%::%{_int}%} is iron chestplate:
+					give {_Recieve} of iron ingot to player
+			
+			#바지
+			else if {decraft.%player%::%{_int}%} is netherite leggings or diamond leggings or gold leggings or iron leggings:
+			
+				set {_Recieve} to round down (7 * {_durabilitypercentage} / 100)
+				
+				if {decraft.%player%::%{_int}%} is netherite leggings:
+					give {_Recieve} of diamond to player
+					
+					if {_durabilitypercentage} > 50:
+						give 1 netherite ingot to player
+					
+				else if {decraft.%player%::%{_int}%} is diamond leggings:
+					give {_Recieve} of diamond to player
+						
+				else if {decraft.%player%::%{_int}%} is gold leggings:
+					give {_Recieve} of gold ingot to player
+					
+				else if {decraft.%player%::%{_int}%} is iron leggings:
+					give {_Recieve} of iron ingot to player
+				
+			#신발
+			else if {decraft.%player%::%{_int}%} is netherite boots or diamond boots or gold boots or iron boots:
+			
+				set {_Recieve} to round down (4 * {_durabilitypercentage} / 100)
+				
+				if {decraft.%player%::%{_int}%} is netherite boots:
+					give {_Recieve} of diamond to player
+					
+					if {_durabilitypercentage} > 50:
+						give 1 netherite ingot to player
+					
+				else if {decraft.%player%::%{_int}%} is diamond boots:
+					give {_Recieve} of diamond to player
+						
+				else if {decraft.%player%::%{_int}%} is gold boots:
+					give {_Recieve} of gold ingot to player
+					
+				else if {decraft.%player%::%{_int}%} is iron boots:
+					give {_Recieve} of iron ingot to player
+			
+			#검
+			else if {decraft.%player%::%{_int}%} is netherite sword or diamond sword or gold sword or iron sword:
+			
+				set {_Recieve} to round down (2 * {_durabilitypercentage} / 100)
+				
+				if {decraft.%player%::%{_int}%} is netherite sword:
+					give {_Recieve} of diamond to player
+					give 1 stick to player
+					
+					if {_durabilitypercentage} > 50:
+						give 1 netherite ingot to player
+					
+				else if {decraft.%player%::%{_int}%} is diamond sword:
+					give {_Recieve} of diamond to player
+					give 1 stick to player
+					
+				else if {decraft.%player%::%{_int}%} is gold sword:
+					give {_Recieve} of gold ingot to player
+					give 1 stick to player
+					
+				else if {decraft.%player%::%{_int}%} is iron sword:
+					give {_Recieve} of iron ingot to player
+					give 1 stick to player
+			
+			#도끼 + 곡괭이
+			else if {decraft.%player%::%{_int}%} is netherite axe or netherite pickaxe or diamond axe or diamond pickaxe or gold axe or gold pickaxe or iron axe or iron pickaxe:
+			
+				set {_Recieve} to round down (3 * {_durabilitypercentage} / 100)
+				
+				if {decraft.%player%::%{_int}%} is netherite axe or netherite pickaxe:
+					give {_Recieve} of diamond to player
+					give 2 stick to player
+					
+					if {_durabilitypercentage} > 50:
+						give 1 netherite ingot to player
+					
+				else if {decraft.%player%::%{_int}%} is diamond axe or diamond pickaxe:
+					give {_Recieve} of diamond to player
+					give 2 stick to player
+					
+				else if {decraft.%player%::%{_int}%} is gold axe or gold pickaxe:
+					give {_Recieve} of gold ingot to player
+					give 2 stick to player
+					
+				else if {decraft.%player%::%{_int}%} is iron axe or iron pickaxe:
+					give {_Recieve} of iron ingot to player
+					give 2 stick to player
+			
+			#삽
+			else if {decraft.%player%::%{_int}%} is netherite shovel or diamond shovel or gold shovel or iron shovel:
+			
+				set {_Recieve} to round down (1 * {_durabilitypercentage} / 100)
+				
+				if {decraft.%player%::%{_int}%} is netherite shovel:
+					give {_Recieve} of diamond to player
+					give 2 stick to player
+					
+					if {_durabilitypercentage} > 50:
+						give 1 netherite ingot to player
+					
+				else if {decraft.%player%::%{_int}%} is diamond shovel:
+					give {_Recieve} of diamond to player
+					give 2 stick to player
+					
+				else if {decraft.%player%::%{_int}%} is gold shovel:
+					give {_Recieve} of gold ingot to player
+					give 2 stick to player
+					
+				else if {decraft.%player%::%{_int}%} is iron shovel:
+					give {_Recieve} of iron ingot to player
+					give 2 stick to player
+			
+			#괭이
+			else if {decraft.%player%::%{_int}%} is netherite hoe or diamond hoe or gold hoe or iron hoe:
+			
+				set {_Recieve} to round down (2 * {_durabilitypercentage} / 100)
+				
+				if {decraft.%player%::%{_int}%} is netherite hoe:
+					give {_Recieve} of diamond to player
+					give 2 stick to player
+					
+					if {_durabilitypercentage} > 50:
+						give 1 netherite ingot to player
+					
+				else if {decraft.%player%::%{_int}%} is diamond hoe:
+					give {_Recieve} of diamond to player
+					give 2 stick to player
+					
+				else if {decraft.%player%::%{_int}%} is gold hoe:
+					give {_Recieve} of gold ingot to player
+					give 2 stick to player
+					
+				else if {decraft.%player%::%{_int}%} is iron hoe:
+					give {_Recieve} of iron ingot to player
+					give 2 stick to player
+			
+			#빈공간
+			else if {decraft.%player%::%{_int}%} is air:
+				give 1 air to player
+			
+			#그 외의 아이템
+			else:
+				give {decraft.%player%::%{_int}%} to player
+				message "해당 아이템(%{decraft.%player%::%{_int}%}%)은 해체를 지원하지 않는 아이템입니다!" to player
+				
+			add 1 to {_int}
+		
+		message "아이템 분해가 완료되었습니다! 인벤토리를 확인해주세요!" to player
+
+#장비 아이템 추출 명령어 끝
+
+#장비 아이템 추출 시간 차감 시작
+every 1 seconds:
+	if {decraft.allplayer.enable} is true: #장비분해
+		subtract 1 from {decraft.allplayer.enable.Time}
+		
+		if {decraft.allplayer.enable.Time} = 600: #종료 10분전
+			broadcast "[&a밴드 JE 공식서버&r] 장비분해 기능의 잔여 시간이 10분 남았습니다."
+			
+		else if {decraft.allplayer.enable.Time} = 300: #종료 5분전
+			broadcast "[&a밴드 JE 공식서버&r] 장비분해 기능의 잔여 시간이 5분 남았습니다."
+			
+		else if {decraft.allplayer.enable.Time} = 60: #종료 1분전
+			broadcast "[&a밴드 JE 공식서버&r] 장비분해 기능의 잔여 시간이 1분 남았습니다."
+			
+		else if {decraft.allplayer.enable.Time} = 30: #종료 30초 전
+			broadcast "[&a밴드 JE 공식서버&r] 장비분해 기능이 곧 종료됩니다!"
+		
+		else if {decraft.allplayer.enable.Time} <= 0:
+			set {decraft.allplayer.enable} to false
+			set {decraft.allplayer.enable.Time} to 0
+			broadcast "[&a밴드 JE 공식서버&r] 장비분해 기능이 시간이 다 되어 비활성화 되었습니다!"
+			
+#장비 아이템 추출 시간 차감 끝

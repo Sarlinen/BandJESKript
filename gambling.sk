@@ -1,0 +1,128 @@
+on rightclick with paper:
+	if name of player's tool contains "&9&l도박 이용권":
+		set {_lore::*} to lore of player's tool
+		if {_lore::1} contains "도박을 진행":
+			if {_lore::2} contains "Sarlinen":
+				if difference between now and {gambling.%player's uuid%.lastUsed} is less than 1 seconds:
+					stop
+				
+				else:
+					set {gambling.%player's uuid%.lastUsed} to now
+					
+					loop all items in player's inventory:
+						if loop-value is not air:
+							add 1 to {_item}
+							
+					if {_item} = 36:
+						message "인벤토리 공간이 부족합니다. 인벤토리를 비워준 후 다시 시도해주세요" to player
+						stop
+								
+					else:
+							
+						remove 1 paper from player's tool
+						set {_random} to a random integer between 1 and 100
+						set {_random} to a random integer between 39 and 49
+						set {_random2} to a random integer between 1 and 3
+						
+						give %{_random2}% bread to player
+						
+						if {_random} < 10:
+							message "꽝..!" to player
+						
+						else if {_random} = 11:
+							message "꽝..! 소모하신 재화는 다시 돌려드렸습니다!" to player
+							give 40 emerald to player
+						
+						else if {_random} < 15:
+							message "돌삽 1개 당첨!" to player
+							give 1 stone shovel to player
+						
+						else if {_random} < 20:
+							message "가죽 모자 당첨!" to player
+							give 1 leather helmet to player
+							
+						else if {_random} < 25:
+							message "가죽 흉갑 당첨!" to player
+							give 1 leather chestplate to player
+						
+						else if {_random} < 30:
+							message "가죽 바지 당첨!" to player
+							give 1 leather leggings to player
+						
+						else if {_random} < 35:
+							message "가죽 신발 당첨!" to player
+							give 1 leather boots to player
+						
+						else if {_random} < 40:
+							set {_random2} to a random integer between 1 and 2
+							message "금조각 %{_random2}%개 당첨!" to player
+							give 1 gold nugget to player
+						
+						else if {_random} < 45:
+							set {_random2} to a random integer between 1 and 4
+							message "금조각 %{_random2}%개 당첨!" to player
+							give 1 gold nugget to player
+						
+						else if {_random} < 50:
+							set {_random2} to a random integer between 1 and 2
+							message "금괴 %{_random2}%개 당첨!" to player
+							give 1 gold ingot to player
+						
+						else if {_random} < 55:
+							message "금괴 3개 당첨!" to player
+							give 3 gold ingot to player
+							
+						else if {_random} < 60:
+							message "화살 1개 당첨!" to player
+							give 1 arrow to player
+						
+						else if {_random} < 65:
+							message "시계 1개 당첨!" to player
+							give 1 clock to player
+						
+						else if {_random} < 70:
+							message "벽돌 3개 당첨!" to player
+							give 3 brick to player
+						
+						else if {_random} < 75:
+							message "먹물 2개 당첨!" to player
+							give 2 ink sac to player
+							
+						else if {_random} < 80:
+							message "철조각 4개 당첨!" to player
+							give 4 iron nugget to player
+						
+						else if {_random} < 90:
+							message "다이아몬드 1개 당첨!" to player
+							give 1 diamond to player
+						
+						else if {_random} < 95:
+							message "다이아몬드 3개 당첨!" to player
+							give 3 diamond to player
+							
+						else if {_random} = 96:
+							message "금칼 1개 당첨!" to player
+							give 1 gold sword to player
+							
+						else if {_random} = 97:
+							message "금블럭 1개 당첨!" to player
+							give 1 gold block to player
+							
+						else if {_random} = 98:
+							message "에메랄드 블럭 3개 당첨!" to player
+							give 3 emerald block to player
+						
+						else if {_random} = 99:
+							message "다이아몬드 블럭 1개 당첨!" to player
+							give 2 diamond block to player
+							
+						else if {_random} = 100:
+							message "에메랄드 블럭 10개 당첨!" to player
+							give 10 emerald block to player
+					
+					
+	
+command /테스트도박권:
+	trigger:
+		if player is op:
+			give 1 paper named "&9&l도박 이용권" with lore "&9&l사용하면 도박을 진행합니다" and "&9&l발행자 : Sarlinen" to player

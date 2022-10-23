@@ -1,0 +1,14 @@
+on anvil prepare: #모루 준비됨
+	if slot 0 of event-inventory is an enchanted book:
+		if stored enchants of slot 0 of event-inventory contains Mending 1:
+			set repair cost of event-inventory to 3000
+		
+	if slot 1 of event-inventory is an enchanted book:
+		if stored enchants of slot 1 of event-inventory contains Mending 1:
+			set repair cost of event-inventory to 3000
+	
+	if enchantments of slot 0 of event-inventory contains Mending 1:
+		set repair cost of event-inventory to 3000
+	
+	if enchantments of slot 0 of event-inventory contains Mending 1:
+		set repair cost of event-inventory to 3000

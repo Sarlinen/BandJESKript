@@ -1,0 +1,11 @@
+on enchant prepare:
+	if player is op:
+		set cost of enchantment offer 1 to 50
+	else:
+		cancel event
+	
+on enchant:
+	if player is op:
+		message "%enchantmentoffer%" to event-player
+	else:
+		cancel event

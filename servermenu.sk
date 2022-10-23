@@ -1,0 +1,85 @@
+command /서버기능:
+	aliases: /menu_server
+	trigger:
+		wait 0.1 seconds
+		open chest with 2 rows named "&r&a서버 기능" to player
+			
+		loop 18 times:
+			set {_slot} to loop-number - 1
+			set slot {_slot} of current inventory of player to black stained glass pane named " " with hidden all flags
+		
+		set slot 1 of current inventory of player to stone pickaxe named "기본템 지급받기" with hidden all flags with lore "기본템을 지급받으실 수 있습니다."
+		
+		if {Autofarm.%player's UUID%.isenable} is false:
+			set slot 2 of current inventory of player to wheat seed named "AutoFarm 기능" with hidden all flags with lore " Autofarm 기능을 켤 수 있습니다"
+		else:
+			set slot 2 of current inventory of player to wheat seed named "AutoFarm 기능" with hidden all flags with lore " Autofarm 기능을 끌 수 있습니다"
+		
+		set slot 3 of current inventory of player to chest named "가상창고" with hidden all flags with lore "가상창고를 엽니다"
+		
+		set slot 4 of current inventory of player to diamond block named "광물류 자동조합" with hidden all flags with lore "자동으로 광물을 블럭으로 조합합니다"
+		
+		set slot 5 of current inventory of player to ender pearl named "셋홈 지정" with hidden all flags with lore "클릭하면 현재 위치를 홈으로 지정합니다"
+		
+		set slot 6 of current inventory of player to ender eye named "홈으로 이동" with hidden all flags with lore "클릭하면 홈으로 지정된 곳으로 이동합니다"
+		
+		set slot 7 of current inventory of player to anvil named "장비분해" with hidden all flags with lore "장비를 분해합니다."
+		
+		set {_d} to round down ({Autofarm.Time} / 86400)
+		set {_h} to round down (({Autofarm.Time} -{_d}*86400) / 3600)
+		set {_m} to round down ((({Autofarm.Time} -{_d}*86400)-{_h}*3600) / 60) 
+		set {_s} to (({Autofarm.Time} -{_d}*86400)-{_h}*3600)-{_m}*60
+		set slot 11 of current inventory of player to paper named "AutoFarm 남은 시간" with hidden all flags with lore "&9남은 시간 : %{_d}%일 %{_h}%시간 %{_m}%분 %{_s}%초"
+		
+		set {_d} to round down ({VirtualChest.allplayer.enable.Time}  / 86400)
+		set {_h} to round down (({VirtualChest.allplayer.enable.Time} -{_d}*86400) / 3600)
+		set {_m} to round down ((({VirtualChest.allplayer.enable.Time} -{_d}*86400)-{_h}*3600) / 60) 
+		set {_s} to (({VirtualChest.allplayer.enable.Time} -{_d}*86400)-{_h}*3600)-{_m}*60
+		set slot 12 of current inventory of player to paper named "가상창고 남은 시간" with hidden all flags with lore "&9남은 시간 : %{_d}%일 %{_h}%시간 %{_m}%분 %{_s}%초"
+		
+		set {_d} to round down ({autocraft.Time}  / 86400)
+		set {_h} to round down (({autocraft.Time} -{_d}*86400) / 3600)
+		set {_m} to round down ((({autocraft.Time} -{_d}*86400)-{_h}*3600) / 60) 
+		set {_s} to (({autocraft.Time} -{_d}*86400)-{_h}*3600)-{_m}*60
+		set slot 13 of current inventory of player to paper named "광물류 자동조합 남은 시간" with hidden all flags with lore "&9남은 시간 : %{_d}%일 %{_h}%시간 %{_m}%분 %{_s}%초"
+		
+		set {_d} to round down ({sethome.allplayer.time}  / 86400)
+		set {_h} to round down (({sethome.allplayer.time} -{_d}*86400) / 3600)
+		set {_m} to round down ((({sethome.allplayer.time} -{_d}*86400)-{_h}*3600) / 60) 
+		set {_s} to (({sethome.allplayer.time} -{_d}*86400)-{_h}*3600)-{_m}*60
+		set slot 14 of current inventory of player to paper named "셋홈 남은 시간" with hidden all flags with lore "&9남은 시간 : %{_d}%일 %{_h}%시간 %{_m}%분 %{_s}%초"
+		
+		set {_d} to round down ({decraft.allplayer.enable.Time}  / 86400)
+		set {_h} to round down (({decraft.allplayer.enable.Time} -{_d}*86400) / 3600)
+		set {_m} to round down ((({decraft.allplayer.enable.Time} -{_d}*86400)-{_h}*3600) / 60) 
+		set {_s} to (({decraft.allplayer.enable.Time} -{_d}*86400)-{_h}*3600)-{_m}*60
+		set slot 16 of current inventory of player to paper named "장비분해 남은 시간" with hidden all flags with lore "&9남은 시간 : %{_d}%일 %{_h}%시간 %{_m}%분 %{_s}%초"
+		
+on inventory click:		
+	if name of current inventory of player is "&r&a서버 기능":
+		cancel event
+		if clicked slot is 1: #기본템
+			close player's inventory
+			make player execute command "/기본템"
+		if clicked slot is 2: #자동씨앗심기
+			if {Autofarm.%player's UUID%.isenable} is false:
+				close player's inventory
+				make player execute command "/autofarm 사용"
+			else:
+				close player's inventory
+				make player execute command "/autofarm 끄기"
+		if clicked slot is 3: #가상창고
+			close player's inventory
+			make player execute command "/가상창고 열기"
+		if clicked slot is 4: #광물자동조합
+			close player's inventory
+			make player execute command "/autocraft start"
+		if clicked slot is 5: #셋홈지정
+			close player's inventory
+			make player execute command "/셋홈 설정"
+		if clicked slot is 6: #셋홈이동
+			close player's inventory
+			make player execute command "/셋홈 집"
+		if clicked slot is 7: #장비분해
+			close player's inventory
+			make player execute command "/decraft start"

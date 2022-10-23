@@ -1,0 +1,155 @@
+#자동조합 기능 시작
+
+command /autocraft [<text>] [<integer>]:
+	trigger:
+		if arg 1 is not set:
+			if player is op:
+				message "/autocraft start = autocraft를 시작합니다" to player
+				message "/autocraft [활성화/비활성회] = autocraft기능을 활성화합니다/비활성화합니다." to player
+				message "/autocraft 시간 = autocraft기능의 남은 시간을 확인합니다" to player
+				message "/autocraft 시간추가 = autocraft기능의 시간을 더합니다 (초 단위)" to player
+				message "/autocraft 시간설정 = autocraft기능의 시간을 설정합니다 (초 단위)" to player
+				
+			if player is not op:
+				message "/autocraft start = autocraft를 시작합니다" to player
+				message "/autocraft 시간 = autocraft기능의 남은 시간을 확인합니다" to player
+			
+		else if arg 1 is "활성화":
+			if player is op:
+				set {autocraft.isenable} to true
+				message "[&a밴드 JE 공식서버&r] autocraft기능이 활성화되었습니다!" to player
+					
+		else if arg 1 is "비활성화":
+			if player is op:
+				set {autocraft.isenable} to false
+				message "[&a밴드 JE 공식서버&r] autocraft이 비활성화되었습니다!" to player
+					
+		else if arg 1 is "시간":
+			set {_d} to round down ({autocraft.Time}  / 86400)
+			set {_h} to round down (({autocraft.Time} -{_d}*86400) / 3600)
+			set {_m} to round down ((({autocraft.Time} -{_d}*86400)-{_h}*3600) / 60) 
+			set {_s} to (({autocraft.Time} -{_d}*86400)-{_h}*3600)-{_m}*60
+			message "[&a밴드 JE 공식서버&r] 현재 남은 시간은 다음과 같습니다. %{_d}%일 %{_h}%시간 %{_m}%분 %{_s}%초" to player
+
+		else if arg 1 is "시간추가":
+			if player is op:
+				if arg 2 <= 0:
+					message "시간은 0 이거나 그 이하일 수 없습니다" to player
+				else:
+					add arg 2 to {autocraft.Time}
+					set {_d} to round down (arg 2 / 86400)
+					set {_h} to round down ((arg 2-{_d}*86400) / 3600)
+					set {_m} to round down (((arg 2-{_d}*86400)-{_h}*3600) / 60) 
+					set {_s} to ((arg 2-{_d}*86400)-{_h}*3600)-{_m}*60
+					message "[&a밴드 JE 공식서버&r] 시간이 추가되었습니다 추가한 시간 : %{_d}%일 %{_h}%시간 %{_m}%분 %{_s}%초" to player
+							
+		else if arg 1 is "시간설정":
+			if player is op:
+				if arg 2 <= 0:
+					message "시간은 0 이거나 그 이하일 수 없습니다" to player
+
+				else:
+					set {autocraft.Time} to arg 2
+					set {_d} to round down (arg 2 / 86400)
+					set {_h} to round down ((arg 2-{_d}*86400) / 3600)
+					set {_m} to round down (((arg 2-{_d}*86400)-{_h}*3600) / 60) 
+					set {_s} to ((arg 2-{_d}*86400)-{_h}*3600)-{_m}*60
+					message "[&a밴드 JE 공식서버&r] 시간이 설정되었습니다 설정한 시간 : %{_d}%일 %{_h}%시간 %{_m}%분 %{_s}%초" to player
+					
+		else if arg 1 is "start":
+			if {autocraft.isenable} is true:
+				set {_coal} to amount of coal in inventory of player 
+				set {_coalloop} to {_coal} / 9
+				loop {_coalloop} times:
+					remove 9 coal from player
+					give 1 coal block to player
+				
+				set {_redstone} to amount of redstone in inventory of player 
+				set {_redstoneloop} to {_redstone} / 9
+				loop {_redstoneloop} times:
+					remove 9 redstone from player
+					give 1 redstone block to player
+				
+				set {_lapislazuli} to amount of lapis lazuli in inventory of player 
+				set {_lapislazuliloop} to {_lapislazuli} / 9
+				loop {_lapislazuliloop} times:
+					remove 9 lapis lazuli from player
+					give 1 lapis block to player
+					
+				set {_goldnugget} to amount of gold nugget in inventory of player
+				set {_goldnuggetloop} to {_goldnugget} / 9
+				loop {_goldnuggetloop} times:
+					remove 9 gold nugget from player
+					give 1 gold ingot to player
+				
+				set {_ironnugget} to amount of iron nugget in inventory of player
+				set {_ironnuggetloop} to {_ironnugget} / 9
+				loop {_ironnuggetloop} times:
+					remove 9 iron nugget from player
+					give 1 iron ingot to player
+				
+				set {_copperingot} to amount of copper ingot in inventory of player 
+				set {_copperingotloop} to {_copperingot} / 9
+				loop {_copperingotloop} times:
+					remove 9 copper ingot from player
+					give 1 copper block to player
+				
+				set {_ironingot} to amount of iron ingot in inventory of player
+				set {_ironingotloop} to {_ironingot} / 9
+				loop {_ironingotloop} times:
+					remove 9 iron ingot from player
+					give 1 iron block to player
+					
+				set {_goldingot} to amount of gold ingot in inventory of player
+				set {_goldingotloop} to {_goldingot} / 9
+				loop {_goldingotloop} times:
+					remove 9 gold ingot from player
+					give 1 gold block to player
+					
+				set {_diamond} to amount of diamond in inventory of player 
+				set {_diamondloop} to {_diamond} / 9
+				loop {_diamondloop} times:
+					remove 9 diamond from player
+					give 1 diamond block to player
+				
+				set {_emerald} to amount of emerald in inventory of player 
+				set {_emeraldloop} to {_emerald} / 9
+				loop {_emeraldloop} times:
+					remove 9 emerald from player
+					give 1 emerald block to player
+				
+				set {_netheriteingot} to amount of netherite ingot in inventory of player 
+				set {_netheriteingotloop} to {_netheriteingot} / 9
+				loop {_netheriteingotloop} times:
+					remove 9 netherite ingot from player
+					give 1 netherite block to player
+				
+				message "[&a밴드 JE 공식서버&r] 자동 조합 완료!" to player
+				
+			else:
+				message "[&4Error&r] &l&cautocraft 기능이 비활성화되어있습니다." to player
+#자동조합 기능 끝
+
+#자동조합 기능 시간 차감 시작
+every 1 seconds:
+	if {autocraft.isenable} is true: #자동조합
+		subtract 1 from {autocraft.Time}
+		
+		if {autocraft.Time} = 600: #종료 10분전
+			broadcast "[&a밴드 JE 공식서버&r] autocraft 기능의 잔여 시간이 10분 남았습니다."
+			
+		else if {autocraft.Time} = 300: #종료 5분전
+			broadcast "[&a밴드 JE 공식서버&r] autocraft 기능의 잔여 시간이 5분 남았습니다."
+			
+		else if {autocraft.Time} = 60: #종료 1분전
+			broadcast "[&a밴드 JE 공식서버&r] autocraft 기능의 잔여 시간이 1분 남았습니다."
+			
+		else if {autocraft.Time} = 30: #종료 30초 전
+			broadcast "[&a밴드 JE 공식서버&r] autocraft 기능이 곧 종료됩니다!"
+		
+		else if {autocraft.Time} <= 0:
+			set {autocraft.isenable} to false
+			set {autocraft.Time} to 0
+			broadcast "[&a밴드 JE 공식서버&r] autocraft 기능이 시간이 다 되어 비활성화 되었습니다!"
+			
+#자동조합 기능 시간 차감 끝

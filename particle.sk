@@ -1,0 +1,644 @@
+command /test:
+	trigger:
+		if player is op:
+			stopEffect "%player%"
+			drawWarpRings style 3, particle "redstone", RGB 80, 255, 255, center player, id "%player%", rainbowMode false, scan false, height 0, radius 0.7, ringCount 20, ringDensity 10, visibleRange 15, pulseDelay 2
+
+
+command /particlestop:
+	trigger:
+		stopEffect "%player%"
+		
+command /teset:
+	trigger:
+		message "%{butterfly.purple.%player's uuid%.have}%" to player
+		message "%{butterfly.black.%player's uuid%.have}%" to player
+		
+on join:
+	if {butterfly.red.%player's uuid%.have} is not set:
+		set {butterfly.red.%player's uuid%.have} to false
+		set {butterfly.red.%player's uuid%.time} to 0
+	if {butterfly.green.%player's uuid%.have} is not set:
+		set {butterfly.green.%player's uuid%.have} to false
+		set {butterfly.green.%player's uuid%.time} to 0
+	if {butterfly.blue.%player's uuid%.have} is not set:	
+		set {butterfly.blue.%player's uuid%.have} to false
+		set {butterfly.blue.%player's uuid%.time} to 0
+	if {butterfly.purple.%player's uuid%.have} is not set:
+		set {butterfly.purple.%player's uuid%.have} to false
+		set {butterfly.purple.%player's uuid%.time} to 0
+	if {butterfly.black.%player's uuid%.have} is not set:
+		set {butterfly.black.%player's uuid%.have} to false
+		set {butterfly.black.%player's uuid%.time} to 0
+	if {auror.red.%player's uuid%.have} is not set:
+		set {auror.red.%player's uuid%.have} to false
+		set {auror.red.%player's uuid%.time} to 0
+	if {auror.orange.%player's uuid%.have} is not set:
+		set {auror.orange.%player's uuid%.have} to false
+		set {auror.orange.%player's uuid%.time} to 0
+	if {auror.yellow.%player's uuid%.have} is not set:
+		set {auror.yellow.%player's uuid%.have} to false
+		set {auror.yellow.%player's uuid%.time} to 0
+	if {auror.green.%player's uuid%.have} is not set:
+		set {auror.green.%player's uuid%.have} to false
+		set {auror.green.%player's uuid%.time} to 0 
+	if {auror.blue.%player's uuid%.have} is not set:
+		set {auror.blue.%player's uuid%.have} to false
+		set {auror.blue.%player's uuid%.time} to 0
+	if {auror.purple.%player's uuid%.have} is not set:
+		set {auror.purple.%player's uuid%.have} to false
+		set {auror.purple.%player's uuid%.time} to 0
+	if {auror.white.%player's uuid%.have} is not set:
+		set {auror.white.%player's uuid%.have} to false
+		set {auror.white.%player's uuid%.time} to 0
+
+command /particle:
+	trigger:
+		wait 0.1 seconds
+		open chest with 3 rows named "&r&a파티클 상점&a&r" to player #1줄 gui창을 켜기
+		
+		#아무것도 없음
+		loop 27 times:
+			set {_slot} to loop-number - 1
+			set slot {_slot} of current inventory of player to black stained glass pane named " " with hidden all flags
+		
+		#빨간색 나비날개
+		if {butterfly.red.%player's uuid%.have} is false:
+			set slot 2 of current inventory of player to name tag named "&r빨간색 나비날개" with hidden all flags with lore "&9클릭하면 하루동안 빨간색 나비날개를 사용하실 수 있습니다" and "&9가격 : 750 기부포인트"
+		else:
+			set {_d} to round down ({butterfly.red.%player's uuid%.time}  / 86400)
+			set {_h} to round down (({butterfly.red.%player's uuid%.time} -{_d}*86400) / 3600)
+			set {_m} to round down ((({butterfly.red.%player's uuid%.time} -{_d}*86400)-{_h}*3600) / 60) 
+			set {_s} to (({butterfly.red.%player's uuid%.time} -{_d}*86400)-{_h}*3600)-{_m}*60
+			set slot 2 of current inventory of player to name tag named "&r빨간색 나비날개" with hidden all flags with lore "&9클릭하면 날개를 적용하실 수 있습니다." and "&9남은 시간 : %{_h}%시간 %{_m}%분 %{_s}%초"
+		
+		#초록색 나비날개
+		if {butterfly.green.%player's uuid%.have} is false:
+			set slot 3 of current inventory of player to name tag named "&r초록색 나비날개" with hidden all flags with lore "&9클릭하면 하루동안 초록색 나비날개를 사용하실 수 있습니다" and "&9가격 : 750 기부포인트"
+		else:
+			set {_d} to round down ({butterfly.green.%player's uuid%.time}  / 86400)
+			set {_h} to round down (({butterfly.green.%player's uuid%.time} -{_d}*86400) / 3600)
+			set {_m} to round down ((({butterfly.green.%player's uuid%.time} -{_d}*86400)-{_h}*3600) / 60) 
+			set {_s} to (({butterfly.green.%player's uuid%.time} -{_d}*86400)-{_h}*3600)-{_m}*60
+			set slot 3 of current inventory of player to name tag named "&r초록색 나비날개" with hidden all flags with lore "&9클릭하면 날개를 적용하실 수 있습니다." and "&9남은 시간 : %{_h}%시간 %{_m}%분 %{_s}%초"
+			
+		#파란색 나비날개
+		if {butterfly.blue.%player's uuid%.have} is false:
+			set slot 4 of current inventory of player to name tag named "&r파란색 나비날개" with hidden all flags with lore "&9클릭하면 하루동안 파란색 나비날개를 사용하실 수 있습니다" and "&9가격 : 750 기부포인트"
+		else:
+			set {_d} to round down ({butterfly.blue.%player's uuid%.time}  / 86400)
+			set {_h} to round down (({butterfly.blue.%player's uuid%.time} -{_d}*86400) / 3600)
+			set {_m} to round down ((({butterfly.blue.%player's uuid%.time} -{_d}*86400)-{_h}*3600) / 60) 
+			set {_s} to (({butterfly.blue.%player's uuid%.time} -{_d}*86400)-{_h}*3600)-{_m}*60
+			set slot 4 of current inventory of player to name tag named "&r파란색 나비날개" with hidden all flags with lore "&9클릭하면 날개를 적용하실 수 있습니다." and "&9남은 시간 : %{_h}%시간 %{_m}%분 %{_s}%초"
+		
+		#보라색 나비날개
+		if {butterfly.purple.%player's uuid%.have} is false:
+			set slot 5 of current inventory of player to name tag named "&r보라색 나비날개" with hidden all flags with lore "&9클릭하면 하루동안 보라색 나비날개를 사용하실 수 있습니다" and "&9가격 : 750 기부포인트"
+		else:
+			set {_d} to round down ({butterfly.purple.%player's uuid%.time}  / 86400)
+			set {_h} to round down (({butterfly.purple.%player's uuid%.time} -{_d}*86400) / 3600)
+			set {_m} to round down ((({butterfly.purple.%player's uuid%.time} -{_d}*86400)-{_h}*3600) / 60) 
+			set {_s} to (({butterfly.purple.%player's uuid%.time} -{_d}*86400)-{_h}*3600)-{_m}*60
+			set slot 5 of current inventory of player to name tag named "&r보라색 나비날개" with hidden all flags with lore "&9클릭하면 날개를 적용하실 수 있습니다." and "&9남은 시간 : %{_h}%시간 %{_m}%분 %{_s}%초"
+		
+		#검정색 나비날개
+		if {butterfly.black.%player's uuid%.have} is false:
+			set slot 6 of current inventory of player to name tag named "&r검정색 나비날개" with hidden all flags with lore "&9클릭하면 하루동안 검정색 나비날개를 사용하실 수 있습니다" and "&9가격 : 750 기부포인트"
+		else:
+			set {_d} to round down ({butterfly.black.%player's uuid%.time}  / 86400)
+			set {_h} to round down (({butterfly.black.%player's uuid%.time} -{_d}*86400) / 3600)
+			set {_m} to round down ((({butterfly.black.%player's uuid%.time} -{_d}*86400)-{_h}*3600) / 60) 
+			set {_s} to (({butterfly.black.%player's uuid%.time} -{_d}*86400)-{_h}*3600)-{_m}*60
+			set slot 6 of current inventory of player to name tag named "&r검정색 나비날개" with hidden all flags with lore "&9클릭하면 날개를 적용하실 수 있습니다." and "&9남은 시간 : %{_h}%시간 %{_m}%분 %{_s}%초"
+			
+		#빨간색 오러
+		if {auror.red.%player's uuid%.have} is false:
+			set slot 10 of current inventory of player to name tag named "&r빨간색 오러" with hidden all flags with lore "&9클릭하면 하루동안 빨간색 오러를 사용하실 수 있습니다" and "&9가격 : 500 기부포인트"
+		else:
+			set {_d} to round down ({auror.red.%player's uuid%.time}  / 86400)
+			set {_h} to round down (({auror.red.%player's uuid%.time} -{_d}*86400) / 3600)
+			set {_m} to round down ((({auror.red.%player's uuid%.time} -{_d}*86400)-{_h}*3600) / 60) 
+			set {_s} to (({auror.red.%player's uuid%.time} -{_d}*86400)-{_h}*3600)-{_m}*60
+			set slot 10 of current inventory of player to name tag named "&r빨간색 오러" with hidden all flags with lore "&9클릭하면 오러를 적용하실 수 있습니다." and "&9남은 시간 : %{_h}%시간 %{_m}%분 %{_s}%초"
+
+		#주황색 오러
+		if {auror.orange.%player's uuid%.have} is false:
+			set slot 11 of current inventory of player to name tag named "&r주황색 오러" with hidden all flags with lore "&9클릭하면 하루동안 주황색 오러를 사용하실 수 있습니다" and "&9가격 : 500 기부포인트"
+		else:
+			set {_d} to round down ({auror.orange.%player's uuid%.time}  / 86400)
+			set {_h} to round down (({auror.orange.%player's uuid%.time} -{_d}*86400) / 3600)
+			set {_m} to round down ((({auror.orange.%player's uuid%.time} -{_d}*86400)-{_h}*3600) / 60) 
+			set {_s} to (({auror.orange.%player's uuid%.time} -{_d}*86400)-{_h}*3600)-{_m}*60
+			set slot 11 of current inventory of player to name tag named "&r주황색 오러" with hidden all flags with lore "&9클릭하면 주황색 오러를 적용하실 수 있습니다." and "&9남은 시간 : %{_h}%시간 %{_m}%분 %{_s}%초"
+
+		#노란색 오러
+		if {auror.yellow.%player's uuid%.have} is false:
+			set slot 12 of current inventory of player to name tag named "&r노란색 오러" with hidden all flags with lore "&9클릭하면 하루동안 노란색 오러를 사용하실 수 있습니다" and "&9가격 : 500 기부포인트"
+		else:
+			set {_d} to round down ({auror.yellow.%player's uuid%.time}  / 86400)
+			set {_h} to round down (({auror.yellow.%player's uuid%.time} -{_d}*86400) / 3600)
+			set {_m} to round down ((({auror.yellow.%player's uuid%.time} -{_d}*86400)-{_h}*3600) / 60) 
+			set {_s} to (({auror.yellow.%player's uuid%.time} -{_d}*86400)-{_h}*3600)-{_m}*60
+			set slot 12 of current inventory of player to name tag named "&r노란색 오러" with hidden all flags with lore "&9클릭하면 노란색 오러를 적용하실 수 있습니다." and "&9남은 시간 : %{_h}%시간 %{_m}%분 %{_s}%초"
+
+		#초록색 오러
+		if {auror.green.%player's uuid%.have} is false:
+			set slot 13 of current inventory of player to name tag named "&r초록색 오러" with hidden all flags with lore "&9클릭하면 하루동안 초록색 오러를 사용하실 수 있습니다" and "&9가격 : 500 기부포인트"
+		else:
+			set {_d} to round down ({auror.green.%player's uuid%.time}  / 86400)
+			set {_h} to round down (({auror.green.%player's uuid%.time} -{_d}*86400) / 3600)
+			set {_m} to round down ((({auror.green.%player's uuid%.time} -{_d}*86400)-{_h}*3600) / 60) 
+			set {_s} to (({auror.green.%player's uuid%.time} -{_d}*86400)-{_h}*3600)-{_m}*60
+			set slot 13 of current inventory of player to name tag named "&r초록색 오러" with hidden all flags with lore "&9클릭하면 초록색 오러를 적용하실 수 있습니다." and "&9남은 시간 : %{_h}%시간 %{_m}%분 %{_s}%초"
+
+		#파랑색 오러
+		if {auror.blue.%player's uuid%.have} is false:
+			set slot 14 of current inventory of player to name tag named "&r파란색 오러" with hidden all flags with lore "&9클릭하면 하루동안 파란색 오러를 사용하실 수 있습니다" and "&9가격 : 500 기부포인트"
+		else:
+			set {_d} to round down ({auror.blue.%player's uuid%.time}  / 86400)
+			set {_h} to round down (({auror.blue.%player's uuid%.time} -{_d}*86400) / 3600)
+			set {_m} to round down ((({auror.blue.%player's uuid%.time} -{_d}*86400)-{_h}*3600) / 60) 
+			set {_s} to (({auror.blue.%player's uuid%.time} -{_d}*86400)-{_h}*3600)-{_m}*60
+			set slot 14 of current inventory of player to name tag named "&r파란색 오러" with hidden all flags with lore "&9클릭하면 파란색 오러를 적용하실 수 있습니다." and "&9남은 시간 : %{_h}%시간 %{_m}%분 %{_s}%초"
+
+		#보라색 오러
+		if {auror.purple.%player's uuid%.have} is false:
+			set slot 15 of current inventory of player to name tag named "&r보라색 오러" with hidden all flags with lore "&9클릭하면 하루동안 보라색 오러를 사용하실 수 있습니다" and "&9가격 : 500 기부포인트"
+		else:
+			set {_d} to round down ({auror.purple.%player's uuid%.time}  / 86400)
+			set {_h} to round down (({auror.purple.%player's uuid%.time} -{_d}*86400) / 3600)
+			set {_m} to round down ((({auror.purple.%player's uuid%.time} -{_d}*86400)-{_h}*3600) / 60) 
+			set {_s} to (({auror.purple.%player's uuid%.time} -{_d}*86400)-{_h}*3600)-{_m}*60
+			set slot 15 of current inventory of player to name tag named "&r보라색 오러" with hidden all flags with lore "&9클릭하면 보라색 오러를 적용하실 수 있습니다." and "&9남은 시간 : %{_h}%시간 %{_m}%분 %{_s}%초"
+
+		#흰색 오러
+		if {auror.white.%player's uuid%.have} is false:
+			set slot 16 of current inventory of player to name tag named "&r흰색 오러" with hidden all flags with lore "&9클릭하면 하루동안 흰색 오러를 사용하실 수 있습니다" and "&9가격 : 500 기부포인트"
+		else:
+			set {_d} to round down ({auror.white.%player's uuid%.time}  / 86400)
+			set {_h} to round down (({auror.white.%player's uuid%.time} -{_d}*86400) / 3600)
+			set {_m} to round down ((({auror.white.%player's uuid%.time} -{_d}*86400)-{_h}*3600) / 60) 
+			set {_s} to (({auror.white.%player's uuid%.time} -{_d}*86400)-{_h}*3600)-{_m}*60
+			set slot 16 of current inventory of player to name tag named "&r흰색 오러" with hidden all flags with lore "&9클릭하면 흰색 오러를 적용하실 수 있습니다." and "&9남은 시간 : %{_h}%시간 %{_m}%분 %{_s}%초"
+			
+			
+		#파티클 멈추기
+		set slot 22 of current inventory of player to barrier named "&r파티클 해제" with hidden all flags with lore "&9클릭하면 현재 적용되있는 파티클이 해제됩니다"
+			
+on inventory click:
+	if name of current inventory of player is "&r&a파티클 상점&a&r":
+		if clicked slot is 2:
+			cancel event
+			if {butterfly.red.%player's uuid%.have} is true:
+				stopEffect "%player%"
+				close player's inventory
+				drawWings style 12, particle1 "redstone", RGB 255, 144, 144, particle2 "redstone", RGB2 163, 0, 0, particle3 "redstone", RGB3 255, 0, 0, center player, id "%player%", angle 110, height 0, space 0.2, visibleRange 15, tps 0, second 3
+			
+			else if {butterfly.red.%player's uuid%.have} is false:
+				if {donation.%player's uuid%.npoint} < 750:
+					if {donation.%player's uuid%.point} < 750:
+						message "[&4Error&r] 기부 포인트가 부족합니다. /donation check 명령어를 사용하여 자신이 현재 가지고 있는 기부 포인트를 확인하실 수 있습니다" to player
+						close player's inventory
+					else:
+						message "750 기부 포인트로 1일 빨강색 나비날개 이용권을 얻으셨습니다." to player
+						subtract 750 from {donation.%player's uuid%.npoint}
+						set {butterfly.red.%player's uuid%.have} to true
+						add 86400 to {butterfly.red.%player's uuid%.time}
+						close player's inventory
+						
+				else:
+					message "&9750 기부 포인트&r로 1일 빨강색 나비날개 이용권을 얻으셨습니다." to player
+					subtract 750 from {donation.%player's uuid%.npoint}
+					set {butterfly.red.%player's uuid%.have} to true
+					add 86400 to {butterfly.red.%player's uuid%.time}
+					close player's inventory
+			
+		if clicked slot is 3:
+			cancel event
+			if {butterfly.green.%player's uuid%.have} is true:
+				stopEffect "%player%"
+				close player's inventory
+				drawWings style 12, particle1 "redstone", RGB 144, 255, 144, particle2 "redstone", RGB2 0, 163, 0, particle3 "redstone", RGB3 0, 255, 0, center player, id "%player%", angle 110, height 0, space 0.2, visibleRange 15, tps 0, second 3
+			
+			else if {butterfly.green.%player's uuid%.have} is false:
+				if {donation.%player's uuid%.npoint} < 750:
+					if {donation.%player's uuid%.point} < 750:
+						message "[&4Error&r] 기부 포인트가 부족합니다. /donation check 명령어를 사용하여 자신이 현재 가지고 있는 기부 포인트를 확인하실 수 있습니다" to player
+						close player's inventory
+					else: 
+						message "750 기부 포인트로 1일 초록색 나비날개 이용권을 얻으셨습니다." to player
+						subtract 750 from {donation.%player's uuid%.npoint}
+						set {butterfly.green.%player's uuid%.have} to true
+						add 86400 to {butterfly.green.%player's uuid%.time}
+						close player's inventory
+						
+				else:
+					message "&9750 기부 포인트&r로 1일 초록색 나비날개 이용권을 얻으셨습니다." to player
+					subtract 750 from {donation.%player's uuid%.npoint}
+					set {butterfly.green.%player's uuid%.have} to true
+					add 86400 to {butterfly.green.%player's uuid%.time}
+					close player's inventory
+					
+		if clicked slot is 4:
+			cancel event
+			if {butterfly.blue.%player's uuid%.have} is true:
+				stopEffect "%player%"
+				close player's inventory
+				drawWings style 12, particle1 "redstone", RGB 144, 144, 255, particle2 "redstone", RGB2 0, 0, 163, particle3 "redstone", RGB3 0, 0, 255, center player, id "%player%", angle 110, height 0, space 0.2, visibleRange 15, tps 0, second 3
+			
+			else if {butterfly.blue.%player's uuid%.have} is false:
+				if {donation.%player's uuid%.npoint} < 750:
+					if {donation.%player's uuid%.point} < 750:
+						message "[&4Error&r] 기부 포인트가 부족합니다. /donation check 명령어를 사용하여 자신이 현재 가지고 있는 기부 포인트를 확인하실 수 있습니다" to player
+						close player's inventory
+					else:
+						message "750 기부 포인트로 1일 파란색 나비날개 이용권을 얻으셨습니다." to player
+						subtract 750 from {donation.%player's uuid%.point}
+						set {butterfly.blue.%player's uuid%.have} to true
+						add 86400 to {butterfly.blue.%player's uuid%.time}
+						close player's inventory
+						
+				else:
+					message "&9750 기부 포인트&r로 1일 파란색 나비날개 이용권을 얻으셨습니다." to player
+					subtract 750 from {donation.%player's uuid%.npoint}
+					set {butterfly.blue.%player's uuid%.have} to true
+					add 86400 to {butterfly.blue.%player's uuid%.time}
+					close player's inventory
+					
+		if clicked slot is 5:
+			cancel event
+			if {butterfly.purple.%player's uuid%.have} is true:
+				stopEffect "%player%"
+				close player's inventory
+				drawWings style 12, particle1 "redstone", RGB 204, 144, 255, particle2 "redstone", RGB2 89, 0, 163, particle3 "redstone", RGB3 139, 0, 255, center player, id "%player%", angle 110, height 0, space 0.2, visibleRange 15, tps 0, second 3
+			
+			else if {butterfly.purple.%player's uuid%.have} is false:
+				if {donation.%player's uuid%.npoint} < 750:
+					if {donation.%player's uuid%.point} < 750:
+						message "[&4Error&r] 기부 포인트가 부족합니다. /donation check 명령어를 사용하여 자신이 현재 가지고 있는 기부 포인트를 확인하실 수 있습니다" to player
+						close player's inventory
+					else:
+						message "&9750 기부 포인트&r로 1일 보라색 나비날개 이용권을 얻으셨습니다." to player
+						subtract 750 from {donation.%player's uuid%.point}
+						set {butterfly.purple.%player's uuid%.have} to true
+						add 86400 to {butterfly.purple.%player's uuid%.time}
+						close player's inventory
+		
+				else if {donation.%player's uuid%.npoint} >= 750:
+					message "750 기부 포인트로 1일 보라색 나비날개 이용권을 얻으셨습니다." to player
+					subtract 750 from {donation.%player's uuid%.npoint}
+					set {butterfly.purple.%player's uuid%.have} to true
+					add 86400 to {butterfly.purple.%player's uuid%.time}
+					close player's inventory
+		
+		if clicked slot is 6:
+			cancel event
+			if {butterfly.black.%player's uuid%.have} is true:
+				stopEffect "%player%"
+				close player's inventory
+				drawWings style 12, particle1 "redstone", RGB 54, 54, 54, particle2 "redstone", RGB2 0, 0, 0, particle3 "redstone", RGB3 27, 27, 27, center player, id "%player%", angle 110, height 0, space 0.2, visibleRange 15, tps 0, second 3
+			
+			else if {butterfly.black.%player's uuid%.have} is false:
+				if {donation.%player's uuid%.npoint} < 750:
+					if {donation.%player's uuid%.point} < 750:
+						message "[&4Error&r] 기부 포인트가 부족합니다. /donation check 명령어를 사용하여 자신이 현재 가지고 있는 기부 포인트를 확인하실 수 있습니다" to player
+						close player's inventory
+					else:
+						message "&9750 기부 포인트&r로 1일 검정색 나비날개 이용권을 얻으셨습니다." to player
+						subtract 750 from {donation.%player's uuid%.point}
+						set {butterfly.black.%player's uuid%.have} to true
+						add 86400 to {butterfly.black.%player's uuid%.time}
+						close player's inventory
+						
+				else if {donation.%player's uuid%.npoint} >= 750:
+					message "750 기부 포인트로 1일 검정색 나비날개 이용권을 얻으셨습니다." to player
+					subtract 750 from {donation.%player's uuid%.npoint}
+					set {butterfly.black.%player's uuid%.have} to true
+					add 86400 to {butterfly.black.%player's uuid%.time}
+					close player's inventory
+					
+		if clicked slot is 10:
+			cancel event
+			if {auror.red.%player's uuid%.have} is true:
+				stopEffect "%player%"
+				close player's inventory
+				drawWarpRings style 3, particle "redstone", RGB 255, 0, 0, center player, id "%player%", rainbowMode false, scan false, height 0, radius 0.7, ringCount 20, ringDensity 10, visibleRange 15, pulseDelay 2
+			
+			else if {auror.red.%player's uuid%.have} is false:
+				if {donation.%player's uuid%.npoint} < 500:
+					if {donation.%player's uuid%.point} < 500:
+						message "[&4Error&r] 기부 포인트가 부족합니다. /donation check 명령어를 사용하여 자신이 현재 가지고 있는 기부 포인트를 확인하실 수 있습니다" to player
+						close player's inventory
+					else:
+						message "&9500 기부 포인트&r로 1일 빨간색 오러 이용권을 얻으셨습니다." to player
+						subtract 500 from {donation.%player's uuid%.point}
+						set {auror.red.%player's uuid%.have} to true
+						add 86400 to {auror.red.%player's uuid%.time}
+						close player's inventory
+						
+				else if {donation.%player's uuid%.npoint} >= 500:
+					message "500 기부 포인트로 1일 빨간색 오러 이용권을 얻으셨습니다." to player
+					subtract 500 from {donation.%player's uuid%.npoint}
+					set {auror.red.%player's uuid%.have} to true
+					add 86400 to {auror.red.%player's uuid%.time}
+					close player's inventory
+
+		if clicked slot is 11:
+			cancel event
+			if {auror.orange.%player's uuid%.have} is true:
+				stopEffect "%player%"
+				close player's inventory
+				drawWarpRings style 3, particle "redstone", RGB 255, 127, 0, center player, id "%player%", rainbowMode false, scan false, height 0, radius 0.7, ringCount 20, ringDensity 10, visibleRange 15, pulseDelay 2
+			
+			else if {auror.orange.%player's uuid%.have} is false:
+				if {donation.%player's uuid%.npoint} < 500:
+					if {donation.%player's uuid%.point} < 500:
+						message "[&4Error&r] 기부 포인트가 부족합니다. /donation check 명령어를 사용하여 자신이 현재 가지고 있는 기부 포인트를 확인하실 수 있습니다" to player
+						close player's inventory
+					else:
+						message "&9500 기부 포인트&r로 1일 주황색 오러 이용권을 얻으셨습니다." to player
+						subtract 500 from {donation.%player's uuid%.point}
+						set {auror.orange.%player's uuid%.have} to true
+						add 86400 to {auror.orange.%player's uuid%.time}
+						close player's inventory
+						
+				else if {donation.%player's uuid%.npoint} >= 500:
+					message "500 기부 포인트로 1일 주황색 오러 이용권을 얻으셨습니다." to player
+					subtract 500 from {donation.%player's uuid%.npoint}
+					set {auror.orange.%player's uuid%.have} to true
+					add 86400 to {auror.orange.%player's uuid%.time}
+					close player's inventory
+					
+		if clicked slot is 12:
+			cancel event
+			if {auror.yellow.%player's uuid%.have} is true:
+				stopEffect "%player%"
+				close player's inventory
+				drawWarpRings style 3, particle "redstone", RGB 255, 212, 0, center player, id "%player%", rainbowMode false, scan false, height 0, radius 0.7, ringCount 20, ringDensity 10, visibleRange 15, pulseDelay 2
+			
+			else if {auror.yellow.%player's uuid%.have} is false:
+				if {donation.%player's uuid%.npoint} < 500:
+					if {donation.%player's uuid%.point} < 500:
+						message "[&4Error&r] 기부 포인트가 부족합니다. /donation check 명령어를 사용하여 자신이 현재 가지고 있는 기부 포인트를 확인하실 수 있습니다" to player
+						close player's inventory
+					else:
+						message "&9500 기부 포인트&r로 1일 노란색 오러 이용권을 얻으셨습니다." to player
+						subtract 500 from {donation.%player's uuid%.point}
+						set {auror.yellow.%player's uuid%.have} to true
+						add 86400 to {auror.yellow.%player's uuid%.time}
+						close player's inventory
+						
+				else if {donation.%player's uuid%.npoint} >= 500:
+					message "500 기부 포인트로 1일 노란색 오러 이용권을 얻으셨습니다." to player
+					subtract 500 from {donation.%player's uuid%.npoint}
+					set {auror.yellow.%player's uuid%.have} to true
+					add 86400 to {auror.yellow.%player's uuid%.time}
+					close player's inventory
+		
+		if clicked slot is 13:
+			cancel event
+			if {auror.green.%player's uuid%.have} is true:
+				stopEffect "%player%"
+				close player's inventory
+				drawWarpRings style 3, particle "redstone", RGB 0, 255, 0, center player, id "%player%", rainbowMode false, scan false, height 0, radius 0.7, ringCount 20, ringDensity 10, visibleRange 15, pulseDelay 2
+			
+			else if {auror.green.%player's uuid%.have} is false:
+				if {donation.%player's uuid%.npoint} < 500:
+					if {donation.%player's uuid%.point} < 500:
+						message "[&4Error&r] 기부 포인트가 부족합니다. /donation check 명령어를 사용하여 자신이 현재 가지고 있는 기부 포인트를 확인하실 수 있습니다" to player
+						close player's inventory
+					else:
+						message "&9500 기부 포인트&r로 1일 초록색 오러 이용권을 얻으셨습니다." to player
+						subtract 500 from {donation.%player's uuid%.point}
+						set {auror.green.%player's uuid%.have} to true
+						add 86400 to {auror.green.%player's uuid%.time}
+						close player's inventory
+						
+				else if {donation.%player's uuid%.npoint} >= 500:
+					message "500 기부 포인트로 1일 초록색 오러 이용권을 얻으셨습니다." to player
+					subtract 500 from {donation.%player's uuid%.npoint}
+					set {auror.green.%player's uuid%.have} to true
+					add 86400 to {auror.green.%player's uuid%.time}
+					close player's inventory
+					
+		if clicked slot is 14:
+			cancel event
+			if {auror.blue.%player's uuid%.have} is true:
+				stopEffect "%player%"
+				close player's inventory
+				drawWarpRings style 3, particle "redstone", RGB 0, 0, 255, center player, id "%player%", rainbowMode false, scan false, height 0, radius 0.7, ringCount 20, ringDensity 10, visibleRange 15, pulseDelay 2
+			
+			else if {auror.blue.%player's uuid%.have} is false:
+				if {donation.%player's uuid%.npoint} < 500:
+					if {donation.%player's uuid%.point} < 500:
+						message "[&4Error&r] 기부 포인트가 부족합니다. /donation check 명령어를 사용하여 자신이 현재 가지고 있는 기부 포인트를 확인하실 수 있습니다" to player
+						close player's inventory
+					else:
+						message "&9500 기부 포인트&r로 1일 파란색 오러 이용권을 얻으셨습니다." to player
+						subtract 500 from {donation.%player's uuid%.point}
+						set {auror.blue.%player's uuid%.have} to true
+						add 86400 to {auror.blue.%player's uuid%.time}
+						close player's inventory
+						
+				else if {donation.%player's uuid%.npoint} >= 500:
+					message "500 기부 포인트로 1일 파란색 오러 이용권을 얻으셨습니다." to player
+					subtract 500 from {donation.%player's uuid%.npoint}
+					set {auror.blue.%player's uuid%.have} to true
+					add 86400 to {auror.blue.%player's uuid%.time}
+					close player's inventory
+					
+		if clicked slot is 15:
+			cancel event
+			if {auror.purple.%player's uuid%.have} is true:
+				stopEffect "%player%"
+				close player's inventory
+				drawWarpRings style 3, particle "redstone", RGB 139, 0, 255, center player, id "%player%", rainbowMode false, scan false, height 0, radius 0.7, ringCount 20, ringDensity 10, visibleRange 15, pulseDelay 2
+			
+			else if {auror.purple.%player's uuid%.have} is false:
+				if {donation.%player's uuid%.npoint} < 500:
+					if {donation.%player's uuid%.point} < 500:
+						message "[&4Error&r] 기부 포인트가 부족합니다. /donation check 명령어를 사용하여 자신이 현재 가지고 있는 기부 포인트를 확인하실 수 있습니다" to player
+						close player's inventory
+					else:
+						message "&9500 기부 포인트&r로 1일 보라색 오러 이용권을 얻으셨습니다." to player
+						subtract 500 from {donation.%player's uuid%.point}
+						set {auror.purple.%player's uuid%.have} to true
+						add 86400 to {auror.purple.%player's uuid%.time}
+						close player's inventory
+						
+				else if {donation.%player's uuid%.npoint} >= 500:
+					message "500 기부 포인트로 1일 보라색 오러 이용권을 얻으셨습니다." to player
+					subtract 500 from {donation.%player's uuid%.npoint}
+					set {auror.purple.%player's uuid%.have} to true
+					add 86400 to {auror.purple.%player's uuid%.time}
+					close player's inventory
+					
+		if clicked slot is 16:
+			cancel event
+			if {auror.white.%player's uuid%.have} is true:
+				stopEffect "%player%"
+				close player's inventory
+				drawWarpRings style 3, particle "redstone", RGB 255, 255, 255, center player, id "%player%", rainbowMode false, scan false, height 0, radius 0.7, ringCount 20, ringDensity 10, visibleRange 15, pulseDelay 2
+			
+			else if {auror.white.%player's uuid%.have} is false:
+				if {donation.%player's uuid%.npoint} < 500:
+					if {donation.%player's uuid%.point} < 500:
+						message "[&4Error&r] 기부 포인트가 부족합니다. /donation check 명령어를 사용하여 자신이 현재 가지고 있는 기부 포인트를 확인하실 수 있습니다" to player
+						close player's inventory
+					else:
+						message "&9500 기부 포인트&r로 1일 흰색 오러 이용권을 얻으셨습니다." to player
+						subtract 500 from {donation.%player's uuid%.point}
+						set {auror.white.%player's uuid%.have} to true
+						add 86400 to {auror.white.%player's uuid%.time}
+						close player's inventory
+						
+				else if {donation.%player's uuid%.npoint} >= 500:
+					message "500 기부 포인트로 1일 흰색 오러 이용권을 얻으셨습니다." to player
+					subtract 500 from {donation.%player's uuid%.npoint}
+					set {auror.white.%player's uuid%.have} to true
+					add 86400 to {auror.white.%player's uuid%.time}
+					close player's inventory
+		
+		#파티클 해제
+		if clicked slot is 22:
+			cancel event
+			stopEffect "%player%"
+			close player's inventory
+		
+		else:
+			cancel event
+#시간차감
+every 1 seconds:
+	loop all offline players:
+		if {butterfly.red.%loop-offline player's uuid%.have} is true:
+			subtract 1 from {butterfly.red.%loop-offlineplayer's uuid%.time}
+			if {butterfly.red.%loop-offline player's uuid%.time} <= 0:
+				stopEffect "%loop-offline player%"
+				set {butterfly.red.%loop-offline player's uuid%.time} to 0
+				set {butterfly.red.%loop-offline player's uuid%.have} to false
+				message "빨간색 나비날개 이용권의 기간이 지났습니다!" to loop-offline player
+			
+		if {butterfly.green.%loop-offline player's uuid%.have} is true:
+			subtract 1 from {butterfly.green.%loop-offline player's uuid%.time}
+			if {butterfly.green.%loop-offline player's uuid%.time} <= 0:
+				stopEffect "%loop-offline player%"
+				set {butterfly.green.%loop-offline player's uuid%.time} to 0
+				set {butterfly.green.%loop-offline player's uuid%.have} to false
+				message "초록색 나비날개 이용권의 기간이 지났습니다!" to loop-offline player
+		
+		if {butterfly.blue.%loop-offline player's uuid%.have} is true:
+			subtract 1 from {butterfly.blue.%loop-offline player's uuid%.time}
+			if {butterfly.blue.%loop-offline player's uuid%.time} <= 0:
+				stopEffect "%loop-offline player%"
+				set {butterfly.blue.%loop-offline player's uuid%.time} to 0
+				set {butterfly.blue.%loop-offline player's uuid%.have} to false
+				message "파란색 나비날개 이용권의 기간이 지났습니다!" to loop-offline player
+				
+		if {butterfly.purple.%loop-offline player's uuid%.have} is true:
+			subtract 1 from {butterfly.purple.%loop-offline player's uuid%.time}
+			if {butterfly.purple.%loop-offline player's uuid%.time} <= 0:
+				stopEffect "%loop-offline player%"
+				set {butterfly.purple.%loop-offline player's uuid%.time} to 0
+				set {butterfly.purple.%loop-offline player's uuid%.have} to false
+				message "보라색 나비날개 이용권의 기간이 지났습니다!" to loop-offline player
+				
+		if {butterfly.black.%loop-offline player's uuid%.have} is true:
+			subtract 1 from {butterfly.black.%loop-offline player's uuid%.time}
+			if {butterfly.black.%loop-offline player's uuid%.time} <= 0:
+				stopEffect "%loop-offline player%"
+				set {butterfly.black.%loop-offline player's uuid%.time} to 0
+				set {butterfly.black.%loop-offline player's uuid%.have} to false
+				message "검정색 나비날개 이용권의 기간이 지났습니다!" to loop-offline player
+
+		if {auror.red.%loop-offline player's uuid%.have} is true:
+			subtract 1 from {auror.red.%loop-offline player's uuid%.time}
+			if {auror.red.%loop-offline player's uuid%.time} <= 0:
+				stopEffect "%loop-offline player%"
+				set {auror.red.%loop-offline player's uuid%.time} to 0
+				set {auror.red.%loop-offline player's uuid%.have} to false
+				message "빨간색 오러 이용권의 기간이 지났습니다!" to loop-offline player
+				
+		if {auror.orange.%loop-offline player's uuid%.have} is true:
+			subtract 1 from {auror.orange.%loop-offline player's uuid%.time}
+			if {auror.orange.%loop-offline player's uuid%.time} <= 0:
+				stopEffect "%loop-offline player%"
+				set {auror.orange.%loop-offline player's uuid%.time} to 0
+				set {auror.orange.%loop-offline player's uuid%.have} to false
+				message "주황색 오러 이용권의 기간이 지났습니다!" to loop-offline player
+				
+		if {auror.yellow.%loop-offline player's uuid%.have} is true:
+			subtract 1 from {auror.yellow.%loop-offline player's uuid%.time}
+			if {auror.yellow.%loop-offline player's uuid%.time} <= 0:
+				stopEffect "%loop-offline player%"
+				set {auror.yellow.%loop-offline player's uuid%.time} to 0
+				set {auror.yellow.%loop-offline player's uuid%.have} to false
+				message "노란색 오러 이용권의 기간이 지났습니다!" to loop-offline player
+				
+		if {auror.green.%loop-offline player's uuid%.have} is true:
+			subtract 1 from {auror.green.%loop-offline player's uuid%.time}
+			if {auror.green.%loop-offline player's uuid%.time} <= 0:
+				stopEffect "%loop-offline player%"
+				set {auror.green.%loop-offline player's uuid%.time} to 0
+				set {auror.green.%loop-offline player's uuid%.have} to false
+				message "초록색 오러 이용권의 기간이 지났습니다!" to loop-offline player
+		
+		if {auror.blue.%loop-offline player's uuid%.have} is true:
+			subtract 1 from {auror.blue.%loop-offline player's uuid%.time}
+			if {auror.blue.%loop-offline player's uuid%.time} <= 0:
+				stopEffect "%loop-offline player%"
+				set {auror.blue.%loop-offline player's uuid%.time} to 0
+				set {auror.blue.%loop-offline player's uuid%.have} to false
+				message "파란색 오러 이용권의 기간이 지났습니다!" to loop-offline player
+		
+		if {auror.purple.%loop-offline player's uuid%.have} is true:
+			subtract 1 from {auror.purple.%loop-offline player's uuid%.time}
+			if {auror.purple.%loop-offline player's uuid%.time} <= 0:
+				stopEffect "%loop-offline player%"
+				set {auror.purple.%loop-offline player's uuid%.time} to 0
+				set {auror.purple.%loop-offline player's uuid%.have} to false
+				message "보라색 오러 이용권의 기간이 지났습니다!" to loop-offline player
+				
+		if {auror.white.%loop-offline player's uuid%.have} is true:
+			subtract 1 from {auror.white.%loop-offline player's uuid%.time}
+			if {auror.white.%loop-offline player's uuid%.time} <= 0:
+				stopEffect "%loop-offline player%"
+				set {auror.white.%loop-offline player's uuid%.time} to 0
+				set {auror.white.%loop-offline player's uuid%.have} to false
+				message "흰색 오러 이용권의 기간이 지났습니다!" to loop-offline player
+		
+		if {butterfly.red.%loop-offline player's uuid%.time} > 0:
+			set {butterfly.red.%loop-offline player's uuid%.have} to true
+			
+		if {butterfly.green.%loop-offline player's uuid%.time} > 0:
+			set {butterfly.green.%loop-offline player's uuid%.have} to true
+			
+		if {butterfly.blue.%loop-offline player's uuid%.time} > 0:
+			set {butterfly.blue.%loop-offline player's uuid%.have} to true
+			
+		if {butterfly.purple.%loop-offline player's uuid%.time} > 0:
+			set {butterfly.purple.%loop-offline player's uuid%.have} to true
+		
+		if {butterfly.black.%loop-offline player's uuid%.time} > 0:
+			set {butterfly.black.%loop-offline player's uuid%.have} to true
+
+		if {auror.red.%loop-offline player's uuid%.time} > 0:
+			set {auror.red.%loop-offline player's uuid%.have} to true
+			
+		if {auror.orange.%loop-offline player's uuid%.time} > 0:
+			set {auror.orange.%loop-offline player's uuid%.have} to true
+			
+		if {auror.yellow.%loop-offline player's uuid%.time} > 0:
+			set {auror.yellow.%loop-offline player's uuid%.have} to true
+			
+		if {auror.green.%loop-offline player's uuid%.time} > 0:
+			set {auror.green.%loop-offline player's uuid%.have} to true
+		
+		if {auror.blue.%loop-offline player's uuid%.time} > 0:
+			set {auror.blue.%loop-offline player's uuid%.have} to true
+		
+		if {auror.purple.%loop-offline player's uuid%.time} > 0:
+			set {auror.purple.%loop-offline player's uuid%.have} to true
+		
+		if {auror.white.%loop-offline player's uuid%.time} > 0:
+			set {auror.white.%loop-offline player's uuid%.have} to true

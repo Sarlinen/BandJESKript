@@ -1,0 +1,207 @@
+# 자동 씨앗심기 스크립트 시작
+		
+command /autofarm [<text>] [<integer>]:
+	trigger:
+		if player is op:
+			if arg 1 is not set:
+				message "/autofarm [기능활성화/기능비활성화] = AutoFarm기능을 켭니다/끕니다" to player
+				message "/autofarm [사용/끄기] = AutoFarm을 사용합니다/사용하지 않습니다." to player
+				message "/autofarm 시간 = AutoFarm기능의 남은 시간을 확인합니다" to player
+				message "/autofarm 시간추가 = AutoFarm기능의 시간을 더합니다 (초 단위)" to player
+				message "/autofarm 시간설정 = AutoFarm기능의 시간을 설정합니다 (초 단위)" to player
+				
+			else if arg 1 is "기능활성화":
+				set {Autofarm.isenable} to true
+				message "[&a밴드 JE 공식서버&r] AutoFarm기능이 활성화되었습니다!" to player
+				
+			else if arg 1 is "기능비활성화":
+				set {Autofarm.isenable} to false
+				message "[&a밴드 JE 공식서버&r] AutoFarm기능이 비활성화되었습니다!" to player
+			
+			else if arg 1 is "사용":
+				if {Autofarm.isenable} is true:
+					set {Autofarm.%player's UUID%.isenable} to true
+					message "[&a밴드 JE 공식서버&r] AutoFarm을 사용하도록 설정되었습니다!" to player
+				
+				else:
+					message "[&4Error&r] &l&cAutoFarm 기능이 비활성화되어있습니다." to player
+			
+			else if arg 1 is "끄기":
+				if {Autofarm.isenable} is true:
+					set {Autofarm.%player's UUID%.isenable} to false
+					message "[&a밴드 JE 공식서버&r] AutoFarm을 사용하지 않도록 설정되었습니다!" to player
+				
+				else:
+					message "[&4Error&r] &l&cAutoFarm 기능이 비활성화되어있습니다." to player
+			
+			else if arg 1 is "시간":
+				set {_d} to round down ({Autofarm.Time} / 86400)
+				set {_h} to round down (({Autofarm.Time} -{_d}*86400) / 3600)
+				set {_m} to round down ((({Autofarm.Time} -{_d}*86400)-{_h}*3600) / 60) 
+				set {_s} to (({Autofarm.Time} -{_d}*86400)-{_h}*3600)-{_m}*60
+				message "[&a밴드 JE 공식서버&r] 현재 남은 시간은 다음과 같습니다. %{_d}%일 %{_h}%시간 %{_m}%분 %{_s}%초" to player
+				
+			else if arg 1 is "시간추가":
+				if arg 2 <= 0:
+					message "시간은 0 이거나 그 이하일 수 없습니다" to player
+				else:
+					add arg 2 to {Autofarm.Time} 
+					set {_d} to round down (arg 2 / 86400)
+					set {_h} to round down ((arg 2-{_d}*86400) / 3600)
+					set {_m} to round down (((arg 2-{_d}*86400)-{_h}*3600) / 60) 
+					set {_s} to ((arg 2-{_d}*86400)-{_h}*3600)-{_m}*60
+					message "[&a밴드 JE 공식서버&r] 시간이 추가되었습니다 추가한 시간 : %{_d}%일 %{_h}%시간 %{_m}%분 %{_s}%초" to player
+
+			else if arg 1 is "시간설정":
+				if arg 2 <= 0:
+					message "시간은 0 이거나 그 이하일 수 없습니다" to player
+				else:
+					set {Autofarm.Time} to arg 2
+					set {_d} to round down (arg 2 / 86400)
+					set {_h} to round down ((arg 2-{_d}*86400) / 3600)
+					set {_m} to round down (((arg 2-{_d}*86400)-{_h}*3600) / 60) 
+					set {_s} to ((arg 2-{_d}*86400)-{_h}*3600)-{_m}*60
+					message "[&a밴드 JE 공식서버&r] 시간이 설정되었습니다 설정한 시간 : %{_d}%일 %{_h}%시간 %{_m}%분 %{_s}%초" to player
+		
+		if player is not op:
+			if arg 1 is not set:
+				message "/autofarm [사용/끄기] = AutoFarm을 켭니다/끕니다" to player
+				message "/autofarm 시간 = 자동 씨앗심기 기능의 남은 시간을 봅니다" to player
+
+			else if arg 1 is "사용":
+				if {Autofarm.isenable} is true:
+					set {Autofarm.%player's UUID%.isenable} to true
+					message "[&a밴드 JE 공식서버&r] AutoFarm을 사용하도록 설정되었습니다!" to player
+				
+				else:
+					message "[&4Error&r] &l&cAutoFarm 기능이 비활성화되어있습니다." to player
+			
+			else if arg 1 is "끄기":
+				if {Autofarm.isenable} is true:
+					set {Autofarm.%player's UUID%.isenable} to false
+					message "[&a밴드 JE 공식서버&r] AutoFarm을 사용하지 않도록 설정되었습니다!" to player
+				
+				else:
+					message "[&4Error&r] &l&cAutoFarm 기능이 비활성화되어있습니다." to player
+				
+			else if arg 1 is "시간":
+				set {_d} to round down ({Autofarm.Time}  / 86400)
+				set {_h} to round down (({Autofarm.Time} -{_d}*86400) / 3600)
+				set {_m} to round down ((({Autofarm.Time} -{_d}*86400)-{_h}*3600) / 60) 
+				set {_s} to (({Autofarm.Time} -{_d}*86400)-{_h}*3600)-{_m}*60
+				message "[&a밴드 JE 공식서버&r] 현재 남은 시간은 다음과 같습니다. %{_d}%일 %{_h}%시간 %{_m}%분 %{_s}%초" to player
+
+on break of ripe wheat plant:
+	if {Autofarm.isenable} is true:
+		if {Autofarm.%player's UUID%.isenable} is true:
+			wait 40 tick
+			if player has seeds:
+				remove 1 seeds from player
+				set block to wheat plant
+			else:
+				message "[&4!&r] 밀 씨앗이 부족하여 농작물을 심을 수 없습니다."
+   
+on break of ripe beetroot plant:
+	if {Autofarm.isenable} is true:
+		if {Autofarm.%player's UUID%.isenable} is true:
+			wait 40 tick
+			if player has beetroot seeds:
+				remove 1 beetroot seeds from player
+				set block to beetroot plant
+			else:
+				message "[&4!&r] 비트무 씨앗이 부족하여 농작물을 심을 수 없습니다."
+
+on break of ripe carrot plant:
+	if {Autofarm.isenable} is true:
+		if {Autofarm.%player's UUID%.isenable} is true:
+			wait 40 tick
+			if player has carrot:
+				remove 1 carrot from player
+				set block to carrot plant
+			else:
+				message "[&4!&r] 당근이 부족하여 농작물을 심을 수 없습니다."
+			
+on break of ripe potato plant:
+	if {Autofarm.isenable} is true:
+		if {Autofarm.%player's UUID%.isenable} is true:
+			wait 40 tick
+			if player has potato:
+				remove 1 potato from player
+				set block to potato plant
+			else:
+				message "[&4!&r] 감자가 부족하여 농작물을 심을 수 없습니다."
+
+on break of ripe nether wart plant:
+	if {Autofarm.isenable} is true:
+		if {Autofarm.%player's UUID%.isenable} is true:
+			wait 40 tick
+			if player has nether wart:
+				remove 1 nether wart from player
+				set block to nether wart plant
+			else:
+				message "[&4!&r] 네더 사마귀가 부족하여 농작물을 심을 수 없습니다."
+
+on break of ripe north facing cocoa plant:
+	if {Autofarm.isenable} is true:
+		if {Autofarm.%player's UUID%.isenable} is true:
+			wait 40 tick
+			if player has cocoa beans:
+				remove 1 cocoa beans from player
+				set block to north facing cocoa plant
+			else:
+				message "[&4!&r] 코코아 콩이 부족하여 농작물을 심을 수 없습니다."
+				
+on break of ripe south facing cocoa plant:
+	if {Autofarm.isenable} is true:
+		if {Autofarm.%player's UUID%.isenable} is true:
+			wait 40 tick
+			if player has cocoa beans:
+				remove 1 cocoa beans from player
+				set block to south facing cocoa plant
+			else:
+				message "[&4!&r] 코코아 콩이 부족하여 농작물을 심을 수 없습니다."
+				
+on break of ripe east facing cocoa plant:
+	if {Autofarm.isenable} is true:
+		if {Autofarm.%player's UUID%.isenable} is true:
+			wait 40 tick
+			if player has cocoa beans:
+				remove 1 cocoa beans from player
+				set block to east facing cocoa plant
+			else:
+				message "[&4!&r] 코코아 콩이 부족하여 농작물을 심을 수 없습니다."
+				
+on break of ripe west facing cocoa plant:
+	if {Autofarm.isenable} is true:
+		if {Autofarm.%player's UUID%.isenable} is true:
+			wait 40 tick
+			if player has cocoa beans:
+				remove 1 cocoa beans from player
+				set block to west facing cocoa plant
+			else:
+				message "[&4!&r] 코코아 콩이 부족하여 농작물을 심을 수 없습니다."
+
+# 자동씨앗심기 기능 끝
+
+# 사용시간 설정
+
+every 1 seconds:
+	if {Autofarm.isenable} is true: #자동씨앗심기
+		subtract 1 from {Autofarm.Time}
+		
+		if {Autofarm.Time} = 600: #종료 10분전
+			broadcast "[&a밴드 JE 공식서버&r] 자동씨앗심기 기능의 잔여 시간이 10분 남았습니다."
+			
+		else if {Autofarm.Time} = 300: #종료 5분전
+			broadcast "[&a밴드 JE 공식서버&r] 자동씨앗심기 기능의 잔여 시간이 5분 남았습니다."
+			
+		else if {Autofarm.Time} = 60: #종료 1분전
+			broadcast "[&a밴드 JE 공식서버&r] 자동씨앗심기 기능의 잔여 시간이 1분 남았습니다."
+			
+		else if {Autofarm.Time} = 30: #종료 30초 전
+			broadcast "[&a밴드 JE 공식서버&r] 자동씨앗심기 기능이 곧 종료됩니다!"
+		
+		else if {Autofarm.Time} <= 0:
+			set {Autofarm.isenable} to false
+			set {Autofarm.Time} to 0
+			broadcast "[&a밴드 JE 공식서버&r] 자동씨앗심기 기능이 시간이 다 되어 비활성화 되었습니다!"

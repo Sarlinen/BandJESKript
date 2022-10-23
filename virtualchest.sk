@@ -1,0 +1,141 @@
+# 가상창고 스크립트 시작
+
+command /가상창고 [<string>] [<integer>]:
+	trigger:
+		if arg 1 is not set:
+			if player is op:
+				message "/가상창고 열기 = 가상창고를 엽니다." to player
+				message "/가상창고 활성화 = 가상창고를 활성화합니다" to player
+				message "/가상창고 비활성화 = 가상창고를 비활성화합니다" to player
+				message "/가상창고 줄 [1~6] = 가상창고의 줄 수를 변경합니다" to player
+				message "/가상창고 시간 = 가상창고의 남은 시간을 확인합니다" to player
+				message "/가상창고 시간추가 [숫자] = 가상창고의 남은 시간을 추가합니다 (초 단위)" to player
+				message "/가상창고 시간설정 [숫자] = 가상창고의 남은 시간을 설정합니다 (초 단위)" to player
+				message "/가상창고 초기화 = 가상창고 물품들을 전부 초기화합니다" to player
+			if player is not op:
+				message "/가상창고 열기 = 가상창고를 엽니다." to player
+				message "/가상창고 시간 = 가상창고의 남은 시간을 확인합니다" to player
+				
+		if arg 1 is "열기":
+			if {VirtualChest.allplayer.enable} is false:
+				message "[&4Error&r] &l&c가상창고 기능이 비활성화되어있습니다." to player
+				
+			else if {VirtualChest.allplayer.enable} is true:
+				open chest with {VirtualChest.allplayer.row} row named "%player%의 가상창고" to player
+				set {_slot} to 0
+				loop {virtualchest.%player's UUID%.list::*}:
+					set slot {_slot} of current inventory of player to loop-value
+					add 1 to {_slot}
+		
+		if arg 1 is "활성화":
+			if player is op:
+				message "[&a밴드 JE 공식서버&r] 가상창고가 활성화되었습니다." to player
+				set {VirtualChest.allplayer.enable} to true
+				
+			if player is not op:
+				message "[&4Error&r] &l&c해당 명령어를 사용하실 수 없습니다" to player
+
+		if arg 1 is "비활성화":
+			if player is op:
+				message "[&a밴드 JE 공식서버&r] 가상창고가 비활성화되었습니다." to player
+				set {VirtualChest.allplayer.enable} to false
+			
+			if player is not op:
+				message "[&4Error&r] &l&c해당 명령어를 사용하실 수 없습니다" to player
+		
+		if arg 1 is "줄":
+			if player is op:
+				if arg 2 is not set:
+					message "[&4Error&r] &l&c변수가 잘못되었습니다!" to player
+				
+				else if arg 2 <= 0:
+					message "[&4Error&r] &l&c변수가 잘못되었습니다!" to player
+				
+				else if arg 2 > 6:
+					message "[&4Error&r] &l&c변수가 잘못되었습니다!" to player
+					
+				else if arg 2 > 0:
+					message "[&a밴드 JE 공식서버&r] 가상창고의 가용 공간이 %arg 2%줄로 설정되었습니다." to player
+					set {VirtualChest.allplayer.row} to arg 2
+
+			if player is not op:
+				message "[&4Error&r] &l&c해당 명령어를 사용하실 수 없습니다" to player
+
+		if arg 1 is "시간":
+			set {_d} to round down ({VirtualChest.allplayer.enable.Time}  / 86400)
+			set {_h} to round down (({VirtualChest.allplayer.enable.Time} -{_d}*86400) / 3600)
+			set {_m} to round down ((({VirtualChest.allplayer.enable.Time} -{_d}*86400)-{_h}*3600) / 60) 
+			set {_s} to (({VirtualChest.allplayer.enable.Time} -{_d}*86400)-{_h}*3600)-{_m}*60
+			message "[&a밴드 JE 공식서버&r] 현재 남은 시간은 다음과 같습니다. %{_d}%일 %{_h}%시간 %{_m}%분 %{_s}%초" to player
+
+		if arg 1 is "시간추가":
+			if player is op:
+				if arg 2 <= 0:
+					message "시간은 0 이거나 그 이하일 수 없습니다" to player
+				else:
+					add arg 2 to {VirtualChest.allplayer.enable.Time}
+					set {_d} to round down (arg 2 / 86400)
+					set {_h} to round down ((arg 2-{_d}*86400) / 3600)
+					set {_m} to round down (((arg 2-{_d}*86400)-{_h}*3600) / 60) 
+					set {_s} to ((arg 2-{_d}*86400)-{_h}*3600)-{_m}*60
+					message "[&a밴드 JE 공식서버&r] 시간이 추가되었습니다 추가한 시간 : %{_d}%일 %{_h}%시간 %{_m}%분 %{_s}%초" to player
+					
+		if arg 1 is "시간설정":
+			if player is op:
+				if arg 2 <= 0:
+					message "시간은 0 이거나 그 이하일 수 없습니다" to player
+				
+				else:
+					set {VirtualChest.allplayer.enable.Time} to arg 2
+					set {_d} to round down (arg 2 / 86400)
+					set {_h} to round down ((arg 2-{_d}*86400) / 3600)
+					set {_m} to round down (((arg 2-{_d}*86400)-{_h}*3600) / 60) 
+					set {_s} to ((arg 2-{_d}*86400)-{_h}*3600)-{_m}*60
+					message "[&a밴드 JE 공식서버&r] 시간이 설정되었습니다 설정한 시간 : %{_d}%일 %{_h}%시간 %{_m}%분 %{_s}%초" to player
+		
+		if arg 1 is "초기화":
+			if player is op:
+				loop all offline players:
+					delete {virtualchest.%loop-offline player's UUID%.list::*}
+				loop all players:
+					delete {virtualchest.%loop-player's UUID%.list::*}
+		
+on inventory close:
+	event-inventory's name ends with "%player%의 가상창고":
+		set {VirtualChest.allplayer.looptime} to {VirtualChest.allplayer.row} * 9
+		set {_int} to 0
+		loop {VirtualChest.allplayer.looptime} times:
+			set {virtualchest.%player's UUID%.list::%{_int}%} to slot {_int} of current inventory of player
+			add 1 to {_int}
+		
+
+# 가상창고 스크립트 종료
+
+# 가상창고 시간 차감 시작
+every 1 seconds:
+	if {VirtualChest.allplayer.enable} is true: #가상창고
+		subtract 1 from {VirtualChest.allplayer.enable.Time}
+		
+		if {VirtualChest.allplayer.enable.Time} = 600: #종료 10분전
+			broadcast "[&a밴드 JE 공식서버&r] 가상창고 기능의 잔여 시간이 10분 남았습니다. 중요한 아이템은 미리 빼놓으시기 바랍니다. 시간이 다 되면 가상창고에 남아있는 아이템은 삭제됩니다"
+			
+		else if {VirtualChest.allplayer.enable.Time} = 300: #종료 5분전
+			broadcast "[&a밴드 JE 공식서버&r] 가상창고 기능의 잔여 시간이 5분 남았습니다. 중요한 아이템은 미리 빼놓으시기 바랍니다. 시간이 다 되면 가상창고에 남아있는 아이템은 삭제됩니다"
+			
+		else if {VirtualChest.allplayer.enable.Time} = 60: #종료 1분전
+			broadcast "[&a밴드 JE 공식서버&r] 가상창고 기능의 잔여 시간이 1분 남았습니다. 중요한 아이템은 미리 빼놓으시기 바랍니다. 시간이 다 되면 가상창고에 남아있는 아이템은 삭제됩니다"
+			
+		else if {VirtualChest.allplayer.enable.Time} = 30: #종료 30초 전
+			broadcast "[&a밴드 JE 공식서버&r] 가상창고 기능이 곧 종료됩니다! 중요한 아이템은 미리 빼놓으시기 바랍니다. 시간이 다 되면 가상창고에 남아있는 아이템은 삭제됩니다"
+			
+		else if {VirtualChest.allplayer.enable.Time} <= 0: #1을 빼고 난 후의 값이 0 이거나 그 이하이면
+			set {VirtualChest.allplayer.enable} to false #가상창고 기능을 비활성화 한다
+			set {VirtualChest.allplayer.enable.Time} to 0
+			set {VirtualChest.allplayer.row} to 1
+			loop all offline players:
+				delete {virtualchest.%loop-offline player's UUID%.list::*}
+			loop all players:
+				delete {virtualchest.%loop-player's UUID%.list::*}
+			broadcast "[&a밴드 JE 공식서버&r] 가상창고 기능이 시간이 다 되어 비활성화 되었습니다!"
+
+#가상창고 시간 차감 끝

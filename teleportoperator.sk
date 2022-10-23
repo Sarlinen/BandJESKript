@@ -1,0 +1,14 @@
+on rightclick with paper:
+	if name of player's tool contains "&9&l텔레포트 이용권":
+		set {_lore::*} to lore of player's tool
+		if {_lore::1} contains "운영자 집 입구":
+			if {_lore::2} contains "Sarlinen":
+				remove 1 paper from player's tool
+				set {_loc} to location at 362.5, 64, 89.5 in world "world"
+				set {_loc}'s yaw to 0
+				teleport player to {_loc}
+
+command /테스트텔포권:
+	trigger:
+		if player is op:
+			give 1 paper named "&9&l텔레포트 이용권" with lore "&9&l사용하면 운영자 집 입구로 이동합니다" and "&9&l발행자 : Sarlinen" to players

@@ -1,0 +1,14 @@
+on rightclick on entity:
+	if entity's display name is "&9&l운영자용주민":
+		if player is op:
+			stop
+		
+		else if player is not op:
+			cancel event
+			
+	else if entity's display name is "&9&l농산물 상인" or "&9&l산림자원 상인" or "&9&l광물 상인" or "&9&l연료 상인" or "&9&l음반 상인" or "&9&l이용권 상인" or "&9&l특수물품 상인":
+		stop
+		
+	else if entity is villager: #주민거래 방지
+		if player is not op:
+			cancel event

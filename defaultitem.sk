@@ -1,0 +1,30 @@
+# 기본템 스트립트 시작
+on join:
+	if {AvailableDefaultItem.%player's UUID%} is not set:
+		set {AvailableDefaultItem.%player's UUID%} to true
+		
+command /기본템:
+	trigger:
+		if {AvailableDefaultItem.%player's UUID%} is true:
+			give 1 stone pickaxe of unbreaking 1 named "&r[&3기본템&r] 돌 곡괭이" with hidden enchants flag with lore " " and "&r&a밴드 공식 서버에서 주는 돌 곡괭이" and "&r&a운영자의 성의가 조금 느껴지는거 같다" to player
+			give 1 stone axe of unbreaking 1 named "&r[&3기본템&r] 돌 도끼" with hidden enchants flag with lore " " and "&r&a밴드 공식 서버에서 주는 돌 도끼" and "&r&a운영자의 성의가 조금 느껴지는거 같다" to player
+			give 1 stone sword of unbreaking 1 named "&r[&3기본템&r] 돌 검" with hidden enchants flag with lore " " and "&r&a밴드 공식 서버에서 주는 돌 검" and "&r&a운영자의 성의가 조금 느껴지는거 같다" to player
+			give 1 stone shovel of unbreaking 1 named "&r[&3기본템&r] 돌 삽" with hidden enchants flag with lore " " and "&r&a밴드 공식 서버에서 주는 돌 삽" and "&r&a운영자의 성의가 조금 느껴지는거 같다" to player
+			
+			give 1 leather helmet of unbreaking 1 named "&r[&3기본템&r] 가죽 모자" with hidden enchants flag with lore " " and "&r&a밴드 공식 서버에서 주는 가죽 모자" and "&r&a운영자의 성의가 조금 느껴지는거 같다" to player
+			give 1 leather chestplate of unbreaking 1 named "&r[&3기본템&r] 가죽 조끼" with hidden enchants flag with lore " " and "&r&a밴드 공식 서버에서 주는 가죽 조끼" and "&r&a운영자의 성의가 조금 느껴지는거 같다" to player
+			give 1 leather leggings of unbreaking 1 named "&r[&3기본템&r] 가죽 바지" with hidden enchants flag with lore " " and "&r&a밴드 공식 서버에서 주는 가죽 바지" and "&r&a운영자의 성의가 조금 느껴지는거 같다" to player
+			give 1 leather boots of unbreaking 1 named "&r[&3기본템&r] 가죽 신발" with hidden enchants flag with lore " " and "&r&a밴드 공식 서버에서 주는 가죽 신발" and "&r&a운영자의 성의가 조금 느껴지는거 같다" to player
+			
+			set {AvailableDefaultItem.%player's UUID%} to false
+		
+		else if {AvailableDefaultItem.%player's UUID%} is false:
+			message "[&4Error&r] &l&c이미 기본템을 지급 받았습니다. 기본템은 1회만 지급됩니다." to player
+	
+command /기본템초기화:
+	trigger:
+		if player is op:
+			loop all offline players:
+				set {AvailableDefaultItem.%loop-offline player's UUID%} to true
+
+# 기본템 스트립트 종료

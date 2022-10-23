@@ -1,0 +1,312 @@
+#초기설정
+on first join:
+	set {donation.%player's uuid%.amount} to 0
+	set {donation.%player's uuid%.namount} to 0
+	set {donation.%player's uuid%.point} to 0
+	set {donation.%player's uuid%.npoint} to 0
+	set {play.%player's uuid%.time} to 0
+	set {play.%player's uuid%.point} to 0
+
+on join:
+	if {donation.%player's uuid%.amount} is not set:
+		set {donation.%player's uuid%.amount} to 0
+	if {donation.%player's uuid%.namount} is not set:
+		set {donation.%player's uuid%.namount} to 0
+	if {donation.%player's uuid%.point} is not set:
+		set {donation.%player's uuid%.point} to 0
+	if {donation.%player's uuid%.npoint} is not set:
+		set {donation.%player's uuid%.npoint} to 0
+	if {play.%player's uuid%.time} is not set:
+		set {play.%player's uuid%.time} to 0
+	if {play.%player's uuid%.point} is not set:
+		set {play.%player's uuid%.point} to 0
+
+#기부관련 명령어
+command /donationreset:
+	trigger:
+		if player is op:
+			set {donation.%player's uuid%.amount} to 0
+			set {donation.%player's uuid%.namount} to 0
+			set {donation.%player's uuid%.point} to 0
+			set {donation.%player's uuid%.npoint} to 0
+
+
+command /donation [<string>] [<offlinePlayer>] [<integer>] [<text>]:
+	aliases: /dt
+	trigger:
+		if player is op:
+				
+			if arg 1 is not set:
+				message "/donation info = 총 기부량을 확인합니다."
+				message "/donation check [플레이어의 닉네임] = 특정 유저의 기부금액 및 포인트를 확인합니다."
+				message "/donation reset = 모든 플레이어의 기부금액만을 초기화합니다."
+				message " -------------- [기부금 추가] --------------"
+				message "/donation add [플레이어의 닉네임] [기부금액] = 특정 유저의 기부금액을 추가시킵니다."
+				message "/donation subtract [플레이어의 닉네임] [기부금액] = 특정 유저의 기부금액을 차감합니다."
+				message "/donation set [플레이어의 닉네임] [기부금액] = 특정 유저의 기부금액을 특정한 값으로 설정합니다."
+				message " ---------- [총합 제외 기부금 추가] ----------"
+				message "/donation nadd [플레이어의 닉네임] [기부금액] = 특정 유저의 기부금액을 추가시킵니다."
+				message "/donation nsubtract [플레이어의 닉네임] [기부금액] = 특정 유저의 기부금액을 차감합니다."
+				message " -------------- [포인트 관리] --------------"
+				message "/donation padd [플레이어의 닉네임] [기부금액] [point/npoint] = 특정 유저의 기부포인트를 추가시킵니다."
+				message "/donation psubtract [플레이어의 닉네임] [기부금액] [point/npoint] = 특정 유저의 기부포인트를 차감합니다."
+				message "/donation pset [플레이어의 닉네임] [기부금액] [point/npoint] = 특정 유저의 기부포인트를 특정한 값으로 설정합니다."
+		
+			if arg 1 is "info":
+				set {_donationamount} to 0
+				set {_donationpoint} to 0
+				loop all offline players:
+					if loop-offline player is not op:
+						add {donation.%loop-offline player's uuid%.amount} to {_donationamount}
+						add {donation.%loop-offline player's uuid%.point} to {_donationpoint}
+						add {donation.%loop-offline player's uuid%.namount} to {_donationnamount}
+						add {donation.%loop-offline player's uuid%.npoint} to {_donationnpoint}
+				
+				message "---------------- [ &a밴드 JE 공식서버 &r] ----------------"
+				message "전체 기부 정보"
+				message "전체 기부 금액 : %{_donationamount}% 원 + &9%{_donationnamount}% &r원"
+				message "서버 내 전체 기부포인트 : %{_donationpoint}% 포인트 + &9%{_donationnpoint}% &r포인트"
+				message "※ &9파란색&r으로 표시된 금액은 기부금 총액수에 포함되지 않습니다!"
+				message "※ 또한, &9파란색&r으로 표시된 포인트로는 치장템만 구입이 가능합니다!"
+				message "-----------------------------------------------------"
+				
+			
+			if arg 1 is "check":
+				if arg 2 is not set:
+					message "---------------- [ &a밴드 JE 공식서버 &r] ----------------"
+					message "유저명 : [ %player% ] 유저UUID : [ %player's uuid% ]"
+					message "기부 금액 : %{donation.%player's uuid%.amount}% 원 + &9%{donation.%player's uuid%.namount}% &r원"
+					message "기부 포인트 : %{donation.%player's uuid%.point}% 포인트 + &9%{donation.%player's uuid%.npoint}% 포인트"
+					message "※ &9파란색&r으로 표시된 금액은 기부금 총액수에 포함되지 않습니다!"
+					message "※ 또한, &9파란색&r으로 표시된 포인트로는 치장템만 구입이 가능합니다!"
+					message "-----------------------------------------------------"
+				
+				else:
+					message "---------------- [ &a밴드 JE 공식서버 &r] ----------------"
+					message "유저명 : [ %arg 2% ] 유저UUID : [ %arg 2's uuid% ]"
+					message "기부 금액 : %{donation.%arg 2's uuid%.amount}% 원 + &9%{donation.%arg 2's uuid%.namount}% &r원"
+					message "기부 포인트 : %{donation.%arg 2's uuid%.point}% 포인트 + &9%{donation.%arg 2's uuid%.npoint}% 포인트"
+					message "※ &9파란색&r으로 표시된 금액은 기부금 총액수에 포함되지 않습니다!"
+					message "※ 또한, &9파란색&r으로 표시된 포인트로는 치장템만 구입이 가능합니다!"
+					message "-----------------------------------------------------"
+			
+			if arg 1 is "reset":
+				loop all offline players:
+					set {donation.%loop-offline player's uuid%.amount} to 0
+					set {donation.%loop-offline player's uuid%.namount} to 0
+			
+			#금액추가 (포인트도 적립)
+			if arg 1 is "add":
+				if arg 2 is not set:
+					message "플레이어 이름을 넣어주시기 바랍니다."
+				else:
+					if arg 3 is not set:
+						message "금액을 넣어주시기 바랍니다"
+					else if arg 3 < 1:
+						message "금액이 1원 미만으로 입력되었습니다."
+					else if arg 3 > 10000000:
+						message "금액이 너무 큽니다. 금액을 다시 입력해 주세요" to player
+					else:
+						add arg 3 to {donation.%arg 2's uuid%.amount}
+						add arg 3 to {donation.%arg 2's uuid%.point}
+						message "해당 유저의 기부금에 %arg 3% 원과 %arg 3 % 포인트가 추가되었습니다." to player
+						message "운영자가 당신의 기부금액에 %arg 3%원을 기부했다고 처리했습니다." to arg 2
+						
+			if arg 1 is "subtract":
+				if arg 2 is not set:
+					message "플레이어 이름을 넣어주시기 바랍니다."
+				else:
+					if arg 3 is not set:
+						message "금액을 넣어주시기 바랍니다"
+					else if arg 3 < 1:
+						message "금액이 1원 미만으로 입력되었습니다."
+					else if arg 3 > 10000000:
+						message "금액이 너무 큽니다. 금액을 다시 입력해 주세요" to player
+					else:
+						subtract arg 3 from {donation.%arg 2's uuid%.amount}
+						subtract arg 3 from {donation.%arg 2's uuid%.point}
+						message "해당 유저의 기부금에 %arg 3% 원과 %arg 3 % 포인트가 차감되었습니다." to player
+						message "운영자가 당신이 기부한 %arg 3%원을 기부취소 처리했습니다." to arg 2
+						if {donation.%arg 2's uuid%.amount} < 0:
+							set {donation.%arg 2's uuid%.amount} to 0
+				
+			if arg 1 is "set":
+				if arg 2 is not set:
+					message "플레이어 이름을 넣어주시기 바랍니다."
+				else:
+					if arg 3 is not set:
+						message "금액을 넣어주시기 바랍니다"
+					else if arg 3 < 0:
+						message "금액이 음수로 입력되었습니다."
+					else if arg 3 > 10000000:
+						message "금액이 너무 큽니다. 금액을 다시 입력해 주세요" to player
+					else:
+						set {donation.%arg 2's uuid%.amount} to 0
+						set {donation.%arg 2's uuid%.point} to 0
+						set {donation.%arg 2's uuid%.amount} to arg 3
+						set {donation.%arg 2's uuid%.point} to arg 3
+						message "해당 유저의 기부금에 %arg 3% 원과 %arg 3 % 포인트로 설정되었습니다." to player
+						message "운영자가 당신의 기부금을 %arg 3%원으로 처리했습니다." to arg 2
+						
+			#기부 총액에는 포함되지 않는 기부금액
+			if arg 1 is "nadd":
+				if arg 2 is not set:
+					message "플레이어 이름을 넣어주시기 바랍니다."
+				else:
+					if arg 3 is not set:
+						message "금액을 넣어주시기 바랍니다"
+					else if arg 3 < 1:
+						message "금액이 1원 미만으로 입력되었습니다."
+					else if arg 3 > 10000000:
+						message "금액이 너무 큽니다. 금액을 다시 입력해 주세요" to player
+					else:
+						set {_tmppoint} to round down (arg 3 * 0.75)
+						add arg 3 to {donation.%arg 2's uuid%.namount}
+						add {_tmppoint} to {donation.%arg 2's uuid%.npoint}
+						message "해당 유저의 기부금에 %arg 3% 원과 %{_tmppoint}% 포인트가 추가되었습니다." to player
+						message "운영자가 당신의 기부금액에 %arg 3%원을 기부했다고 처리했습니다." to arg 2
+						message "해당 금액은 서버 총 기부금에 포함이 되지 않으며, 적립된 포인트는 치장템만 구입이 가능합니다." to arg 2
+						
+			if arg 1 is "nsubtract":
+				if arg 2 is not set:
+					message "플레이어 이름을 넣어주시기 바랍니다."
+				else:
+					if arg 3 is not set:
+						message "금액을 넣어주시기 바랍니다"
+					else if arg 3 < 1:
+						message "금액이 1원 미만으로 입력되었습니다."
+					else if arg 3 > 10000000:
+						message "금액이 너무 큽니다. 금액을 다시 입력해 주세요" to player
+					else:
+						set {_tmppoint} to round down (arg 3 * 0.75)
+						subtract arg 3 from {donation.%arg 2's uuid%.namount}
+						subtract {_tmppoint} from {donation.%arg 2's uuid%.npoint}
+						message "해당 유저의 기부금에 %arg 3% 원과 %{_tmppoint}% 포인트가 차감되었습니다." to player
+						message "운영자가 당신이 기부한 %arg 3%원을 기부취소 처리했습니다." to arg 2
+						if {donation.%arg 2's uuid%.namount} < 0:
+							set {donation.%arg 2's uuid%.namount} to 0
+						
+			#포인트만 추가
+			if arg 1 is "padd":
+				if arg 4 is not set:
+					message "포인트 종류를 설정해주세요. point = 혜택구입가능 / npoint = 혜택구입불가능" to player
+				
+				if arg 4 is "point":
+					if arg 2 is not set:
+						message "플레이어 이름을 넣어주시기 바랍니다."
+					else:
+						if arg 3 is not set:
+							message "포인트 값을 넣어주시기 바랍니다"
+						else if arg 3 < 1:
+							message "포인트 값이 1원 미만으로 입력되었습니다."
+						else if arg 3 > 10000000:
+							message "금액이 너무 큽니다. 금액을 다시 입력해 주세요" to player
+						else:
+							add arg 3 to {donation.%arg 2's uuid%.point}
+							message "해당 유저에게 %arg 3% 포인트가 추가되었습니다." to player
+							message "운영자가 당신에게 %arg 3% 기부 포인트를 넣어주었습니다. 현재 포인트 : %{donation.%arg 2's uuid%.point}% 포인트" to arg 2
+				
+				if arg 4 is "npoint":
+					if arg 2 is not set:
+						message "플레이어 이름을 넣어주시기 바랍니다."
+					else:
+						if arg 3 is not set:
+							message "포인트 값을 넣어주시기 바랍니다"
+						else if arg 3 < 1:
+							message "포인트 값이 1원 미만으로 입력되었습니다."
+						else if arg 3 > 10000000:
+							message "금액이 너무 큽니다. 금액을 다시 입력해 주세요" to player
+						else:
+							add arg 3 to {donation.%arg 2's uuid%.npoint}
+							message "해당 유저에게 %arg 3% 포인트가 추가되었습니다." to player
+							message "운영자가 당신에게 %arg 3% 기부 포인트를 넣어주었습니다. 현재 포인트 : %{donation.%arg 2's uuid%.npoint}% 포인트" to arg 2
+
+			
+			if arg 1 is "psubtract":
+				if arg 4 is not set:
+					message "포인트 종류를 설정해주세요. point = 혜택구입가능 / npoint = 혜택구입불가능" to player
+				
+				if arg 4 is "point":
+					if arg 2 is not set:
+						message "플레이어 이름을 넣어주시기 바랍니다."
+					else:
+						if arg 3 is not set:
+							message "포인트 값을 넣어주시기 바랍니다"
+						else if arg 3 < 1:
+							message "포인트 값이 1원 미만으로 입력되었습니다."
+						else if arg 3 > 10000000:
+							message "금액이 너무 큽니다. 금액을 다시 입력해 주세요" to player
+						else:
+							subtract arg 3 from {donation.%arg 2's uuid%.point}
+							message "해당 유저의 기부금에 %arg 3%포인트가 차감되었습니다."
+							message "운영자가 당신의 포인트에서 %arg 3%만큼의 기부 포인트를 차감시켰습니다. 현재 포인트 : %{donation.%arg 2's uuid%.point}% 포인트" to arg 2
+							if {donation.%arg 2's uuid%.npoint} < 0:
+								set {donation.%arg 2's uuid%.point} to 0
+				
+				if arg 4 is "npoint":
+					if arg 2 is not set:
+						message "플레이어 이름을 넣어주시기 바랍니다."
+					else:
+						if arg 3 is not set:
+							message "포인트 값을 넣어주시기 바랍니다"
+						else if arg 3 < 1:
+							message "포인트 값이 1원 미만으로 입력되었습니다."
+						else if arg 3 > 10000000:
+							message "금액이 너무 큽니다. 금액을 다시 입력해 주세요" to player
+						else:
+							subtract arg 3 from {donation.%arg 2's uuid%.npoint}
+							message "해당 유저의 기부금에 %arg 3%포인트가 차감되었습니다."
+							message "운영자가 당신의 포인트에서 %arg 3%만큼의 기부 포인트를 차감시켰습니다. 현재 포인트 : %{donation.%arg 2's uuid%.npoint}% 포인트" to arg 2
+							if {donation.%arg 2's uuid%.npoint} < 0:
+								set {donation.%arg 2's uuid%.npoint} to 0
+				
+			if arg 1 is "pset":
+				if arg 4 is not set:
+					message "포인트 종류를 설정해주세요. point = 혜택구입가능 / npoint = 혜택구입불가능" to player
+				
+				if arg 4 is "point":
+					if arg 2 is not set:
+						message "플레이어 이름을 넣어주시기 바랍니다."
+					else:
+						if arg 3 is not set:
+							message "포인트 값을 넣어주시기 바랍니다"
+						else if arg 3 < 0:
+							message "포인트 값이 음수로 입력되었습니다."
+						else if arg 3 > 10000000:
+							message "금액이 너무 큽니다. 금액을 다시 입력해 주세요" to player
+						else:
+							set {donation.%arg 2's uuid%.point} to 0
+							set {donation.%arg 2's uuid%.point} to arg 3
+							message "해당 유저의 기부 포인트가 %arg 3% 포인트로 설정되었습니다."
+							message "운영자가 당신의 포인트를 %arg 3% 기부 포인트로 설정시켰습니다. 현재 포인트 : %{donation.%arg 2's uuid%.point}% 포인트" to arg 2
+				
+				if arg 4 is "npoint":
+					if arg 2 is not set:
+						message "플레이어 이름을 넣어주시기 바랍니다."
+					else:
+						if arg 3 is not set:
+							message "포인트 값을 넣어주시기 바랍니다"
+						else if arg 3 < 0:
+							message "포인트 값이 음수로 입력되었습니다."
+						else if arg 3 > 10000000:
+							message "금액이 너무 큽니다. 금액을 다시 입력해 주세요" to player
+						else:
+							set {donation.%arg 2's uuid%.npoint} to 0
+							set {donation.%arg 2's uuid%.npoint} to arg 3
+							message "해당 유저의 기부 포인트가 %arg 3% 포인트로 설정되었습니다."
+							message "운영자가 당신의 포인트를 %arg 3% 기부 포인트로 설정시켰습니다. 현재 포인트 : %{donation.%arg 2's uuid%.npoint}% 포인트" to arg 2
+				
+		if player is not op:
+			if arg 1 is not set:
+				message "/donation check = 자신의 기부금액 및 포인트를 확인합니다."
+				
+			if arg 1 is "check":
+				if arg 2 is not set:
+					message "---------------- [ &a밴드 JE 공식서버 &r] ----------------"
+					message "유저명 : [ %player% ] 유저UUID : [ %player's uuid% ]"
+					message "기부 금액 : %{donation.%player's uuid%.amount}% 원 + &9%{donation.%player's uuid%.namount}% &r원"
+					message "기부 포인트 : %{donation.%player's uuid%.point}% 포인트 + &9%{donation.%player's uuid%.npoint}% 포인트"
+					message "※ &9파란색&r으로 표시된 금액은 기부금 총액수에 포함되지 않습니다!"
+					message "※ 또한, &9파란색&r으로 표시된 포인트로는 치장템만 구입이 가능합니다!"
+					message "-----------------------------------------------------"
+			

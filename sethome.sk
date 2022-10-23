@@ -1,0 +1,138 @@
+variables:
+	{sethome.%player%} = false #셋홈 지정 여부
+	{sethome.allplayer.time} = 0 #셋홈 시간
+	{sethome.allplayer.enable} = false #셋홈 활성화 여부
+
+on first join:
+	set {sethome.%player%} to false
+
+on join:
+	if {sethome.%player%} is not set:
+		if {sethome.%player%.location} is not set:
+			set {sethome.%player%} to false
+		else:
+			set {sethome.%player%} to true
+
+command /셋홈 [<string>] [<integer>]:
+	trigger:
+		if arg 1 is not set:
+			if player is op:
+				message "/셋홈 설정 = 현재 위치를 집으로 설정합니다." to player
+				message "/셋홈 집 = 집으로 설정한 위치로 텔레포트 합니다." to player
+				message "/셋홈 활성화 = 셋홈 기능을 활성화합니다" to player
+				message "/셋홈 비활성화 = 셋홈 기능을 비활성화합니다" to player
+				message "/셋홈 시간 = 가상창고의 남은 시간을 확인합니다" to player
+				message "/셋홈 시간추가 [숫자] = 가상창고의 남은 시간을 추가합니다 (초 단위)" to player
+				message "/셋홈 시간설정 [숫자] = 가상창고의 남은 시간을 설정합니다 (초 단위)" to player
+				message "/셋홈 초기화 = 모든 유저의 셋홈 위치를 초기화합니다!" to player
+			if player is not op:
+				message "/셋홈 설정 = 현재 위치를 집으로 설정합니다." to player
+				message "/셋홈 집 = 집으로 설정한 위치로 텔레포트 합니다." to player
+				message "/셋홈 시간 = 가상창고의 남은 시간을 확인합니다" to player
+				
+		if arg 1 is "설정":
+			if {sethome.allplayer.enable} = false:
+				message "[&4Error&r] &l&c설정 할 수 없습니다. 셋홈 기능이 비활성화되어있습니다." to player
+				
+			else:
+				if {sethome.%player%} = true:
+					message "홈 지정 횟수는 1회만 가능합니다. 셋홈 초기화권을 구매해주시기 바랍니다." to player
+				
+				else:
+					set {sethome.%player%.location} to player's location
+					message "홈 지정이 완료되었습니다. ""/셋홈 집"" 명령어로 집으로 텔포가 가능합니다" to player
+					set {sethome.%player%} to true
+					
+		if arg 1 is "집":
+			if {sethome.allplayer.enable} = false:
+				message "[&4Error&r] &l&c이동 할 수 없습니다. 셋홈 기능이 비활성화되어있습니다." to player
+			
+			else:
+				if {sethome.%player%.location} is not set:
+					message "홈 지정이 되어있지 않습니다. ""/셋홈 설정"" 명령어를 이용해 집의 위치를 지정해주세요." to player
+			
+				else:
+					teleport player to {sethome.%player%.location}
+					message "집으로 설정된 곳으로 텔레포트가 되었습니다" to player
+		
+		if arg 1 is "활성화":
+			if player is op:
+				message "[&a밴드 JE 공식서버&r] 셋홈 기능이 활성화되었습니다." to player
+				set {sethome.allplayer.enable} to true
+				
+			if player is not op:
+				message "[&4Error&r] &l&c해당 명령어를 사용하실 수 없습니다" to player
+				
+		if arg 1 is "비활성화":
+			if player is op:
+				message "[&a밴드 JE 공식서버&r] 셋홈 기능이 비활성화되었습니다." to player
+				set {sethome.allplayer.enable} to false
+			
+			if player is not op:
+				message "[&4Error&r] &l&c해당 명령어를 사용하실 수 없습니다" to player
+
+		if arg 1 is "시간":
+			set {_d} to round down ({sethome.allplayer.time}  / 86400)
+			set {_h} to round down (({sethome.allplayer.time} -{_d}*86400) / 3600)
+			set {_m} to round down ((({sethome.allplayer.time} -{_d}*86400)-{_h}*3600) / 60) 
+			set {_s} to (({sethome.allplayer.time} -{_d}*86400)-{_h}*3600)-{_m}*60
+			message "[&a밴드 JE 공식서버&r] 현재 남은 시간은 다음과 같습니다. %{_d}%일 %{_h}%시간 %{_m}%분 %{_s}%초" to player
+
+		if arg 1 is "시간추가":
+			if player is op:
+				if arg 2 <= 0:
+					message "시간은 0 이거나 그 이하일 수 없습니다" to player
+				else:
+					add arg 2 to {sethome.allplayer.time}
+					set {_d} to round down (arg 2 / 86400)
+					set {_h} to round down ((arg 2-{_d}*86400) / 3600)
+					set {_m} to round down (((arg 2-{_d}*86400)-{_h}*3600) / 60) 
+					set {_s} to ((arg 2-{_d}*86400)-{_h}*3600)-{_m}*60
+					message "[&a밴드 JE 공식서버&r] 시간이 추가되었습니다 추가한 시간 : %{_d}%일 %{_h}%시간 %{_m}%분 %{_s}%초" to player
+					
+		if arg 1 is "시간설정":
+			if player is op:
+				if arg 2 <= 0:
+					message "시간은 0 이거나 그 이하일 수 없습니다" to player
+				
+				else:
+					set {sethome.allplayer.time} to arg 2
+					set {_d} to round down (arg 2 / 86400)
+					set {_h} to round down ((arg 2-{_d}*86400) / 3600)
+					set {_m} to round down (((arg 2-{_d}*86400)-{_h}*3600) / 60) 
+					set {_s} to ((arg 2-{_d}*86400)-{_h}*3600)-{_m}*60
+					message "[&a밴드 JE 공식서버&r] 시간이 설정되었습니다 설정한 시간 : %{_d}%일 %{_h}%시간 %{_m}%분 %{_s}%초" to player
+		
+		if arg 1 is "초기화":
+			if player is op:
+				message "모든 유저의 셋홈 위치가 초기화되었습니다" to player
+				loop all offline players:
+					delete {sethome.%loop-offline player%.location}
+					set {sethome.%loop-offline player%} to false
+					
+# 샛홈 시간 차감 시작
+every 1 seconds:
+	if {sethome.allplayer.enable} is true: #셋홈
+		subtract 1 from {sethome.allplayer.time}
+		
+		if {sethome.allplayer.time} = 600: #종료 10분전
+			broadcast "[&a밴드 JE 공식서버&r] 셋홈 기능의 잔여 시간이 10분 남았습니다."
+			
+		else if {sethome.allplayer.time} = 300: #종료 5분전
+			broadcast "[&a밴드 JE 공식서버&r] 셋홈 기능의 잔여 시간이 5분 남았습니다."
+			
+		else if {sethome.allplayer.time} = 60: #종료 1분전
+			broadcast "[&a밴드 JE 공식서버&r] 셋홈 기능의 잔여 시간이 1분 남았습니다."
+			
+		else if {sethome.allplayer.time} = 30: #종료 30초 전
+			broadcast "[&a밴드 JE 공식서버&r] 셋홈 기능이 곧 종료됩니다!"
+			
+		else if {sethome.allplayer.time} <= 0: #1을 빼고 난 후의 값이 0 이거나 그 이하이면
+			set {sethome.allplayer.enable} to false #셋홈 기능을 비활성화 한다
+			set {sethome.allplayer.time} to 0
+			loop all offline players:
+				delete {sethome.%loop-offline player%.location}
+				set {sethome.%loop-offline player%} to false
+			broadcast "[&a밴드 JE 공식서버&r] 셋홈 기능이 시간이 다 되어 비활성화 되었습니다!"
+
+#셋홈 시간 차감 끝
