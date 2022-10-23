@@ -1,0 +1,66 @@
+on spawn of sheep or horse or pig or cow or chicken or donkey or fox or goat or llama or mooshroom or mule or ocelot or panda or parrot or rabbit or strider or turtle or wolf:
+	chance of 10%:
+		stop
+	cancel event
+
+#드롭템 설정
+on death of a zombie or drowned or husk:
+	clear drops of items
+	chance of 40%:
+		drop 1 rotten flesh at victim
+	chance of 30%:
+		drop 1 rotten flesh at victim
+	chance of 20%:
+		drop 2 rotten flesh at victim
+	chance of 10%:
+		drop 2 rotten flesh at victim 
+
+on death of a skeleton or stray:
+	clear drops of items
+	chance of 30%:
+		drop 1 bone at victim
+
+on death of a wither skeleton:
+	clear drops of items
+	chance of 20%:
+		drop 1 coal at victim
+	
+	chance of 1%:
+		chance of 1%:
+			chance of 1%:
+				drop 1 wither skeleton skull
+	
+on death of a creeper:
+	clear drops of items
+	chance of 20%:
+		drop 1 gunpowder at victim
+	
+on death of a shulker:
+	clear drops of items
+	chance of 5%:
+		chance of 10%:
+			drop 1 shulker shell at victim
+	
+on death of a blaze:
+	clear drops of items
+	chance of 30%:
+		drop 1 blaze rod at victim
+		
+on death of a vindicator:
+	clear drops of items
+	chance of 10%:
+		drop 1 emerald at victim
+		
+on death of a Evoker:
+	clear drops of items
+	chance of 10%:
+		drop 1 emerald
+	chance of 2%:
+		drop 1 experience bottle
+	
+on death of a cow:
+	clear drops of items
+	drop 1 beef at victim
+	chance of 10%:
+		drop 1 leather at victim
+
