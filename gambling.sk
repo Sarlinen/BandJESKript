@@ -3,6 +3,8 @@ on rightclick with paper:
 		set {_lore::*} to lore of player's tool
 		if {_lore::1} contains "도박을 진행":
 			if {_lore::2} contains "Sarlinen":
+				if {gambling.%player's uuid%.lastUsed} is not set:
+					set {gambling.%player's uuid%.lastUsed} to now
 				if difference between now and {gambling.%player's uuid%.lastUsed} is less than 1 seconds:
 					stop
 				
@@ -21,16 +23,12 @@ on rightclick with paper:
 							
 						remove 1 paper from player's tool
 						set {_random} to a random integer between 1 and 100
-						set {_random} to a random integer between 39 and 49
-						set {_random2} to a random integer between 1 and 3
-						
-						give %{_random2}% bread to player
 						
 						if {_random} < 10:
 							message "꽝..!" to player
 						
 						else if {_random} = 11:
-							message "꽝..! 소모하신 재화는 다시 돌려드렸습니다!" to player
+							message "에메랄드 40개 당첨!" to player
 							give 40 emerald to player
 						
 						else if {_random} < 15:
@@ -54,17 +52,30 @@ on rightclick with paper:
 							give 1 leather boots to player
 						
 						else if {_random} < 40:
-							set {_random2} to a random integer between 1 and 2
-							message "금조각 %{_random2}%개 당첨!" to player
+							message "금조각 1개 당첨!" to player
 							give 1 gold nugget to player
 						
-						else if {_random} < 45:
-							set {_random2} to a random integer between 1 and 4
+						else if {_random} = 41:
+							message "금조각 2개 당첨!" to player
+							give 2 gold nugget to player
+						
+						else if {_random} = 42:
+							message "금조각 3개 당첨!" to player
+							give 3 gold nugget to player
+							
+						else if {_random} = 43:
+							message "금조각 4개 당첨!" to player
+							give 4 gold nugget to player
+						
+						else if {_random} = 44:
+							message "금조각 5개 당첨!" to player
+							give 5 gold nugget to player
+						
+						else if {_random} = 45:
 							message "금조각 %{_random2}%개 당첨!" to player
 							give 1 gold nugget to player
 						
 						else if {_random} < 50:
-							set {_random2} to a random integer between 1 and 2
 							message "금괴 %{_random2}%개 당첨!" to player
 							give 1 gold ingot to player
 						
