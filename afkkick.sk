@@ -1,12 +1,6 @@
 on join:
 	set {AFKTime.%player's uuid%} to 0
 
-on left click:
-	set {AFKTime.%player's uuid%} to 0
-
-on right click:
-	set {AFKTime.%player's uuid%} to 0
-
 on any movement:
 	set {AFKTime.%player's uuid%} to 0
 	
@@ -14,5 +8,7 @@ on every 1 seconds:
 	loop all players:
 		if loop-player is not op:
 			add 1 to {AFKTime.%loop-player's uuid%}
+			if {AFKTime.%loop-player's uuid%} >= 240
+				message "[경고] 5분 이상 아무런 움직임이 없으면 서버에서 추방됩니다!" to player
 			if {AFKTime.%loop-player's uuid%} >= 300: #5분 이상 가만히 있을경우
 				kick the loop-player due to "&r잠수하여 서버에서 나가졌습니다"
