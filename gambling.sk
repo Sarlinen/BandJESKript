@@ -72,11 +72,11 @@ on rightclick with paper:
 							give 5 gold nugget to player
 						
 						else if {_random} = 45:
-							message "금조각 %{_random2}%개 당첨!" to player
+							message "금조각1개 당첨!" to player
 							give 1 gold nugget to player
 						
 						else if {_random} < 50:
-							message "금괴 %{_random2}%개 당첨!" to player
+							message "금괴 1개 당첨!" to player
 							give 1 gold ingot to player
 						
 						else if {_random} < 55:
