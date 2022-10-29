@@ -11,4 +11,4 @@ on rightclick with paper:
 command /테스트텔포권:
 	trigger:
 		if player is op:
-			give 1 paper named "&9&l텔레포트 이용권" with lore "&9&l사용하면 운영자 집 입구로 이동합니다" and "&9&l발행자 : Sarlinen" to players
+			give 1 paper named "&9&l텔레포트 이용권" with lore "&9&l사용하면 운영자 집 입구로 이동합니다" and "&9&l발행자 : Sarlinen" to player
