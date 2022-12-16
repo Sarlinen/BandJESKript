@@ -13,10 +13,13 @@ command /메뉴:
 
 on inventory click:
 	if name of current inventory of player is "&r&a서버 메뉴":
-		cancel event
-		if clicked slot is 3: #서버기능 사용 
-			make player execute command "/서버기능"
-		if clicked slot is 4: #파티클 구매 및 적용
-			make player execute command "/particle"
-		if clicked slot is 5: #서버 혜택 구매
-			make player execute command "/서버혜택구매"
+		if event-inventory is open inventory:
+			cancel event
+			if clicked slot is 3: #서버기능 사용 
+				make player execute command "/서버기능"
+			if clicked slot is 4: #파티클 구매 및 적용
+				make player execute command "/particle"
+			if clicked slot is 5: #서버 혜택 구매
+				make player execute command "/서버혜택구매"
+		else if event-inventory is inventory of player:
+			cancel event
