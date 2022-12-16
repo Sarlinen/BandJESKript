@@ -18,17 +18,17 @@ variables:
 # 접속/퇴장 안내문 스크립트 시작
 
 on first join:
-	set join message to "[&a밴드 JE 공식서버&r] &e&l%player%&r님이 마인크래프트 BE&PC서버 소통방 밴드의 공식 JE서버에 들어오셨습니다!"
+	set join message to "[&aRemion Server&r] &e&l%player%&r님이 마인크래프트 BE&PC서버 소통방 밴드의 공식 JE서버에 들어오셨습니다!"
 	#message "[&4Attancion!] 서버에 첫 접속을 환영합니다. 기본템을 받으시려면 /기본템 명령어를 쳐주시기 바랍니다" to player
 
 on join:
-	set join message to "[&a밴드 JE 공식서버&r] &e&l%player%&r님이 접속하셨습니다!"
+	set join message to "[&aRemion Server&r] &e&l%player%&r님이 접속하셨습니다!"
 	if {Autofarm.%player%.isenable} is not set:
 		set {Autofarm.%player%.isenable} to false
 		
 on quit:
 	stopEffect "%player%"
-	set quit message to "[&a밴드 JE 공식서버&r] &e&l%player%&r님이 퇴장하셨습니다!"
+	set quit message to "[&aRemion Server&r] &e&l%player%&r님이 퇴장하셨습니다!"
 
 	
 # 접속/퇴장 안내문 스크립트 끝
@@ -53,12 +53,12 @@ every 600 seconds:
 	
 	if {MOTD} is not set:
 		set {MOTD} to 1
-		broadcast "[&a밴드 JE 공식서버&r] 이 서버는 화이트리스트제를 시행하고 있습니다."
+		broadcast "[&aRemion Server&r] 이 서버는 화이트리스트제를 시행하고 있습니다."
 		stop
 	
 	if {MOTD} is 1:
 		set {MOTD} to 2
-		broadcast "[&a밴드 JE 공식서버&r] 서버 전기세의 충당을 위해 기부를 받고 있습니다."
+		broadcast "[&aRemion Server&r] 서버 전기세의 충당을 위해 기부를 받고 있습니다."
 		broadcast "기부방법은 밴드를 참고해주세요!"
 		broadcast "기부 문의는 밴드의 Remi에게 1대1 채팅으로 연락주세요."
 		broadcast "기부를 하시면 기부 포인트를 얻으실 수 있습니다."
@@ -67,13 +67,13 @@ every 600 seconds:
 	
 	if {MOTD} is 2:
 		set {MOTD} to 3
-		broadcast "[&a밴드 JE 공식서버&r] 비매너 행위를 하거나 테러를 시도하는 경우,"
+		broadcast "[&aRemion Server&r] 비매너 행위를 하거나 테러를 시도하는 경우,"
 		broadcast "서버의 블랙리스트에 추가될 수 있습니다."
 		stop
 
 	if {MOTD} is 3:
 		delete {MOTD}
-		broadcast "[&a밴드 JE 공식서버&r] 비매너 행위나 테러를 하시는것을 보셨다면,"
+		broadcast "[&aRemion Server&r] 비매너 행위나 테러를 하시는것을 보셨다면,"
 		broadcast "증거사진을 캡쳐 후 서버 담당자에게 1대1 채팅으로 연락주세요."
 		broadcast "서버 담당자 : 망월, 노월, Remi"
 		stop
@@ -107,7 +107,7 @@ on right click with music disc 13 on air or jukebox:
 			replace all "Music Source - custom." with "" in {_musicname::5}
 			play sound "custom.%{_musicname::5}%" in voice category with volume 1 and pitch 1 for player
 			message "" and "" and "" to player
-			message "[&a밴드 JE 공식서버&r]" to player
+			message "[&aRemion Server&r]" to player
 			message "현재 재생중인 노래 : %{_name2}%" to player
 			message "소리가 너무 크게 나오시는 분은 설정 > 음악 및 소리설정 에서 음성 볼륨을 조절해주세요" to player
 			message "노래가 곂쳐서 재생될 경우, 음성 볼륨을 0%%로 조정해주세요" to player
