@@ -188,398 +188,399 @@ command /particle:
 			
 on inventory click:
 	if name of current inventory of player is "&r&a파티클 상점&a&r":
-		if clicked slot is 2:
-			cancel event
-			if {butterfly.red.%player's uuid%.have} is true:
+		if event-inventory is open inventory:
+			if clicked slot is 2:
 				cancel event
-				stopEffect "%player%"
-				close player's inventory
-				drawWings style 12, particle1 "redstone", RGB 255, 144, 144, particle2 "redstone", RGB2 163, 0, 0, particle3 "redstone", RGB3 255, 0, 0, center player, id "%player%", angle 110, height 0, space 0.2, visibleRange 15, tps 0, second 3
-			
-			else if {butterfly.red.%player's uuid%.have} is false:
-				cancel event
-				if {donation.%player's uuid%.npoint} < 750:
+				if {butterfly.red.%player's uuid%.have} is true:
 					cancel event
-					if {donation.%player's uuid%.point} < 750:
+					stopEffect "%player%"
+					close player's inventory
+					drawWings style 12, particle1 "redstone", RGB 255, 144, 144, particle2 "redstone", RGB2 163, 0, 0, particle3 "redstone", RGB3 255, 0, 0, center player, id "%player%", angle 110, height 0, space 0.2, visibleRange 15, tps 0, second 3
+				
+				else if {butterfly.red.%player's uuid%.have} is false:
+					cancel event
+					if {donation.%player's uuid%.npoint} < 750:
 						cancel event
-						message "[&4Error&r] 기부 포인트가 부족합니다. /donation check 명령어를 사용하여 자신이 현재 가지고 있는 기부 포인트를 확인하실 수 있습니다" to player
-						close player's inventory
+						if {donation.%player's uuid%.point} < 750:
+							cancel event
+							message "[&4Error&r] 기부 포인트가 부족합니다. /donation check 명령어를 사용하여 자신이 현재 가지고 있는 기부 포인트를 확인하실 수 있습니다" to player
+							close player's inventory
+						else:
+							cancel event
+							message "750 기부 포인트로 1일 빨강색 나비날개 이용권을 얻으셨습니다." to player
+							subtract 750 from {donation.%player's uuid%.npoint}
+							set {butterfly.red.%player's uuid%.have} to true
+							add 86400 to {butterfly.red.%player's uuid%.time}
+							close player's inventory
+							
 					else:
 						cancel event
-						message "750 기부 포인트로 1일 빨강색 나비날개 이용권을 얻으셨습니다." to player
+						message "&9750 기부 포인트&r로 1일 빨강색 나비날개 이용권을 얻으셨습니다." to player
 						subtract 750 from {donation.%player's uuid%.npoint}
 						set {butterfly.red.%player's uuid%.have} to true
 						add 86400 to {butterfly.red.%player's uuid%.time}
 						close player's inventory
-						
-				else:
+				
+			if clicked slot is 3:
+				cancel event
+				if {butterfly.green.%player's uuid%.have} is true:
 					cancel event
-					message "&9750 기부 포인트&r로 1일 빨강색 나비날개 이용권을 얻으셨습니다." to player
-					subtract 750 from {donation.%player's uuid%.npoint}
-					set {butterfly.red.%player's uuid%.have} to true
-					add 86400 to {butterfly.red.%player's uuid%.time}
+					stopEffect "%player%"
 					close player's inventory
-			
-		if clicked slot is 3:
-			cancel event
-			if {butterfly.green.%player's uuid%.have} is true:
-				cancel event
-				stopEffect "%player%"
-				close player's inventory
-				drawWings style 12, particle1 "redstone", RGB 144, 255, 144, particle2 "redstone", RGB2 0, 163, 0, particle3 "redstone", RGB3 0, 255, 0, center player, id "%player%", angle 110, height 0, space 0.2, visibleRange 15, tps 0, second 3
-			
-			else if {butterfly.green.%player's uuid%.have} is false:
-				cancel event
-				if {donation.%player's uuid%.npoint} < 750:
+					drawWings style 12, particle1 "redstone", RGB 144, 255, 144, particle2 "redstone", RGB2 0, 163, 0, particle3 "redstone", RGB3 0, 255, 0, center player, id "%player%", angle 110, height 0, space 0.2, visibleRange 15, tps 0, second 3
+				
+				else if {butterfly.green.%player's uuid%.have} is false:
 					cancel event
-					if {donation.%player's uuid%.point} < 750:
+					if {donation.%player's uuid%.npoint} < 750:
 						cancel event
-						message "[&4Error&r] 기부 포인트가 부족합니다. /donation check 명령어를 사용하여 자신이 현재 가지고 있는 기부 포인트를 확인하실 수 있습니다" to player
-						close player's inventory
-					else: 
+						if {donation.%player's uuid%.point} < 750:
+							cancel event
+							message "[&4Error&r] 기부 포인트가 부족합니다. /donation check 명령어를 사용하여 자신이 현재 가지고 있는 기부 포인트를 확인하실 수 있습니다" to player
+							close player's inventory
+						else: 
+							cancel event
+							message "750 기부 포인트로 1일 초록색 나비날개 이용권을 얻으셨습니다." to player
+							subtract 750 from {donation.%player's uuid%.npoint}
+							set {butterfly.green.%player's uuid%.have} to true
+							add 86400 to {butterfly.green.%player's uuid%.time}
+							close player's inventory
+							
+					else:
 						cancel event
-						message "750 기부 포인트로 1일 초록색 나비날개 이용권을 얻으셨습니다." to player
+						message "&9750 기부 포인트&r로 1일 초록색 나비날개 이용권을 얻으셨습니다." to player
 						subtract 750 from {donation.%player's uuid%.npoint}
 						set {butterfly.green.%player's uuid%.have} to true
 						add 86400 to {butterfly.green.%player's uuid%.time}
 						close player's inventory
 						
-				else:
+			if clicked slot is 4:
+				cancel event
+				if {butterfly.blue.%player's uuid%.have} is true:
 					cancel event
-					message "&9750 기부 포인트&r로 1일 초록색 나비날개 이용권을 얻으셨습니다." to player
-					subtract 750 from {donation.%player's uuid%.npoint}
-					set {butterfly.green.%player's uuid%.have} to true
-					add 86400 to {butterfly.green.%player's uuid%.time}
+					stopEffect "%player%"
 					close player's inventory
-					
-		if clicked slot is 4:
-			cancel event
-			if {butterfly.blue.%player's uuid%.have} is true:
-				cancel event
-				stopEffect "%player%"
-				close player's inventory
-				drawWings style 12, particle1 "redstone", RGB 144, 144, 255, particle2 "redstone", RGB2 0, 0, 163, particle3 "redstone", RGB3 0, 0, 255, center player, id "%player%", angle 110, height 0, space 0.2, visibleRange 15, tps 0, second 3
-			
-			else if {butterfly.blue.%player's uuid%.have} is false:
-				cancel event
-				if {donation.%player's uuid%.npoint} < 750:
+					drawWings style 12, particle1 "redstone", RGB 144, 144, 255, particle2 "redstone", RGB2 0, 0, 163, particle3 "redstone", RGB3 0, 0, 255, center player, id "%player%", angle 110, height 0, space 0.2, visibleRange 15, tps 0, second 3
+				
+				else if {butterfly.blue.%player's uuid%.have} is false:
 					cancel event
-					if {donation.%player's uuid%.point} < 750:
+					if {donation.%player's uuid%.npoint} < 750:
 						cancel event
-						message "[&4Error&r] 기부 포인트가 부족합니다. /donation check 명령어를 사용하여 자신이 현재 가지고 있는 기부 포인트를 확인하실 수 있습니다" to player
-						close player's inventory
+						if {donation.%player's uuid%.point} < 750:
+							cancel event
+							message "[&4Error&r] 기부 포인트가 부족합니다. /donation check 명령어를 사용하여 자신이 현재 가지고 있는 기부 포인트를 확인하실 수 있습니다" to player
+							close player's inventory
+						else:
+							cancel event
+							message "750 기부 포인트로 1일 파란색 나비날개 이용권을 얻으셨습니다." to player
+							subtract 750 from {donation.%player's uuid%.point}
+							set {butterfly.blue.%player's uuid%.have} to true
+							add 86400 to {butterfly.blue.%player's uuid%.time}
+							close player's inventory
+							
 					else:
 						cancel event
-						message "750 기부 포인트로 1일 파란색 나비날개 이용권을 얻으셨습니다." to player
-						subtract 750 from {donation.%player's uuid%.point}
+						message "&9750 기부 포인트&r로 1일 파란색 나비날개 이용권을 얻으셨습니다." to player
+						subtract 750 from {donation.%player's uuid%.npoint}
 						set {butterfly.blue.%player's uuid%.have} to true
 						add 86400 to {butterfly.blue.%player's uuid%.time}
 						close player's inventory
 						
-				else:
+			if clicked slot is 5:
+				cancel event
+				if {butterfly.purple.%player's uuid%.have} is true:
 					cancel event
-					message "&9750 기부 포인트&r로 1일 파란색 나비날개 이용권을 얻으셨습니다." to player
-					subtract 750 from {donation.%player's uuid%.npoint}
-					set {butterfly.blue.%player's uuid%.have} to true
-					add 86400 to {butterfly.blue.%player's uuid%.time}
+					stopEffect "%player%"
 					close player's inventory
-					
-		if clicked slot is 5:
-			cancel event
-			if {butterfly.purple.%player's uuid%.have} is true:
-				cancel event
-				stopEffect "%player%"
-				close player's inventory
-				drawWings style 12, particle1 "redstone", RGB 204, 144, 255, particle2 "redstone", RGB2 89, 0, 163, particle3 "redstone", RGB3 139, 0, 255, center player, id "%player%", angle 110, height 0, space 0.2, visibleRange 15, tps 0, second 3
-			
-			else if {butterfly.purple.%player's uuid%.have} is false:
-				cancel event
-				if {donation.%player's uuid%.npoint} < 750:
+					drawWings style 12, particle1 "redstone", RGB 204, 144, 255, particle2 "redstone", RGB2 89, 0, 163, particle3 "redstone", RGB3 139, 0, 255, center player, id "%player%", angle 110, height 0, space 0.2, visibleRange 15, tps 0, second 3
+				
+				else if {butterfly.purple.%player's uuid%.have} is false:
 					cancel event
-					if {donation.%player's uuid%.point} < 750:
+					if {donation.%player's uuid%.npoint} < 750:
 						cancel event
-						message "[&4Error&r] 기부 포인트가 부족합니다. /donation check 명령어를 사용하여 자신이 현재 가지고 있는 기부 포인트를 확인하실 수 있습니다" to player
-						close player's inventory
-					else:
+						if {donation.%player's uuid%.point} < 750:
+							cancel event
+							message "[&4Error&r] 기부 포인트가 부족합니다. /donation check 명령어를 사용하여 자신이 현재 가지고 있는 기부 포인트를 확인하실 수 있습니다" to player
+							close player's inventory
+						else:
+							cancel event
+							message "&9750 기부 포인트&r로 1일 보라색 나비날개 이용권을 얻으셨습니다." to player
+							subtract 750 from {donation.%player's uuid%.point}
+							set {butterfly.purple.%player's uuid%.have} to true
+							add 86400 to {butterfly.purple.%player's uuid%.time}
+							close player's inventory
+			
+					else if {donation.%player's uuid%.npoint} >= 750:
 						cancel event
-						message "&9750 기부 포인트&r로 1일 보라색 나비날개 이용권을 얻으셨습니다." to player
-						subtract 750 from {donation.%player's uuid%.point}
+						message "750 기부 포인트로 1일 보라색 나비날개 이용권을 얻으셨습니다." to player
+						subtract 750 from {donation.%player's uuid%.npoint}
 						set {butterfly.purple.%player's uuid%.have} to true
 						add 86400 to {butterfly.purple.%player's uuid%.time}
 						close player's inventory
-		
-				else if {donation.%player's uuid%.npoint} >= 750:
-					cancel event
-					message "750 기부 포인트로 1일 보라색 나비날개 이용권을 얻으셨습니다." to player
-					subtract 750 from {donation.%player's uuid%.npoint}
-					set {butterfly.purple.%player's uuid%.have} to true
-					add 86400 to {butterfly.purple.%player's uuid%.time}
-					close player's inventory
-		
-		if clicked slot is 6:
-			cancel event
-			if {butterfly.black.%player's uuid%.have} is true:
-				cancel event
-				stopEffect "%player%"
-				close player's inventory
-				drawWings style 12, particle1 "redstone", RGB 54, 54, 54, particle2 "redstone", RGB2 0, 0, 0, particle3 "redstone", RGB3 27, 27, 27, center player, id "%player%", angle 110, height 0, space 0.2, visibleRange 15, tps 0, second 3
 			
-			else if {butterfly.black.%player's uuid%.have} is false:
+			if clicked slot is 6:
 				cancel event
-				if {donation.%player's uuid%.npoint} < 750:
+				if {butterfly.black.%player's uuid%.have} is true:
 					cancel event
-					if {donation.%player's uuid%.point} < 750:
+					stopEffect "%player%"
+					close player's inventory
+					drawWings style 12, particle1 "redstone", RGB 54, 54, 54, particle2 "redstone", RGB2 0, 0, 0, particle3 "redstone", RGB3 27, 27, 27, center player, id "%player%", angle 110, height 0, space 0.2, visibleRange 15, tps 0, second 3
+				
+				else if {butterfly.black.%player's uuid%.have} is false:
+					cancel event
+					if {donation.%player's uuid%.npoint} < 750:
 						cancel event
-						message "[&4Error&r] 기부 포인트가 부족합니다. /donation check 명령어를 사용하여 자신이 현재 가지고 있는 기부 포인트를 확인하실 수 있습니다" to player
-						close player's inventory
-					else:
+						if {donation.%player's uuid%.point} < 750:
+							cancel event
+							message "[&4Error&r] 기부 포인트가 부족합니다. /donation check 명령어를 사용하여 자신이 현재 가지고 있는 기부 포인트를 확인하실 수 있습니다" to player
+							close player's inventory
+						else:
+							cancel event
+							message "&9750 기부 포인트&r로 1일 검정색 나비날개 이용권을 얻으셨습니다." to player
+							subtract 750 from {donation.%player's uuid%.point}
+							set {butterfly.black.%player's uuid%.have} to true
+							add 86400 to {butterfly.black.%player's uuid%.time}
+							close player's inventory
+							
+					else if {donation.%player's uuid%.npoint} >= 750:
 						cancel event
-						message "&9750 기부 포인트&r로 1일 검정색 나비날개 이용권을 얻으셨습니다." to player
-						subtract 750 from {donation.%player's uuid%.point}
+						message "750 기부 포인트로 1일 검정색 나비날개 이용권을 얻으셨습니다." to player
+						subtract 750 from {donation.%player's uuid%.npoint}
 						set {butterfly.black.%player's uuid%.have} to true
 						add 86400 to {butterfly.black.%player's uuid%.time}
 						close player's inventory
 						
-				else if {donation.%player's uuid%.npoint} >= 750:
+			if clicked slot is 10:
+				cancel event
+				if {auror.red.%player's uuid%.have} is true:
 					cancel event
-					message "750 기부 포인트로 1일 검정색 나비날개 이용권을 얻으셨습니다." to player
-					subtract 750 from {donation.%player's uuid%.npoint}
-					set {butterfly.black.%player's uuid%.have} to true
-					add 86400 to {butterfly.black.%player's uuid%.time}
+					stopEffect "%player%"
 					close player's inventory
-					
-		if clicked slot is 10:
-			cancel event
-			if {auror.red.%player's uuid%.have} is true:
-				cancel event
-				stopEffect "%player%"
-				close player's inventory
-				drawWarpRings style 3, particle "redstone", RGB 255, 0, 0, center player, id "%player%", rainbowMode false, scan false, height 0, radius 0.7, ringCount 20, ringDensity 10, visibleRange 15, pulseDelay 2
-			
-			else if {auror.red.%player's uuid%.have} is false:
-				cancel event
-				if {donation.%player's uuid%.npoint} < 500:
+					drawWarpRings style 3, particle "redstone", RGB 255, 0, 0, center player, id "%player%", rainbowMode false, scan false, height 0, radius 0.7, ringCount 20, ringDensity 10, visibleRange 15, pulseDelay 2
+				
+				else if {auror.red.%player's uuid%.have} is false:
 					cancel event
-					if {donation.%player's uuid%.point} < 500:
+					if {donation.%player's uuid%.npoint} < 500:
 						cancel event
-						message "[&4Error&r] 기부 포인트가 부족합니다. /donation check 명령어를 사용하여 자신이 현재 가지고 있는 기부 포인트를 확인하실 수 있습니다" to player
-						close player's inventory
-					else:
+						if {donation.%player's uuid%.point} < 500:
+							cancel event
+							message "[&4Error&r] 기부 포인트가 부족합니다. /donation check 명령어를 사용하여 자신이 현재 가지고 있는 기부 포인트를 확인하실 수 있습니다" to player
+							close player's inventory
+						else:
+							cancel event
+							message "&9500 기부 포인트&r로 1일 빨간색 오러 이용권을 얻으셨습니다." to player
+							subtract 500 from {donation.%player's uuid%.point}
+							set {auror.red.%player's uuid%.have} to true
+							add 86400 to {auror.red.%player's uuid%.time}
+							close player's inventory
+							
+					else if {donation.%player's uuid%.npoint} >= 500:
 						cancel event
-						message "&9500 기부 포인트&r로 1일 빨간색 오러 이용권을 얻으셨습니다." to player
-						subtract 500 from {donation.%player's uuid%.point}
+						message "500 기부 포인트로 1일 빨간색 오러 이용권을 얻으셨습니다." to player
+						subtract 500 from {donation.%player's uuid%.npoint}
 						set {auror.red.%player's uuid%.have} to true
 						add 86400 to {auror.red.%player's uuid%.time}
 						close player's inventory
-						
-				else if {donation.%player's uuid%.npoint} >= 500:
-					cancel event
-					message "500 기부 포인트로 1일 빨간색 오러 이용권을 얻으셨습니다." to player
-					subtract 500 from {donation.%player's uuid%.npoint}
-					set {auror.red.%player's uuid%.have} to true
-					add 86400 to {auror.red.%player's uuid%.time}
-					close player's inventory
 
-		if clicked slot is 11:
-			cancel event
-			if {auror.orange.%player's uuid%.have} is true:
+			if clicked slot is 11:
 				cancel event
-				stopEffect "%player%"
-				close player's inventory
-				drawWarpRings style 3, particle "redstone", RGB 255, 127, 0, center player, id "%player%", rainbowMode false, scan false, height 0, radius 0.7, ringCount 20, ringDensity 10, visibleRange 15, pulseDelay 2
-			
-			else if {auror.orange.%player's uuid%.have} is false:
-				cancel event
-				if {donation.%player's uuid%.npoint} < 500:
+				if {auror.orange.%player's uuid%.have} is true:
 					cancel event
-					if {donation.%player's uuid%.point} < 500:
+					stopEffect "%player%"
+					close player's inventory
+					drawWarpRings style 3, particle "redstone", RGB 255, 127, 0, center player, id "%player%", rainbowMode false, scan false, height 0, radius 0.7, ringCount 20, ringDensity 10, visibleRange 15, pulseDelay 2
+				
+				else if {auror.orange.%player's uuid%.have} is false:
+					cancel event
+					if {donation.%player's uuid%.npoint} < 500:
 						cancel event
-						message "[&4Error&r] 기부 포인트가 부족합니다. /donation check 명령어를 사용하여 자신이 현재 가지고 있는 기부 포인트를 확인하실 수 있습니다" to player
-						close player's inventory
-					else:
+						if {donation.%player's uuid%.point} < 500:
+							cancel event
+							message "[&4Error&r] 기부 포인트가 부족합니다. /donation check 명령어를 사용하여 자신이 현재 가지고 있는 기부 포인트를 확인하실 수 있습니다" to player
+							close player's inventory
+						else:
+							cancel event
+							message "&9500 기부 포인트&r로 1일 주황색 오러 이용권을 얻으셨습니다." to player
+							subtract 500 from {donation.%player's uuid%.point}
+							set {auror.orange.%player's uuid%.have} to true
+							add 86400 to {auror.orange.%player's uuid%.time}
+							close player's inventory
+							
+					else if {donation.%player's uuid%.npoint} >= 500:
 						cancel event
-						message "&9500 기부 포인트&r로 1일 주황색 오러 이용권을 얻으셨습니다." to player
-						subtract 500 from {donation.%player's uuid%.point}
+						message "500 기부 포인트로 1일 주황색 오러 이용권을 얻으셨습니다." to player
+						subtract 500 from {donation.%player's uuid%.npoint}
 						set {auror.orange.%player's uuid%.have} to true
 						add 86400 to {auror.orange.%player's uuid%.time}
 						close player's inventory
 						
-				else if {donation.%player's uuid%.npoint} >= 500:
+			if clicked slot is 12:
+				cancel event
+				if {auror.yellow.%player's uuid%.have} is true:
 					cancel event
-					message "500 기부 포인트로 1일 주황색 오러 이용권을 얻으셨습니다." to player
-					subtract 500 from {donation.%player's uuid%.npoint}
-					set {auror.orange.%player's uuid%.have} to true
-					add 86400 to {auror.orange.%player's uuid%.time}
+					stopEffect "%player%"
 					close player's inventory
-					
-		if clicked slot is 12:
-			cancel event
-			if {auror.yellow.%player's uuid%.have} is true:
-				cancel event
-				stopEffect "%player%"
-				close player's inventory
-				drawWarpRings style 3, particle "redstone", RGB 255, 212, 0, center player, id "%player%", rainbowMode false, scan false, height 0, radius 0.7, ringCount 20, ringDensity 10, visibleRange 15, pulseDelay 2
-			
-			else if {auror.yellow.%player's uuid%.have} is false:
-				cancel event
-				if {donation.%player's uuid%.npoint} < 500:
+					drawWarpRings style 3, particle "redstone", RGB 255, 212, 0, center player, id "%player%", rainbowMode false, scan false, height 0, radius 0.7, ringCount 20, ringDensity 10, visibleRange 15, pulseDelay 2
+				
+				else if {auror.yellow.%player's uuid%.have} is false:
 					cancel event
-					if {donation.%player's uuid%.point} < 500:
+					if {donation.%player's uuid%.npoint} < 500:
 						cancel event
-						message "[&4Error&r] 기부 포인트가 부족합니다. /donation check 명령어를 사용하여 자신이 현재 가지고 있는 기부 포인트를 확인하실 수 있습니다" to player
-						close player's inventory
-					else:
+						if {donation.%player's uuid%.point} < 500:
+							cancel event
+							message "[&4Error&r] 기부 포인트가 부족합니다. /donation check 명령어를 사용하여 자신이 현재 가지고 있는 기부 포인트를 확인하실 수 있습니다" to player
+							close player's inventory
+						else:
+							cancel event
+							message "&9500 기부 포인트&r로 1일 노란색 오러 이용권을 얻으셨습니다." to player
+							subtract 500 from {donation.%player's uuid%.point}
+							set {auror.yellow.%player's uuid%.have} to true
+							add 86400 to {auror.yellow.%player's uuid%.time}
+							close player's inventory
+							
+					else if {donation.%player's uuid%.npoint} >= 500:
 						cancel event
-						message "&9500 기부 포인트&r로 1일 노란색 오러 이용권을 얻으셨습니다." to player
-						subtract 500 from {donation.%player's uuid%.point}
+						message "500 기부 포인트로 1일 노란색 오러 이용권을 얻으셨습니다." to player
+						subtract 500 from {donation.%player's uuid%.npoint}
 						set {auror.yellow.%player's uuid%.have} to true
 						add 86400 to {auror.yellow.%player's uuid%.time}
 						close player's inventory
-						
-				else if {donation.%player's uuid%.npoint} >= 500:
-					cancel event
-					message "500 기부 포인트로 1일 노란색 오러 이용권을 얻으셨습니다." to player
-					subtract 500 from {donation.%player's uuid%.npoint}
-					set {auror.yellow.%player's uuid%.have} to true
-					add 86400 to {auror.yellow.%player's uuid%.time}
-					close player's inventory
-		
-		if clicked slot is 13:
-			cancel event
-			if {auror.green.%player's uuid%.have} is true:
-				cancel event
-				stopEffect "%player%"
-				close player's inventory
-				drawWarpRings style 3, particle "redstone", RGB 0, 255, 0, center player, id "%player%", rainbowMode false, scan false, height 0, radius 0.7, ringCount 20, ringDensity 10, visibleRange 15, pulseDelay 2
 			
-			else if {auror.green.%player's uuid%.have} is false:
+			if clicked slot is 13:
 				cancel event
-				if {donation.%player's uuid%.npoint} < 500:
+				if {auror.green.%player's uuid%.have} is true:
 					cancel event
-					if {donation.%player's uuid%.point} < 500:
+					stopEffect "%player%"
+					close player's inventory
+					drawWarpRings style 3, particle "redstone", RGB 0, 255, 0, center player, id "%player%", rainbowMode false, scan false, height 0, radius 0.7, ringCount 20, ringDensity 10, visibleRange 15, pulseDelay 2
+				
+				else if {auror.green.%player's uuid%.have} is false:
+					cancel event
+					if {donation.%player's uuid%.npoint} < 500:
 						cancel event
-						message "[&4Error&r] 기부 포인트가 부족합니다. /donation check 명령어를 사용하여 자신이 현재 가지고 있는 기부 포인트를 확인하실 수 있습니다" to player
-						close player's inventory
-					else:
+						if {donation.%player's uuid%.point} < 500:
+							cancel event
+							message "[&4Error&r] 기부 포인트가 부족합니다. /donation check 명령어를 사용하여 자신이 현재 가지고 있는 기부 포인트를 확인하실 수 있습니다" to player
+							close player's inventory
+						else:
+							cancel event
+							message "&9500 기부 포인트&r로 1일 초록색 오러 이용권을 얻으셨습니다." to player
+							subtract 500 from {donation.%player's uuid%.point}
+							set {auror.green.%player's uuid%.have} to true
+							add 86400 to {auror.green.%player's uuid%.time}
+							close player's inventory
+							
+					else if {donation.%player's uuid%.npoint} >= 500:
 						cancel event
-						message "&9500 기부 포인트&r로 1일 초록색 오러 이용권을 얻으셨습니다." to player
-						subtract 500 from {donation.%player's uuid%.point}
+						message "500 기부 포인트로 1일 초록색 오러 이용권을 얻으셨습니다." to player
+						subtract 500 from {donation.%player's uuid%.npoint}
 						set {auror.green.%player's uuid%.have} to true
 						add 86400 to {auror.green.%player's uuid%.time}
 						close player's inventory
 						
-				else if {donation.%player's uuid%.npoint} >= 500:
+			if clicked slot is 14:
+				cancel event
+				if {auror.blue.%player's uuid%.have} is true:
 					cancel event
-					message "500 기부 포인트로 1일 초록색 오러 이용권을 얻으셨습니다." to player
-					subtract 500 from {donation.%player's uuid%.npoint}
-					set {auror.green.%player's uuid%.have} to true
-					add 86400 to {auror.green.%player's uuid%.time}
+					stopEffect "%player%"
 					close player's inventory
-					
-		if clicked slot is 14:
-			cancel event
-			if {auror.blue.%player's uuid%.have} is true:
-				cancel event
-				stopEffect "%player%"
-				close player's inventory
-				drawWarpRings style 3, particle "redstone", RGB 0, 0, 255, center player, id "%player%", rainbowMode false, scan false, height 0, radius 0.7, ringCount 20, ringDensity 10, visibleRange 15, pulseDelay 2
-			
-			else if {auror.blue.%player's uuid%.have} is false:
-				cancel event
-				if {donation.%player's uuid%.npoint} < 500:
+					drawWarpRings style 3, particle "redstone", RGB 0, 0, 255, center player, id "%player%", rainbowMode false, scan false, height 0, radius 0.7, ringCount 20, ringDensity 10, visibleRange 15, pulseDelay 2
+				
+				else if {auror.blue.%player's uuid%.have} is false:
 					cancel event
-					if {donation.%player's uuid%.point} < 500:
+					if {donation.%player's uuid%.npoint} < 500:
 						cancel event
-						message "[&4Error&r] 기부 포인트가 부족합니다. /donation check 명령어를 사용하여 자신이 현재 가지고 있는 기부 포인트를 확인하실 수 있습니다" to player
-						close player's inventory
-					else:
+						if {donation.%player's uuid%.point} < 500:
+							cancel event
+							message "[&4Error&r] 기부 포인트가 부족합니다. /donation check 명령어를 사용하여 자신이 현재 가지고 있는 기부 포인트를 확인하실 수 있습니다" to player
+							close player's inventory
+						else:
+							cancel event
+							message "&9500 기부 포인트&r로 1일 파란색 오러 이용권을 얻으셨습니다." to player
+							subtract 500 from {donation.%player's uuid%.point}
+							set {auror.blue.%player's uuid%.have} to true
+							add 86400 to {auror.blue.%player's uuid%.time}
+							close player's inventory
+							
+					else if {donation.%player's uuid%.npoint} >= 500:
 						cancel event
-						message "&9500 기부 포인트&r로 1일 파란색 오러 이용권을 얻으셨습니다." to player
-						subtract 500 from {donation.%player's uuid%.point}
+						message "500 기부 포인트로 1일 파란색 오러 이용권을 얻으셨습니다." to player
+						subtract 500 from {donation.%player's uuid%.npoint}
 						set {auror.blue.%player's uuid%.have} to true
 						add 86400 to {auror.blue.%player's uuid%.time}
 						close player's inventory
 						
-				else if {donation.%player's uuid%.npoint} >= 500:
+			if clicked slot is 15:
+				cancel event
+				if {auror.purple.%player's uuid%.have} is true:
 					cancel event
-					message "500 기부 포인트로 1일 파란색 오러 이용권을 얻으셨습니다." to player
-					subtract 500 from {donation.%player's uuid%.npoint}
-					set {auror.blue.%player's uuid%.have} to true
-					add 86400 to {auror.blue.%player's uuid%.time}
+					stopEffect "%player%"
 					close player's inventory
-					
-		if clicked slot is 15:
-			cancel event
-			if {auror.purple.%player's uuid%.have} is true:
-				cancel event
-				stopEffect "%player%"
-				close player's inventory
-				drawWarpRings style 3, particle "redstone", RGB 139, 0, 255, center player, id "%player%", rainbowMode false, scan false, height 0, radius 0.7, ringCount 20, ringDensity 10, visibleRange 15, pulseDelay 2
-			
-			else if {auror.purple.%player's uuid%.have} is false:
-				cancel event
-				if {donation.%player's uuid%.npoint} < 500:
+					drawWarpRings style 3, particle "redstone", RGB 139, 0, 255, center player, id "%player%", rainbowMode false, scan false, height 0, radius 0.7, ringCount 20, ringDensity 10, visibleRange 15, pulseDelay 2
+				
+				else if {auror.purple.%player's uuid%.have} is false:
 					cancel event
-					if {donation.%player's uuid%.point} < 500:
+					if {donation.%player's uuid%.npoint} < 500:
 						cancel event
-						message "[&4Error&r] 기부 포인트가 부족합니다. /donation check 명령어를 사용하여 자신이 현재 가지고 있는 기부 포인트를 확인하실 수 있습니다" to player
-						close player's inventory
-					else:
+						if {donation.%player's uuid%.point} < 500:
+							cancel event
+							message "[&4Error&r] 기부 포인트가 부족합니다. /donation check 명령어를 사용하여 자신이 현재 가지고 있는 기부 포인트를 확인하실 수 있습니다" to player
+							close player's inventory
+						else:
+							cancel event
+							message "&9500 기부 포인트&r로 1일 보라색 오러 이용권을 얻으셨습니다." to player
+							subtract 500 from {donation.%player's uuid%.point}
+							set {auror.purple.%player's uuid%.have} to true
+							add 86400 to {auror.purple.%player's uuid%.time}
+							close player's inventory
+							
+					else if {donation.%player's uuid%.npoint} >= 500:
 						cancel event
-						message "&9500 기부 포인트&r로 1일 보라색 오러 이용권을 얻으셨습니다." to player
-						subtract 500 from {donation.%player's uuid%.point}
+						message "500 기부 포인트로 1일 보라색 오러 이용권을 얻으셨습니다." to player
+						subtract 500 from {donation.%player's uuid%.npoint}
 						set {auror.purple.%player's uuid%.have} to true
 						add 86400 to {auror.purple.%player's uuid%.time}
 						close player's inventory
 						
-				else if {donation.%player's uuid%.npoint} >= 500:
+			if clicked slot is 16:
+				cancel event
+				if {auror.white.%player's uuid%.have} is true:
 					cancel event
-					message "500 기부 포인트로 1일 보라색 오러 이용권을 얻으셨습니다." to player
-					subtract 500 from {donation.%player's uuid%.npoint}
-					set {auror.purple.%player's uuid%.have} to true
-					add 86400 to {auror.purple.%player's uuid%.time}
+					stopEffect "%player%"
 					close player's inventory
-					
-		if clicked slot is 16:
-			cancel event
-			if {auror.white.%player's uuid%.have} is true:
-				cancel event
-				stopEffect "%player%"
-				close player's inventory
-				drawWarpRings style 3, particle "redstone", RGB 255, 255, 255, center player, id "%player%", rainbowMode false, scan false, height 0, radius 0.7, ringCount 20, ringDensity 10, visibleRange 15, pulseDelay 2
-			
-			else if {auror.white.%player's uuid%.have} is false:
-				cancel event
-				if {donation.%player's uuid%.npoint} < 500:
+					drawWarpRings style 3, particle "redstone", RGB 255, 255, 255, center player, id "%player%", rainbowMode false, scan false, height 0, radius 0.7, ringCount 20, ringDensity 10, visibleRange 15, pulseDelay 2
+				
+				else if {auror.white.%player's uuid%.have} is false:
 					cancel event
-					if {donation.%player's uuid%.point} < 500:
+					if {donation.%player's uuid%.npoint} < 500:
 						cancel event
-						message "[&4Error&r] 기부 포인트가 부족합니다. /donation check 명령어를 사용하여 자신이 현재 가지고 있는 기부 포인트를 확인하실 수 있습니다" to player
-						close player's inventory
-					else:
+						if {donation.%player's uuid%.point} < 500:
+							cancel event
+							message "[&4Error&r] 기부 포인트가 부족합니다. /donation check 명령어를 사용하여 자신이 현재 가지고 있는 기부 포인트를 확인하실 수 있습니다" to player
+							close player's inventory
+						else:
+							cancel event
+							message "&9500 기부 포인트&r로 1일 흰색 오러 이용권을 얻으셨습니다." to player
+							subtract 500 from {donation.%player's uuid%.point}
+							set {auror.white.%player's uuid%.have} to true
+							add 86400 to {auror.white.%player's uuid%.time}
+							close player's inventory
+							
+					else if {donation.%player's uuid%.npoint} >= 500:
 						cancel event
-						message "&9500 기부 포인트&r로 1일 흰색 오러 이용권을 얻으셨습니다." to player
-						subtract 500 from {donation.%player's uuid%.point}
+						message "500 기부 포인트로 1일 흰색 오러 이용권을 얻으셨습니다." to player
+						subtract 500 from {donation.%player's uuid%.npoint}
 						set {auror.white.%player's uuid%.have} to true
 						add 86400 to {auror.white.%player's uuid%.time}
 						close player's inventory
-						
-				else if {donation.%player's uuid%.npoint} >= 500:
-					cancel event
-					message "500 기부 포인트로 1일 흰색 오러 이용권을 얻으셨습니다." to player
-					subtract 500 from {donation.%player's uuid%.npoint}
-					set {auror.white.%player's uuid%.have} to true
-					add 86400 to {auror.white.%player's uuid%.time}
-					close player's inventory
-		
-		#파티클 해제
-		if clicked slot is 22:
-			cancel event
-			stopEffect "%player%"
-			close player's inventory
-		
-		else:
-			cancel event
+			
+			#파티클 해제
+			if clicked slot is 22:
+				cancel event
+				stopEffect "%player%"
+				close player's inventory
+			
+			else:
+				cancel event
 #시간차감
 every 1 seconds:
 	loop all offline players:
