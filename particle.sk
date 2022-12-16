@@ -581,6 +581,10 @@ on inventory click:
 			
 			else:
 				cancel event
+		
+		else if event-inventory is inventory of player:
+			cancel event
+			
 #시간차감
 every 1 seconds:
 	loop all offline players:
