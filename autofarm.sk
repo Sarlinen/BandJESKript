@@ -12,16 +12,16 @@ command /autofarm [<text>] [<integer>]:
 				
 			else if arg 1 is "기능활성화":
 				set {Autofarm.isenable} to true
-				message "[&a밴드 JE 공식서버&r] AutoFarm기능이 활성화되었습니다!" to player
+				message "[&aRemion Server&r] AutoFarm기능이 활성화되었습니다!" to player
 				
 			else if arg 1 is "기능비활성화":
 				set {Autofarm.isenable} to false
-				message "[&a밴드 JE 공식서버&r] AutoFarm기능이 비활성화되었습니다!" to player
+				message "[&aRemion Server&r] AutoFarm기능이 비활성화되었습니다!" to player
 			
 			else if arg 1 is "사용":
 				if {Autofarm.isenable} is true:
 					set {Autofarm.%player's UUID%.isenable} to true
-					message "[&a밴드 JE 공식서버&r] AutoFarm을 사용하도록 설정되었습니다!" to player
+					message "[&aRemion Server&r] AutoFarm을 사용하도록 설정되었습니다!" to player
 				
 				else:
 					message "[&4Error&r] &l&cAutoFarm 기능이 비활성화되어있습니다." to player
@@ -29,7 +29,7 @@ command /autofarm [<text>] [<integer>]:
 			else if arg 1 is "끄기":
 				if {Autofarm.isenable} is true:
 					set {Autofarm.%player's UUID%.isenable} to false
-					message "[&a밴드 JE 공식서버&r] AutoFarm을 사용하지 않도록 설정되었습니다!" to player
+					message "[&aRemion Server&r] AutoFarm을 사용하지 않도록 설정되었습니다!" to player
 				
 				else:
 					message "[&4Error&r] &l&cAutoFarm 기능이 비활성화되어있습니다." to player
@@ -39,7 +39,7 @@ command /autofarm [<text>] [<integer>]:
 				set {_h} to round down (({Autofarm.Time} -{_d}*86400) / 3600)
 				set {_m} to round down ((({Autofarm.Time} -{_d}*86400)-{_h}*3600) / 60) 
 				set {_s} to (({Autofarm.Time} -{_d}*86400)-{_h}*3600)-{_m}*60
-				message "[&a밴드 JE 공식서버&r] 현재 남은 시간은 다음과 같습니다. %{_d}%일 %{_h}%시간 %{_m}%분 %{_s}%초" to player
+				message "[&aRemion Server&r] 현재 남은 시간은 다음과 같습니다. %{_d}%일 %{_h}%시간 %{_m}%분 %{_s}%초" to player
 				
 			else if arg 1 is "시간추가":
 				if arg 2 <= 0:
@@ -50,7 +50,7 @@ command /autofarm [<text>] [<integer>]:
 					set {_h} to round down ((arg 2-{_d}*86400) / 3600)
 					set {_m} to round down (((arg 2-{_d}*86400)-{_h}*3600) / 60) 
 					set {_s} to ((arg 2-{_d}*86400)-{_h}*3600)-{_m}*60
-					message "[&a밴드 JE 공식서버&r] 시간이 추가되었습니다 추가한 시간 : %{_d}%일 %{_h}%시간 %{_m}%분 %{_s}%초" to player
+					message "[&aRemion Server&r] 시간이 추가되었습니다 추가한 시간 : %{_d}%일 %{_h}%시간 %{_m}%분 %{_s}%초" to player
 
 			else if arg 1 is "시간설정":
 				if arg 2 <= 0:
@@ -61,7 +61,7 @@ command /autofarm [<text>] [<integer>]:
 					set {_h} to round down ((arg 2-{_d}*86400) / 3600)
 					set {_m} to round down (((arg 2-{_d}*86400)-{_h}*3600) / 60) 
 					set {_s} to ((arg 2-{_d}*86400)-{_h}*3600)-{_m}*60
-					message "[&a밴드 JE 공식서버&r] 시간이 설정되었습니다 설정한 시간 : %{_d}%일 %{_h}%시간 %{_m}%분 %{_s}%초" to player
+					message "[&aRemion Server&r] 시간이 설정되었습니다 설정한 시간 : %{_d}%일 %{_h}%시간 %{_m}%분 %{_s}%초" to player
 		
 		if player is not op:
 			if arg 1 is not set:
@@ -71,7 +71,7 @@ command /autofarm [<text>] [<integer>]:
 			else if arg 1 is "사용":
 				if {Autofarm.isenable} is true:
 					set {Autofarm.%player's UUID%.isenable} to true
-					message "[&a밴드 JE 공식서버&r] AutoFarm을 사용하도록 설정되었습니다!" to player
+					message "[&aRemion Server&r] AutoFarm을 사용하도록 설정되었습니다!" to player
 				
 				else:
 					message "[&4Error&r] &l&cAutoFarm 기능이 비활성화되어있습니다." to player
@@ -79,7 +79,7 @@ command /autofarm [<text>] [<integer>]:
 			else if arg 1 is "끄기":
 				if {Autofarm.isenable} is true:
 					set {Autofarm.%player's UUID%.isenable} to false
-					message "[&a밴드 JE 공식서버&r] AutoFarm을 사용하지 않도록 설정되었습니다!" to player
+					message "[&aRemion Server&r] AutoFarm을 사용하지 않도록 설정되었습니다!" to player
 				
 				else:
 					message "[&4Error&r] &l&cAutoFarm 기능이 비활성화되어있습니다." to player
@@ -89,7 +89,7 @@ command /autofarm [<text>] [<integer>]:
 				set {_h} to round down (({Autofarm.Time} -{_d}*86400) / 3600)
 				set {_m} to round down ((({Autofarm.Time} -{_d}*86400)-{_h}*3600) / 60) 
 				set {_s} to (({Autofarm.Time} -{_d}*86400)-{_h}*3600)-{_m}*60
-				message "[&a밴드 JE 공식서버&r] 현재 남은 시간은 다음과 같습니다. %{_d}%일 %{_h}%시간 %{_m}%분 %{_s}%초" to player
+				message "[&aRemion Server&r] 현재 남은 시간은 다음과 같습니다. %{_d}%일 %{_h}%시간 %{_m}%분 %{_s}%초" to player
 
 on break of ripe wheat plant:
 	if {Autofarm.isenable} is true:
@@ -190,18 +190,18 @@ every 1 seconds:
 		subtract 1 from {Autofarm.Time}
 		
 		if {Autofarm.Time} = 600: #종료 10분전
-			broadcast "[&a밴드 JE 공식서버&r] 자동씨앗심기 기능의 잔여 시간이 10분 남았습니다."
+			broadcast "[&aRemion Server&r] 자동씨앗심기 기능의 잔여 시간이 10분 남았습니다."
 			
 		else if {Autofarm.Time} = 300: #종료 5분전
-			broadcast "[&a밴드 JE 공식서버&r] 자동씨앗심기 기능의 잔여 시간이 5분 남았습니다."
+			broadcast "[&aRemion Server&r] 자동씨앗심기 기능의 잔여 시간이 5분 남았습니다."
 			
 		else if {Autofarm.Time} = 60: #종료 1분전
-			broadcast "[&a밴드 JE 공식서버&r] 자동씨앗심기 기능의 잔여 시간이 1분 남았습니다."
+			broadcast "[&aRemion Server&r] 자동씨앗심기 기능의 잔여 시간이 1분 남았습니다."
 			
 		else if {Autofarm.Time} = 30: #종료 30초 전
-			broadcast "[&a밴드 JE 공식서버&r] 자동씨앗심기 기능이 곧 종료됩니다!"
+			broadcast "[&aRemion Server&r] 자동씨앗심기 기능이 곧 종료됩니다!"
 		
 		else if {Autofarm.Time} <= 0:
 			set {Autofarm.isenable} to false
 			set {Autofarm.Time} to 0
-			broadcast "[&a밴드 JE 공식서버&r] 자동씨앗심기 기능이 시간이 다 되어 비활성화 되었습니다!"
+			broadcast "[&aRemion Server&r] 자동씨앗심기 기능이 시간이 다 되어 비활성화 되었습니다!"
