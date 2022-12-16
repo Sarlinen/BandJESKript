@@ -17,19 +17,19 @@ command /autocraft [<text>] [<integer>]:
 		else if arg 1 is "활성화":
 			if player is op:
 				set {autocraft.isenable} to true
-				message "[&a밴드 JE 공식서버&r] autocraft기능이 활성화되었습니다!" to player
+				message "[&aRemion Server&r] autocraft기능이 활성화되었습니다!" to player
 					
 		else if arg 1 is "비활성화":
 			if player is op:
 				set {autocraft.isenable} to false
-				message "[&a밴드 JE 공식서버&r] autocraft이 비활성화되었습니다!" to player
+				message "[&aRemion Server&r] autocraft이 비활성화되었습니다!" to player
 					
 		else if arg 1 is "시간":
 			set {_d} to round down ({autocraft.Time}  / 86400)
 			set {_h} to round down (({autocraft.Time} -{_d}*86400) / 3600)
 			set {_m} to round down ((({autocraft.Time} -{_d}*86400)-{_h}*3600) / 60) 
 			set {_s} to (({autocraft.Time} -{_d}*86400)-{_h}*3600)-{_m}*60
-			message "[&a밴드 JE 공식서버&r] 현재 남은 시간은 다음과 같습니다. %{_d}%일 %{_h}%시간 %{_m}%분 %{_s}%초" to player
+			message "[&aRemion Server&r] 현재 남은 시간은 다음과 같습니다. %{_d}%일 %{_h}%시간 %{_m}%분 %{_s}%초" to player
 
 		else if arg 1 is "시간추가":
 			if player is op:
@@ -41,7 +41,7 @@ command /autocraft [<text>] [<integer>]:
 					set {_h} to round down ((arg 2-{_d}*86400) / 3600)
 					set {_m} to round down (((arg 2-{_d}*86400)-{_h}*3600) / 60) 
 					set {_s} to ((arg 2-{_d}*86400)-{_h}*3600)-{_m}*60
-					message "[&a밴드 JE 공식서버&r] 시간이 추가되었습니다 추가한 시간 : %{_d}%일 %{_h}%시간 %{_m}%분 %{_s}%초" to player
+					message "[&aRemion Server&r] 시간이 추가되었습니다 추가한 시간 : %{_d}%일 %{_h}%시간 %{_m}%분 %{_s}%초" to player
 							
 		else if arg 1 is "시간설정":
 			if player is op:
@@ -54,7 +54,7 @@ command /autocraft [<text>] [<integer>]:
 					set {_h} to round down ((arg 2-{_d}*86400) / 3600)
 					set {_m} to round down (((arg 2-{_d}*86400)-{_h}*3600) / 60) 
 					set {_s} to ((arg 2-{_d}*86400)-{_h}*3600)-{_m}*60
-					message "[&a밴드 JE 공식서버&r] 시간이 설정되었습니다 설정한 시간 : %{_d}%일 %{_h}%시간 %{_m}%분 %{_s}%초" to player
+					message "[&aRemion Server&r] 시간이 설정되었습니다 설정한 시간 : %{_d}%일 %{_h}%시간 %{_m}%분 %{_s}%초" to player
 					
 		else if arg 1 is "start":
 			if {autocraft.isenable} is true:
@@ -124,7 +124,7 @@ command /autocraft [<text>] [<integer>]:
 					remove 9 netherite ingot from player
 					give 1 netherite block to player
 				
-				message "[&a밴드 JE 공식서버&r] 자동 조합 완료!" to player
+				message "[&aRemion Server&r] 자동 조합 완료!" to player
 				
 			else:
 				message "[&4Error&r] &l&cautocraft 기능이 비활성화되어있습니다." to player
@@ -136,20 +136,20 @@ every 1 seconds:
 		subtract 1 from {autocraft.Time}
 		
 		if {autocraft.Time} = 600: #종료 10분전
-			broadcast "[&a밴드 JE 공식서버&r] autocraft 기능의 잔여 시간이 10분 남았습니다."
+			broadcast "[&aRemion Server&r] autocraft 기능의 잔여 시간이 10분 남았습니다."
 			
 		else if {autocraft.Time} = 300: #종료 5분전
-			broadcast "[&a밴드 JE 공식서버&r] autocraft 기능의 잔여 시간이 5분 남았습니다."
+			broadcast "[&aRemion Server&r] autocraft 기능의 잔여 시간이 5분 남았습니다."
 			
 		else if {autocraft.Time} = 60: #종료 1분전
-			broadcast "[&a밴드 JE 공식서버&r] autocraft 기능의 잔여 시간이 1분 남았습니다."
+			broadcast "[&aRemion Server&r] autocraft 기능의 잔여 시간이 1분 남았습니다."
 			
 		else if {autocraft.Time} = 30: #종료 30초 전
-			broadcast "[&a밴드 JE 공식서버&r] autocraft 기능이 곧 종료됩니다!"
+			broadcast "[&aRemion Server&r] autocraft 기능이 곧 종료됩니다!"
 		
 		else if {autocraft.Time} <= 0:
 			set {autocraft.isenable} to false
 			set {autocraft.Time} to 0
-			broadcast "[&a밴드 JE 공식서버&r] autocraft 기능이 시간이 다 되어 비활성화 되었습니다!"
+			broadcast "[&aRemion Server&r] autocraft 기능이 시간이 다 되어 비활성화 되었습니다!"
 			
 #자동조합 기능 시간 차감 끝
