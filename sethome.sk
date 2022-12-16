@@ -22,13 +22,13 @@ command /셋홈 [<string>] [<integer>]:
 				message "/셋홈 활성화 = 셋홈 기능을 활성화합니다" to player
 				message "/셋홈 비활성화 = 셋홈 기능을 비활성화합니다" to player
 				message "/셋홈 시간 = 가상창고의 남은 시간을 확인합니다" to player
-				message "/셋홈 시간추가 [숫자] = 가상창고의 남은 시간을 추가합니다 (초 단위)" to player
-				message "/셋홈 시간설정 [숫자] = 가상창고의 남은 시간을 설정합니다 (초 단위)" to player
+				message "/셋홈 시간추가 [숫자] = 셋홈의 남은 시간을 추가합니다 (초 단위)" to player
+				message "/셋홈 시간설정 [숫자] = 셋홈의 남은 시간을 설정합니다 (초 단위)" to player
 				message "/셋홈 초기화 = 모든 유저의 셋홈 위치를 초기화합니다!" to player
 			if player is not op:
 				message "/셋홈 설정 = 현재 위치를 집으로 설정합니다." to player
 				message "/셋홈 집 = 집으로 설정한 위치로 텔레포트 합니다." to player
-				message "/셋홈 시간 = 가상창고의 남은 시간을 확인합니다" to player
+				message "/셋홈 시간 = 셋홈의 남은 시간을 확인합니다" to player
 				
 		if arg 1 is "설정":
 			if {sethome.allplayer.enable} = false:
@@ -57,7 +57,7 @@ command /셋홈 [<string>] [<integer>]:
 		
 		if arg 1 is "활성화":
 			if player is op:
-				message "[&a밴드 JE 공식서버&r] 셋홈 기능이 활성화되었습니다." to player
+				message "[&aRemion Server&r] 셋홈 기능이 활성화되었습니다." to player
 				set {sethome.allplayer.enable} to true
 				
 			if player is not op:
@@ -65,7 +65,7 @@ command /셋홈 [<string>] [<integer>]:
 				
 		if arg 1 is "비활성화":
 			if player is op:
-				message "[&a밴드 JE 공식서버&r] 셋홈 기능이 비활성화되었습니다." to player
+				message "[&aRemion Server&r] 셋홈 기능이 비활성화되었습니다." to player
 				set {sethome.allplayer.enable} to false
 			
 			if player is not op:
@@ -76,7 +76,7 @@ command /셋홈 [<string>] [<integer>]:
 			set {_h} to round down (({sethome.allplayer.time} -{_d}*86400) / 3600)
 			set {_m} to round down ((({sethome.allplayer.time} -{_d}*86400)-{_h}*3600) / 60) 
 			set {_s} to (({sethome.allplayer.time} -{_d}*86400)-{_h}*3600)-{_m}*60
-			message "[&a밴드 JE 공식서버&r] 현재 남은 시간은 다음과 같습니다. %{_d}%일 %{_h}%시간 %{_m}%분 %{_s}%초" to player
+			message "[&aRemion Server&r] 현재 남은 시간은 다음과 같습니다. %{_d}%일 %{_h}%시간 %{_m}%분 %{_s}%초" to player
 
 		if arg 1 is "시간추가":
 			if player is op:
@@ -88,7 +88,7 @@ command /셋홈 [<string>] [<integer>]:
 					set {_h} to round down ((arg 2-{_d}*86400) / 3600)
 					set {_m} to round down (((arg 2-{_d}*86400)-{_h}*3600) / 60) 
 					set {_s} to ((arg 2-{_d}*86400)-{_h}*3600)-{_m}*60
-					message "[&a밴드 JE 공식서버&r] 시간이 추가되었습니다 추가한 시간 : %{_d}%일 %{_h}%시간 %{_m}%분 %{_s}%초" to player
+					message "[&aRemion Server&r] 시간이 추가되었습니다 추가한 시간 : %{_d}%일 %{_h}%시간 %{_m}%분 %{_s}%초" to player
 					
 		if arg 1 is "시간설정":
 			if player is op:
@@ -101,7 +101,7 @@ command /셋홈 [<string>] [<integer>]:
 					set {_h} to round down ((arg 2-{_d}*86400) / 3600)
 					set {_m} to round down (((arg 2-{_d}*86400)-{_h}*3600) / 60) 
 					set {_s} to ((arg 2-{_d}*86400)-{_h}*3600)-{_m}*60
-					message "[&a밴드 JE 공식서버&r] 시간이 설정되었습니다 설정한 시간 : %{_d}%일 %{_h}%시간 %{_m}%분 %{_s}%초" to player
+					message "[&aRemion Server&r] 시간이 설정되었습니다 설정한 시간 : %{_d}%일 %{_h}%시간 %{_m}%분 %{_s}%초" to player
 		
 		if arg 1 is "초기화":
 			if player is op:
@@ -116,16 +116,16 @@ every 1 seconds:
 		subtract 1 from {sethome.allplayer.time}
 		
 		if {sethome.allplayer.time} = 600: #종료 10분전
-			broadcast "[&a밴드 JE 공식서버&r] 셋홈 기능의 잔여 시간이 10분 남았습니다."
+			broadcast "[&aRemion Server&r] 셋홈 기능의 잔여 시간이 10분 남았습니다."
 			
 		else if {sethome.allplayer.time} = 300: #종료 5분전
-			broadcast "[&a밴드 JE 공식서버&r] 셋홈 기능의 잔여 시간이 5분 남았습니다."
+			broadcast "[&aRemion Server&r] 셋홈 기능의 잔여 시간이 5분 남았습니다."
 			
 		else if {sethome.allplayer.time} = 60: #종료 1분전
-			broadcast "[&a밴드 JE 공식서버&r] 셋홈 기능의 잔여 시간이 1분 남았습니다."
+			broadcast "[&aRemion Server&r] 셋홈 기능의 잔여 시간이 1분 남았습니다."
 			
 		else if {sethome.allplayer.time} = 30: #종료 30초 전
-			broadcast "[&a밴드 JE 공식서버&r] 셋홈 기능이 곧 종료됩니다!"
+			broadcast "[&aRemion Server&r] 셋홈 기능이 곧 종료됩니다!"
 			
 		else if {sethome.allplayer.time} <= 0: #1을 빼고 난 후의 값이 0 이거나 그 이하이면
 			set {sethome.allplayer.enable} to false #셋홈 기능을 비활성화 한다
@@ -133,6 +133,6 @@ every 1 seconds:
 			loop all offline players:
 				delete {sethome.%loop-offline player%.location}
 				set {sethome.%loop-offline player%} to false
-			broadcast "[&a밴드 JE 공식서버&r] 셋홈 기능이 시간이 다 되어 비활성화 되었습니다!"
+			broadcast "[&aRemion Server&r] 셋홈 기능이 시간이 다 되어 비활성화 되었습니다!"
 
 #셋홈 시간 차감 끝
