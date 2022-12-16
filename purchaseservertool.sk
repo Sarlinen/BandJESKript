@@ -51,8 +51,8 @@ on inventory click:
 					set {Gamerule.keepinventory.isenable} to true
 					set {Gamerule.keepinventory.Time} to 604800
 					close player's inventory
-					Broadcast "[&a밴드 JE 공식서버&r] %player%님이 킵 인벤 활성화권을 구입하였습니다. 해당 기능은 1주일간 사용이 가능합니다. 연장하고 싶으시다면 연장권을 구입해주세요" 
-					Broadcast "[&a밴드 JE 공식서버&r] 기간 연장을 원하신다면 기간연장권 (1주일)을 구입해주시기 바랍니다."
+					Broadcast "[&aRemion Server&r] %player%님이 킵 인벤 활성화권을 구입하였습니다. 해당 기능은 1주일간 사용이 가능합니다. 연장하고 싶으시다면 연장권을 구입해주세요" 
+					Broadcast "[&aRemion Server&r] 기간 연장을 원하신다면 기간연장권 (1주일)을 구입해주시기 바랍니다."
 			
 			else:
 				close player's inventory
@@ -68,8 +68,8 @@ on inventory click:
 					set {Autofarm.isenable} to true
 					set {Autofarm.Time} to 604800
 					close player's inventory
-					Broadcast "[&a밴드 JE 공식서버&r] %player%님이 AutoFarm 활성화권을 구입하였습니다. 해당 기능은 1주일간 사용이 가능합니다. 연장하고 싶으시다면 연장권을 구입해주세요" 
-					Broadcast "[&a밴드 JE 공식서버&r] 기간 연장을 원하신다면 기간연장권 (1주일)을 구입해주시기 바랍니다."
+					Broadcast "[&aRemion Server&r] %player%님이 AutoFarm 활성화권을 구입하였습니다. 해당 기능은 1주일간 사용이 가능합니다. 연장하고 싶으시다면 연장권을 구입해주세요" 
+					Broadcast "[&aRemion Server&r] 기간 연장을 원하신다면 기간연장권 (1주일)을 구입해주시기 바랍니다."
 		
 			else:
 				close player's inventory
@@ -85,8 +85,8 @@ on inventory click:
 					set {VirtualChest.allplayer.enable} to true
 					set {VirtualChest.allplayer.enable.Time} to 604800
 					close player's inventory
-					Broadcast "[&a밴드 JE 공식서버&r] %player%님이 가상창고 활성화권을 구입하였습니다. 해당 기능은 1주일간 사용이 가능합니다." 
-					Broadcast "[&a밴드 JE 공식서버&r] 기간 연장을 원하신다면 기간연장권 (1주일)을 구입해주시기 바랍니다."
+					Broadcast "[&aRemion Server&r] %player%님이 가상창고 활성화권을 구입하였습니다. 해당 기능은 1주일간 사용이 가능합니다." 
+					Broadcast "[&aRemion Server&r] 기간 연장을 원하신다면 기간연장권 (1주일)을 구입해주시기 바랍니다."
 		
 			else:
 				close player's inventory
@@ -102,8 +102,8 @@ on inventory click:
 					set {autocraft.isenable} to true
 					set {autocraft.Time} to 604800
 					close player's inventory
-					Broadcast "[&a밴드 JE 공식서버&r] %player%님이 광물류 자동조합 활성화권을 구입하였습니다. 해당 기능은 1주일간 사용이 가능합니다." 
-					Broadcast "[&a밴드 JE 공식서버&r] 기간 연장을 원하신다면 기간연장권 (1주일)을 구입해주시기 바랍니다."
+					Broadcast "[&aRemion Server&r] %player%님이 광물류 자동조합 활성화권을 구입하였습니다. 해당 기능은 1주일간 사용이 가능합니다." 
+					Broadcast "[&aRemion Server&r] 기간 연장을 원하신다면 기간연장권 (1주일)을 구입해주시기 바랍니다."
 		
 			else:
 				close player's inventory
@@ -119,8 +119,8 @@ on inventory click:
 					set {sethome.allplayer.enable} to true
 					set {sethome.allplayer.time} to 604800
 					close player's inventory
-					Broadcast "[&a밴드 JE 공식서버&r] %player%님이 셋홈 활성화권을 구입하였습니다. 해당 기능은 1주일간 사용이 가능합니다." 
-					Broadcast "[&a밴드 JE 공식서버&r] 기간 연장을 원하신다면 기간연장권 (1주일)을 구입해주시기 바랍니다."
+					Broadcast "[&aRemion Server&r] %player%님이 셋홈 활성화권을 구입하였습니다. 해당 기능은 1주일간 사용이 가능합니다." 
+					Broadcast "[&aRemion Server&r] 기간 연장을 원하신다면 기간연장권 (1주일)을 구입해주시기 바랍니다."
 		
 			else:
 				close player's inventory
@@ -136,8 +136,8 @@ on inventory click:
 					set {decraft.allplayer.enable} to true
 					set {decraft.allplayer.enable.Time} to 604800
 					close player's inventory
-					Broadcast "[&a밴드 JE 공식서버&r] %player%님이 장비분해 기능 활성화권을 구입하였습니다. 해당 기능은 1주일간 사용이 가능합니다." 
-					Broadcast "[&a밴드 JE 공식서버&r] 기간 연장을 원하신다면 기간연장권 (1주일)을 구입해주시기 바랍니다."
+					Broadcast "[&aRemion Server&r] %player%님이 장비분해 기능 활성화권을 구입하였습니다. 해당 기능은 1주일간 사용이 가능합니다." 
+					Broadcast "[&aRemion Server&r] 기간 연장을 원하신다면 기간연장권 (1주일)을 구입해주시기 바랍니다."
 		
 			else:
 				close player's inventory
@@ -156,7 +156,7 @@ on inventory click:
 					subtract 7000 from {donation.%player's uuid%.point}
 					add 604800 to {Gamerule.keepinventory.Time}
 					close player's inventory
-					Broadcast "[&a밴드 JE 공식서버&r] %player%님이 킵인벤 기능 1주일 연장권을 구입하였습니다. 이제부터 해당 기능은 1주일간 더 사용이 가능합니다." 
+					Broadcast "[&aRemion Server&r] %player%님이 킵인벤 기능 1주일 연장권을 구입하였습니다. 이제부터 해당 기능은 1주일간 더 사용이 가능합니다." 
 		
 			else:
 				close player's inventory
@@ -171,7 +171,7 @@ on inventory click:
 					subtract 7000 from {donation.%player's uuid%.point}
 					add 604800 to {Autofarm.Time}
 					close player's inventory
-					Broadcast "[&a밴드 JE 공식서버&r] %player%님이 Autofarm 기능 1주일 연장권을 구입하였습니다. 이제부터 해당 기능은 1주일간 더 사용이 가능합니다." 
+					Broadcast "[&aRemion Server&r] %player%님이 Autofarm 기능 1주일 연장권을 구입하였습니다. 이제부터 해당 기능은 1주일간 더 사용이 가능합니다." 
 		
 			else:
 				close player's inventory
@@ -186,7 +186,7 @@ on inventory click:
 					subtract 7000 from {donation.%player's uuid%.point}
 					add 604800 to {VirtualChest.allplayer.enable.Time}
 					close player's inventory
-					Broadcast "[&a밴드 JE 공식서버&r] %player%님이 가상창고 기능 1주일 연장권을 구입하였습니다. 이제부터 해당 기능은 1주일간 더 사용이 가능합니다." 
+					Broadcast "[&aRemion Server&r] %player%님이 가상창고 기능 1주일 연장권을 구입하였습니다. 이제부터 해당 기능은 1주일간 더 사용이 가능합니다." 
 		
 			else:
 				close player's inventory
@@ -201,7 +201,7 @@ on inventory click:
 					subtract 7000 from {donation.%player's uuid%.point}
 					add 604800 to {autocraft.Time}
 					close player's inventory
-					Broadcast "[&a밴드 JE 공식서버&r] %player%님이 광물자동조합 기능 1주일 연장권을 구입하였습니다. 이제부터 해당 기능은 1주일간 더 사용이 가능합니다." 
+					Broadcast "[&aRemion Server&r] %player%님이 광물자동조합 기능 1주일 연장권을 구입하였습니다. 이제부터 해당 기능은 1주일간 더 사용이 가능합니다." 
 		
 			else:
 				close player's inventory
@@ -216,7 +216,7 @@ on inventory click:
 					subtract 7000 from {donation.%player's uuid%.point}
 					add 604800 to {sethome.allplayer.time}
 					close player's inventory
-					Broadcast "[&a밴드 JE 공식서버&r] %player%님이 셋홈 기능 1주일 연장권을 구입하였습니다. 이제부터 해당 기능은 1주일간 더 사용이 가능합니다." 
+					Broadcast "[&aRemion Server&r] %player%님이 셋홈 기능 1주일 연장권을 구입하였습니다. 이제부터 해당 기능은 1주일간 더 사용이 가능합니다." 
 		
 			else:
 				close player's inventory
@@ -232,7 +232,7 @@ on inventory click:
 					subtract 7000 from {donation.%player's uuid%.point}
 					add 604800 to {decraft.allplayer.enable.Time}
 					close player's inventory
-					Broadcast "[&a밴드 JE 공식서버&r] %player%님이 장비분해 기능 1주일 연장권을 구입하였습니다. 이제부터 해당 기능은 1주일간 더 사용이 가능합니다." 
+					Broadcast "[&aRemion Server&r] %player%님이 장비분해 기능 1주일 연장권을 구입하였습니다. 이제부터 해당 기능은 1주일간 더 사용이 가능합니다." 
 		
 			else:
 				close player's inventory
