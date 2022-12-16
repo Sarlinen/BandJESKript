@@ -56,8 +56,8 @@ command /서버기능:
 		set slot 16 of current inventory of player to paper named "장비분해 남은 시간" with hidden all flags with lore "&9남은 시간 : %{_d}%일 %{_h}%시간 %{_m}%분 %{_s}%초"
 		
 on inventory click:	
-	if event-inventory is open inventory:
-		if name of current inventory of player is "&r&a서버 기능":
+	if name of current inventory of player is "&r&a서버 기능":
+		if event-inventory is open inventory:
 			cancel event
 			if clicked slot is 1: #기본템
 				close player's inventory
@@ -84,5 +84,6 @@ on inventory click:
 			if clicked slot is 7: #장비분해
 				close player's inventory
 				make player execute command "/decraft start"
-	else if event-inventory is inventory of player:
-		cancel event
+		
+		else if event-inventory is inventory of player:
+			cancel event
