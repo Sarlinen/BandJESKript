@@ -55,31 +55,34 @@ command /서버기능:
 		set {_s} to (({decraft.allplayer.enable.Time} -{_d}*86400)-{_h}*3600)-{_m}*60
 		set slot 16 of current inventory of player to paper named "장비분해 남은 시간" with hidden all flags with lore "&9남은 시간 : %{_d}%일 %{_h}%시간 %{_m}%분 %{_s}%초"
 		
-on inventory click:		
-	if name of current inventory of player is "&r&a서버 기능":
+on inventory click:	
+	if event-inventory is open inventory:
+		if name of current inventory of player is "&r&a서버 기능":
+			cancel event
+			if clicked slot is 1: #기본템
+				close player's inventory
+				make player execute command "/기본템"
+			if clicked slot is 2: #자동씨앗심기
+				if {Autofarm.%player's UUID%.isenable} is false:
+					close player's inventory
+					make player execute command "/autofarm 사용"
+				else:
+					close player's inventory
+					make player execute command "/autofarm 끄기"
+			if clicked slot is 3: #가상창고
+				close player's inventory
+				make player execute command "/가상창고 열기"
+			if clicked slot is 4: #광물자동조합
+				close player's inventory
+				make player execute command "/autocraft start"
+			if clicked slot is 5: #셋홈지정
+				close player's inventory
+				make player execute command "/셋홈 설정"
+			if clicked slot is 6: #셋홈이동
+				close player's inventory
+				make player execute command "/셋홈 집"
+			if clicked slot is 7: #장비분해
+				close player's inventory
+				make player execute command "/decraft start"
+	else if event-inventory is inventory of player:
 		cancel event
-		if clicked slot is 1: #기본템
-			close player's inventory
-			make player execute command "/기본템"
-		if clicked slot is 2: #자동씨앗심기
-			if {Autofarm.%player's UUID%.isenable} is false:
-				close player's inventory
-				make player execute command "/autofarm 사용"
-			else:
-				close player's inventory
-				make player execute command "/autofarm 끄기"
-		if clicked slot is 3: #가상창고
-			close player's inventory
-			make player execute command "/가상창고 열기"
-		if clicked slot is 4: #광물자동조합
-			close player's inventory
-			make player execute command "/autocraft start"
-		if clicked slot is 5: #셋홈지정
-			close player's inventory
-			make player execute command "/셋홈 설정"
-		if clicked slot is 6: #셋홈이동
-			close player's inventory
-			make player execute command "/셋홈 집"
-		if clicked slot is 7: #장비분해
-			close player's inventory
-			make player execute command "/decraft start"
